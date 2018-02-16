@@ -23,6 +23,9 @@ This is the second project for Udacity's React Fundamentals course.
 * [Redux Thunk](https://github.com/gaearon/redux-thunk)
 
 ## Future improvements
+* 404-page
+* More responsive
+* Search for posts
 
 ## License
 Readable is released under the [MIT License](https://opensource.org/licenses/MIT).

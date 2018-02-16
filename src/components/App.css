@@ -1,28 +1,85 @@
-.App {
-  text-align: center;
+/*main elements*/
+
+.loading-area{
+  min-height: 5px;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.appBar {
+  box-shadow: initial !important;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+.appBar__App-logo{
+  width:43px;
+  margin: 4px 16px 0 -7px
 }
 
-.App-title {
-  font-size: 1.5em;
+.appBar--transparent,
+.loading-area__progress-bar--transparent {
+  background-color: transparent !important;
 }
 
-.App-intro {
-  font-size: large;
+.appBar--defWidth,
+.main-Nav--defWidth,
+.main-content--defWidth,
+footer {
+  max-width: 1000px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.footer--alignRight {
+  text-align: right;
+}
+
+.toolbar {
+  justify-content: space-between;
+}
+
+.main-Nav {
+  margin: 0.5em 0 1.5em;
+}
+
+.main-Nav .main-Nav__item:first-child {
+  padding-left: 0px !important;
+}
+
+.main-Nav .main-Nav__item:last-child,
+.card__action--toRight,
+.toolbar__search--toRight {
+  margin-left: auto!important;
+}
+
+.main-Nav__item {
+  margin: 0px;
+  color: rgba(0, 0, 0, 0.64) !important;
+  background-color: rgba(0, 0, 0, 0);
+  min-width: 0px !important;
+  font-weight: normal !important;
+  letter-spacing: .05em !important;
+  font-size: 1em !important;
+  text-transform: uppercase;
+}
+
+.main-Nav__item:hover,
+.main-Nav__item--selected {
+  background-color: transparent !important;
+  color: black !important;
+}
+
+.footer{
+  margin-top: 32px;
+}
+
+/*posts */
+
+.posts>li>* {
+  border: 1px solid rgba(0, 0, 0, .1) !important;
+}
+
+.divider--bigMargin {
+  margin: 1.5em 0 3em !important;
+}
+
+.button--shadow {
+  box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
 }

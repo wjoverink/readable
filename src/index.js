@@ -12,6 +12,7 @@ import reducer from './reducers';
 
 
 const theme = createMuiTheme({
+
   palette: {
     primary: {
       light: '#8bf6ff',
@@ -19,6 +20,7 @@ const theme = createMuiTheme({
       dark: '#0093c4',
       contrastText: '#000',
     },
+    divider: '#0093c4',
     secondary: {
       light: '#ff8a50',
       main: '#ff5722',

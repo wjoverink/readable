@@ -7,8 +7,13 @@ import GridList, { GridListTile } from 'material-ui/GridList';
 import './Post.css';
 import Response, { ResponseCard } from './controls/ResponseControl'
 import VoteActions from './controls/VoteActionsControl'
+import { withRouter } from 'react-router-dom';
 
 class Posts extends Component {
+  handleEditClick = () => {
+      this.props.history.push('/post/edit/1');
+  }
+
   render() {
     return (<main className="post main-content main-content--defWidth">
       <header>
@@ -31,7 +36,7 @@ class Posts extends Component {
 
       <section className="postInfo">
         <Divider />
-        <VoteActions className="postInfo__actions" votes={0} />
+        <VoteActions onEditClick={this.handleEditClick} className="postInfo__actions" votes={0} />
 
         <Divider />
       </section>
@@ -76,4 +81,4 @@ class Posts extends Component {
   }
 }
 
-export default Posts;
+export default withRouter(Posts);

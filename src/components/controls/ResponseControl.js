@@ -20,6 +20,7 @@ class Response extends Component {
     onVoteChange: PropTypes.func,
     onEditClick: PropTypes.func,
     onDeleteClick: PropTypes.func,
+    onHeaderClick: PropTypes.func,
     onChange: PropTypes.func,
     editMode:PropTypes.bool,
     hasEditMode:PropTypes.bool,
@@ -37,7 +38,9 @@ class Response extends Component {
   }
 
   onEditClick = (e) => {
-    this.setState({editMode:true})
+    if (this.props.hasEditMode){
+      this.setState({editMode:true})
+    }
     if (this.props.onEditClick) {
       this.props.onEditClick(e)
     }
@@ -46,6 +49,9 @@ class Response extends Component {
   onSimpleEditClick = (e) => {
     if (this.props.isSimpleEditControl){
       this.onEditClick(e);
+    }
+    if (this.props.onHeaderClick) {
+      this.props.onHeaderClick(e)
     }
   }
 
@@ -75,7 +81,7 @@ class Response extends Component {
       icon,
       isSimpleEditControl = false,
       editMode,
-      hasEditMode,
+      hasEditMode = false,
       ...props
     } = this.props
     const firstLetter = icon || title.substring(0, 1).toUpperCase()

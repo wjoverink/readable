@@ -9,6 +9,14 @@ import './Posts.css';
 
 
 class Posts extends Component {
+  handleEditClick = (id, e) => {
+      this.props.history.push('/post/edit/'+id);
+  }
+
+  handleHeaderClick = (id) => {
+      this.props.history.push('/category/'+id);
+  }
+
   render() {
     const isCategory = this.props.match.params.category || false
 
@@ -34,7 +42,7 @@ class Posts extends Component {
       <section>
         <GridList spacing={14} className="posts" cellHeight='auto' cols={isCategory ? 1 : 2}>
           <GridListTile >
-            <PostCard title={"Word of the Day"} date={new Date("September 14 2016")} comments={3} votes={0} name={"Willem-Jan Overink"} message={"This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."}/>
+            <PostCard onHeaderClick={() => this.handleHeaderClick(isCategory)} onEditClick={(e) => this.handleEditClick(isCategory,e)} title={"Word of the Day"} date={new Date("September 14 2016")} comments={3} votes={0} name={"Willem-Jan Overink"} message={"This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."}/>
           </GridListTile>
           <GridListTile>
             <PostCard title={"Word of the Day"} date={new Date("September 14 2016")} comments={3} votes={0} name={"Willem-Jan Overink"} message={"This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."}/>

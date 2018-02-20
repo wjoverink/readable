@@ -1,4 +1,4 @@
-.header__action{
+.postsMain .header__action{
   position: absolute!important;
   right: 5px;
   bottom:0px;
@@ -8,4 +8,13 @@
 
 .posts>li>* {
   border: 1px solid rgba(0, 0, 0, .1) !important;
+}
+
+.posts .response__header{
+  cursor:pointer;
+
+}
+.posts .response__header>div:nth-child(2)>span:first-child{
+    font-size: 1.2em!important;
+    line-height: 1.4em!important;
 }

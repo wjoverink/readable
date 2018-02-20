@@ -18,6 +18,10 @@
   background-color: transparent !important;
 }
 
+.loading-area__progress-bar--transparent>div{
+  background-color: #4fc3f7 !important;
+}
+
 .appBar--defWidth,
 .main-Nav--defWidth,
 .main-content--defWidth,

@@ -25,6 +25,7 @@ class EditPost extends Component {
 
   render() {
     const { title, name, message} = this.state
+  
     return (
       <main className="editPost main-content main-content--defWidth">
         <header>
@@ -64,7 +65,7 @@ class EditPost extends Component {
           />
         </article>
         <footer className='footer footer--alignRight'>
-          <Button onClick={this.handleSave} className="showShadow" variant="fab" color="primary" aria-label="Save post">
+          <Button onClick={this.handleSave} color="primary" className="showShadow" variant="fab" aria-label="Save post">
             <AddIcon/>
           </Button>
         </footer>

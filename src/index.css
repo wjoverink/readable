@@ -12,3 +12,11 @@ h1 {
 h2 {
   font-size: 2em !important;
 }
+
+h3{
+  font-weight: 500 !important;
+}
+
+p, input, textarea{
+  font-size: 1.2em !important;
+}

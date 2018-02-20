@@ -1,0 +1,17 @@
+.response__textField{
+  width:100%!important;
+  margin: 0px!important;
+
+}
+
+.response__author>div {
+  margin: 0 !important;
+}
+
+.response__author>label {
+  top: -11px !important;
+}
+
+.simpleForm .response__header{
+  cursor:text;
+}

@@ -43,8 +43,6 @@ footer {
   padding-left: 0px !important;
 }
 
-.main-Nav .main-Nav__item:last-child,
-.card__action--toRight,
 .toolbar__search--toRight {
   margin-left: auto!important;
 }
@@ -66,20 +64,19 @@ footer {
   color: black !important;
 }
 
+.main-content, .relativ{
+  position: relative;
+}
+
 .footer{
-  margin-top: 32px;
+  margin: 2em auto;
 }
 
-/*posts */
-
-.posts>li>* {
-  border: 1px solid rgba(0, 0, 0, .1) !important;
-}
 
 .divider--bigMargin {
-  margin: 1.5em 0 3em !important;
+  margin: 1.5em 0 2em !important;
 }
 
-.button--shadow {
-  box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12);
+button:not(.showShadow){
+  box-shadow: initial !important;
 }

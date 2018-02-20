@@ -1,0 +1,11 @@
+.header__action{
+  position: absolute!important;
+  right: 5px;
+  bottom:0px;
+  font-size: 1em!important;
+  color:inherit!important;
+}
+
+.posts>li>* {
+  border: 1px solid rgba(0, 0, 0, .1) !important;
+}

@@ -1,0 +1,47 @@
+.cardHeader{
+  padding:16px 16px 32px 0px!important;
+}
+
+.post h3{
+  margin:3em 0 1em!important;
+}
+
+.post>*{
+  margin-left: 5em;
+  margin-right: 5em;
+}
+
+.postInfo__actions{
+  margin:0px -19px!important;
+}
+
+.postInfo{
+
+}
+
+.responses{
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+.writeResponse{
+  margin:4em 0 0;
+}
+
+.post article{
+  margin-bottom: 32px;
+
+}
+
+/* .WriteAuthor{
+  background-color: #4fc3f7!important;
+} */
+
+.writeResponse span{
+    font-size: 1.2em !important;
+      font-weight: normal !important;
+}
+
+.postInfo hr{
+      background-color: rgba(0,0,0,.05)!important;
+}

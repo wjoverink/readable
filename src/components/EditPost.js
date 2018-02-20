@@ -8,6 +8,9 @@ import { MenuItem } from 'material-ui/Menu';
 import Select from 'material-ui/Select';
 import TextField from 'material-ui/TextField';
 import FaceIcon from 'material-ui-icons/Face';
+import {Link} from 'react-router-dom'
+import Button from 'material-ui/Button';
+import AddIcon from 'material-ui-icons/Save';
 
 class EditPost extends Component {
   state = {
@@ -15,6 +18,11 @@ class EditPost extends Component {
     title :"Word of the Day",
     message :"This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."
   }
+
+  handleSave = () => {
+
+  }
+
   render() {
     const { title, name, message} = this.state
     return (
@@ -55,7 +63,11 @@ class EditPost extends Component {
             defaultValue={message}
           />
         </article>
-
+        <footer className='footer footer--alignRight'>
+          <Button onClick={this.handleSave} className="showShadow" variant="fab" color="primary" aria-label="Save post">
+            <AddIcon/>
+          </Button>
+        </footer>
       </main>);
   }
 }

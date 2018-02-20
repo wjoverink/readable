@@ -8,8 +8,8 @@ import IconButton from 'material-ui/IconButton';
 import Search from 'material-ui-icons/Search';
 import AddIcon from 'material-ui-icons/Add';
 import { LinearProgress } from 'material-ui/Progress';
-import { Link } from 'react-router-dom';
-
+import {Route, Link, Switch, NavLink} from 'react-router-dom'
+import PostButton from './PostButton'
 import logo from '../logo.svg';
 import Posts from './Posts.js';
 import Post from './Post.js';
@@ -24,7 +24,7 @@ class App extends Component {
         </div>
         <AppBar className="appBar appBar--transparent appBar--defWidth" position="static" color="default">
           <Toolbar className="toolbar" disableGutters={true}>
-            <img src={logo} className="appBar__App-logo" alt="logo" />
+            <Link to="/"><img src={logo} className="appBar__App-logo" alt="logo" /></Link>
             <Typography variant="display1" color="inherit">
               READABLE
             </Typography>
@@ -36,30 +36,33 @@ class App extends Component {
 
         <nav className="main-Nav main-Nav--defWidth">
           <Toolbar disableGutters={true}>
-            <Button className="main-Nav__item main-Nav__item--selected" component={Link} to="/" >
+            <Button className="main-Nav__item" activeClassName="main-Nav__item--selected" exact component={NavLink} to="/" >
               Home
             </Button>
-            <Button className="main-Nav__item">
+            <Button component={NavLink} to={`/${"Category 1"}`}  activeClassName="main-Nav__item--selected" className="main-Nav__item">
               Category 1
             </Button>
-            <Button className="main-Nav__item">
+            <Button component={NavLink} to={`/${"Category 2"}`}  activeClassName="main-Nav__item--selected" className="main-Nav__item">
               Category 2
             </Button>
-            <Button className="main-Nav__item">
+            <Button  component={NavLink} to={`/${"Category 3"}`} activeClassName="main-Nav__item--selected" className="main-Nav__item">
               Category 3
             </Button>
           </Toolbar>
         </nav>
 
-        {/* <Posts></Posts>*/}
-
-        {/* <Post></Post> */}
-        <EditPost></EditPost>
+        <Route exact path="/" component={Posts} />
+        <Route exact path="/:category" component={Posts} />
+        <Switch>
+          <Route path="/post/new" component={EditPost} />
+          <Route path="/post/edit/:postId" component={EditPost} />
+          <Route path="/:category/:postId" component={Post} />
+        </Switch>
 
         <footer className='footer footer--alignRight'>
-          <Button className="showShadow" variant="fab" color="secondary" aria-label="add post">
-            <AddIcon />
-          </Button>
+          <Route exact path="/" component={PostButton} />
+          <Route exact path="/:category" component={PostButton} />
+          {/* <Route path="/:category/:postId" component={PostButton} /> */}
         </footer>
       </div>
     );

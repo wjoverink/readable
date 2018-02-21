@@ -1,6 +1,6 @@
 /*main elements*/
 
-.loading-area{
+.loading-area {
   min-height: 5px;
 }
 
@@ -8,24 +8,20 @@
   box-shadow: initial !important;
 }
 
-.appBar__App-logo{
-  width:43px;
+.appBar__App-logo {
+  width: 43px;
   margin: 4px 16px 0 -7px
 }
 
-.appBar--transparent,
-.loading-area__progress-bar--transparent {
+.appBar--transparent, .loading-area__progress-bar--transparent {
   background-color: transparent !important;
 }
 
-.loading-area__progress-bar--transparent>div{
+.loading-area__progress-bar--transparent>div {
   background-color: #4fc3f7 !important;
 }
 
-.appBar--defWidth,
-.main-Nav--defWidth,
-.main-content--defWidth,
-footer {
+.appBar--defWidth, .main-Nav--defWidth, .main-content--defWidth, footer {
   max-width: 1000px !important;
   margin-left: auto !important;
   margin-right: auto !important;
@@ -48,7 +44,7 @@ footer {
 }
 
 .toolbar__search--toRight {
-  margin-left: auto!important;
+  margin-left: auto !important;
 }
 
 .main-Nav__item {
@@ -62,25 +58,31 @@ footer {
   text-transform: uppercase;
 }
 
-.main-Nav__item:hover,
-.main-Nav__item--selected {
+.main-Nav__item:hover, .main-Nav__item--selected {
   background-color: transparent !important;
   color: black !important;
 }
 
-.main-content, .relativ{
+.main-content, .relativ {
   position: relative;
 }
 
-.footer{
+.footer {
   margin: 2em auto;
 }
-
 
 .divider--bigMargin {
   margin: 1.5em 0 2em !important;
 }
 
-button:not(.showShadow){
+button:not(.showShadow) {
   box-shadow: initial !important;
+}
+
+.text--firstUppercase {
+  display: inline-block !important;
+}
+
+.text--firstUppercase:first-letter {
+  text-transform: uppercase;
 }

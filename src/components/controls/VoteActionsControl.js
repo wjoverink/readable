@@ -82,6 +82,9 @@ class VoteActions extends Component {
       discardText = "Discard item?",
       className,
       fullScreen,
+      onVoteChange,
+      onEditClick,
+      onDeleteClick,
       ...props
     } = this.props;
     const {anchorEl} = this.state;

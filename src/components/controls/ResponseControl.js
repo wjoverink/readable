@@ -82,6 +82,11 @@ class Response extends Component {
       isSimpleEditControl = false,
       editMode,
       hasEditMode = false,
+      onVoteChange,
+      onEditClick,
+      onDeleteClick,
+      onHeaderClick,
+      onChange,
       ...props
     } = this.props
     const firstLetter = icon || title.substring(0, 1).toUpperCase()

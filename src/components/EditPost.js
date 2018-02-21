@@ -28,11 +28,13 @@ class EditPost extends Component {
     body: "",
     category: "",
     title: "",
+    isNew:true
   }
+
+
 
   componentWillReceiveProps(props){
     if (props.post){
-
       this.setState({
         author: props.post.author,
         body: props.post.body,
@@ -61,9 +63,9 @@ class EditPost extends Component {
 
   render() {
 
-    const {category, title, body, author} = this.state
+    const {title, body, author} = this.state
     const {categories} = this.props
-
+    const category= !this.state.category ? categories.length>0 ? categories[0].path : "" : this.state.category
     return (
       <main className="editPost main-content main-content--defWidth">
         <header>
@@ -83,7 +85,14 @@ class EditPost extends Component {
           <Divider />
           <CardHeader
             className="cardHeader"
-            title={<TextField className="response__author" value={this.state.author}  onChange={this.handleChange('author')} required label="Name"/>}
+            title={<TextField
+              className="response__author"
+              value={this.state.author}
+              autoFocus={true}
+              onChange={this.handleChange('author')}
+              required
+              label="Name"
+                   />}
             avatar={<Avatar aria-label="Author" ><FaceIcon/></Avatar>}>
           </CardHeader>
           <TextField className="response__author" value={this.state.title}  onChange={this.handleChange('title')} required label="Title"/>
@@ -94,7 +103,7 @@ class EditPost extends Component {
             className="response__textField"
             multiline={true}
             rowsMax={40}
-            autoFocus={true}
+            // /autoFocus={isNew}
             rows={3}
             label="Tell you story"
             margin="normal"

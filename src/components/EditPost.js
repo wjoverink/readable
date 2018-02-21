@@ -12,32 +12,56 @@ import {Link} from 'react-router-dom'
 import Button from 'material-ui/Button';
 import AddIcon from 'material-ui-icons/Save';
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux';
+import { connect } from 'react-redux'
+import { getPost} from '../actions/PostsActions'
+import {initialPost} from '../reducers/PostsReducer'
 
 class EditPost extends Component {
 
   static propTypes = {
+    post: PropTypes.object,
     categories: PropTypes.array,
   };
 
   state = {
-    name :"Willem-Jan Overink",
-    title :"Word of the Day",
-    message :"This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like.",
-    category : "react"
+    author: "",
+    body: "",
+    category: "",
+    title: "",
+  }
+
+  componentWillReceiveProps(props){
+    if (props.post){
+
+      this.setState({
+        author: props.post.author,
+        body: props.post.body,
+        category: props.post.category,
+        title: props.post.title,
+      })
+    }
+  }
+
+  componentDidMount() {
+    const { postId } = this.props.match.params;
+    if (postId){
+      this.props.getPost(postId);
+    }
   }
 
   handleSave = () => {
 
   }
 
-  handleSelectChange = (event) => {
-    this.setState({ category: event.target.value });
-  }
+  handleChange = name => event => {
+    this.setState({
+      [name]: event.target.value
+    });
+  };
 
   render() {
-  // this.props.match.params.postId
-    const { title, name, message, category} = this.state
+
+    const {category, title, body, author} = this.state
     const {categories} = this.props
 
     return (
@@ -47,11 +71,11 @@ class EditPost extends Component {
             <Typography className="category__label" align="left">
               Category:
             </Typography>
-            <Select  onChange={this.handleSelectChange} className="category__select"
+            <Select onChange={this.handleChange('category')} className="category__select"
               value={category}
             >
-              {categories.map(category => (
-                <MenuItem className="select--firstUppercase" key={category.path} value={category.path}>{category.name}</MenuItem>
+              {categories.map(cat => (
+                <MenuItem className="select--firstUppercase" key={cat.path} value={cat.path}>{cat.name}</MenuItem>
               ))}
 
             </Select>
@@ -59,10 +83,10 @@ class EditPost extends Component {
           <Divider />
           <CardHeader
             className="cardHeader"
-            title={<TextField className="response__author" defaultValue={name} required label="Name"/>}
+            title={<TextField className="response__author" value={this.state.author}  onChange={this.handleChange('author')} required label="Name"/>}
             avatar={<Avatar aria-label="Author" ><FaceIcon/></Avatar>}>
           </CardHeader>
-          <TextField className="response__author" defaultValue={title} required label="Title"/>
+          <TextField className="response__author" value={this.state.title}  onChange={this.handleChange('title')} required label="Title"/>
         </header>
 
         <article>
@@ -74,7 +98,8 @@ class EditPost extends Component {
             rows={3}
             label="Tell you story"
             margin="normal"
-            defaultValue={message}
+            onChange={this.handleChange('body')}
+            value={body}
           />
         </article>
         <footer className='footer footer--alignRight'>
@@ -86,10 +111,13 @@ class EditPost extends Component {
   }
 }
 
-function mapStateToProps({categories }, { match }) {
+function mapStateToProps({categories, posts}, { match }) {
   return {
-    categories
+    categories,
+    post: posts.find(post=> post.id === match.params.postId)
   };
 }
 
-export default connect(mapStateToProps)(EditPost);
+export default connect(mapStateToProps, {
+  getPost
+})(EditPost);

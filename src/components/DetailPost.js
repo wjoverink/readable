@@ -33,7 +33,7 @@ class Posts extends Component {
 
     const post= this.props.post || initialPost
     const firstLetter = post.author ? post.author.substring(0,1).toUpperCase() : ""
-    console.log(post)
+
     return (<main className="post main-content main-content--defWidth">
       <header>
         <CardHeader

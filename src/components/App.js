@@ -12,7 +12,7 @@ import {Route, Link, Switch, NavLink} from 'react-router-dom'
 import PostButton from './PostButton'
 import logo from '../logo.svg';
 import Posts from './Posts.js';
-import Post from './Post.js';
+import DetailPost from './DetailPost.js';
 import EditPost from './EditPost.js';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types'
@@ -83,7 +83,7 @@ class App extends Component {
         <Switch>
           <Route path="/post/new" component={EditPost} />
           <Route path="/post/edit/:postId" component={EditPost} />
-          <Route path="/:category/:postId" component={Post} />
+          <Route path="/:category/:postId" component={DetailPost} />
         </Switch>
 
         <footer className='footer footer--alignRight'>

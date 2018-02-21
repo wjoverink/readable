@@ -8,11 +8,13 @@ import { PostCard } from './controls/ResponseControl'
 import './Posts.css';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
+import {findCategoryAndRelated} from '../utils/helper'
 
 
 class Posts extends Component {
   static propTypes = {
     categories: PropTypes.array,
+    posts: PropTypes.array,
   };
 
   handleEditClick = (id, e) => {
@@ -23,23 +25,13 @@ class Posts extends Component {
       this.props.history.push('/category/'+id);
   }
 
-  findCategoryAndRelated = (categories, categoryPath) => {
-    let category = ""
-    let related = ""
-    if ( categoryPath && categories && categories.length>0){
-      const cat = categories.find(cat => cat.path === categoryPath);
-      const rel = categories.find(cat => cat.path !== categoryPath);
-      category = cat ? cat.name : ""
-      related = rel ? rel.name : ""
-    }
-    return {category, related}
-  }
+
 
   render() {
     const isCategory = this.props.match.params.category || false
     const {categories} = this.props
 
-    const categoryAndRelated = this.findCategoryAndRelated(categories, this.props.match.params.category)
+    const categoryAndRelated = findCategoryAndRelated(categories, this.props.match.params.category)
 
     return (<main className="postsMain main-content main-content--defWidth">
       <header className="relativ">

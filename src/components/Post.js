@@ -1,42 +1,61 @@
-import React, {Component} from 'react';
-import Typography from 'material-ui/Typography';
-import Divider from 'material-ui/Divider';
-import Avatar from 'material-ui/Avatar';
-import {CardHeader} from 'material-ui/Card';
-import GridList, { GridListTile } from 'material-ui/GridList';
-import './Post.css';
+import React, {Component} from 'react'
+import Typography from 'material-ui/Typography'
+import Divider from 'material-ui/Divider'
+import Avatar from 'material-ui/Avatar'
+import {CardHeader} from 'material-ui/Card'
+import GridList, { GridListTile } from 'material-ui/GridList'
+import './Post.css'
 import Response, { ResponseCard } from './controls/ResponseControl'
 import VoteActions from './controls/VoteActionsControl'
-import { withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { getPost} from '../actions/PostsActions'
+import PropTypes from 'prop-types'
+import {initialPost} from '../reducers/PostsReducer'
 
 class Posts extends Component {
+  static propTypes = {
+    post: PropTypes.object,
+    getPost: PropTypes.func.isRequired,
+  };
+
+
   handleEditClick = () => {
-      this.props.history.push('/post/edit/1');
+      this.props.history.push('/post/edit/'+this.props.post.id);
+  }
+
+  componentDidMount() {
+    const { postId } = this.props.match.params;
+    this.props.getPost(postId);
   }
 
   render() {
+
+    const post= this.props.post || initialPost
+    const firstLetter = post.author ? post.author.substring(0,1).toUpperCase() : ""
+    console.log(post)
     return (<main className="post main-content main-content--defWidth">
       <header>
         <CardHeader
           className="cardHeader"
-          title="Willem-Jan Overink"
-          subheader="Sep 14, 2016"
-          avatar={<Avatar aria-label="Author" > W </Avatar>}>
+          title={post.title}
+          subheader={post.author}
+          avatar={<Avatar aria-label="Author" >{firstLetter}</Avatar>}>
         </CardHeader>
         <Typography variant="title" gutterBottom  align="left">
-          Word of the Day
+          {post.title}
         </Typography>
       </header>
 
       <article>
         <Typography>
-          This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like.
+          {post.body}
         </Typography>
       </article>
 
       <section className="postInfo">
         <Divider />
-        <VoteActions onEditClick={this.handleEditClick} className="postInfo__actions" votes={0} />
+        <VoteActions onEditClick={this.handleEditClick} className="postInfo__actions" votes={post.voteScore} />
 
         <Divider />
       </section>
@@ -81,4 +100,12 @@ class Posts extends Component {
   }
 }
 
-export default withRouter(Posts);
+function mapStateToProps({posts}, { match }) {
+  return {
+    post: posts.find(post=> post.id === match.params.postId)
+  };
+}
+
+export default withRouter(connect(mapStateToProps, {
+  getPost
+})(Posts));

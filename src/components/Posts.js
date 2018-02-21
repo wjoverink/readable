@@ -8,9 +8,8 @@ import { PostCard } from './controls/ResponseControl'
 import './Posts.css';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
-import {findCategoryAndRelated} from '../utils/helper'
+import {findCategoryAndRelated, reduceTitleLength, reduceBodyLength, reduceAuthorLength} from '../utils/helper'
 import {fetchPosts} from '../actions/PostsActions';
-
 
 class Posts extends Component {
   static propTypes = {
@@ -18,7 +17,7 @@ class Posts extends Component {
     posts: PropTypes.array,
   };
 
-  handleEditClick = (id, e) => {
+  handleEditClick = (id) => {
       this.props.history.push('/post/edit/'+id);
   }
 
@@ -32,10 +31,14 @@ class Posts extends Component {
 
 
   render() {
-    const isCategory = this.props.match.params.category || false
-    const {categories, posts} = this.props
-
+    const isCategory = this.props.match.params.category
+    const {categories} = this.props
     const categoryAndRelated = findCategoryAndRelated(categories, this.props.match.params.category)
+
+    let postList = this.props.posts;
+    if (isCategory){
+      postList = postList.filter(post => post.category === this.props.match.params.category)
+    }
 
     return (<main className="postsMain main-content main-content--defWidth">
       <header className="relativ">
@@ -58,17 +61,17 @@ class Posts extends Component {
 
       <section>
         <GridList spacing={14} className="posts" cellHeight='auto' cols={isCategory ? 1 : 2}>
-          { posts.map(post => (
+          { postList.map(post => (
             <GridListTile key={post.id}>
               <PostCard
                 onHeaderClick={() => this.handleHeaderClick(post.id)}
-                onEditClick={(e) => this.handleEditClick(post.id,e)}
-                title={post.title}
+                onEditClick={() => this.handleEditClick(post.id)}
+                title={reduceTitleLength(post.title)}
                 date={new Date(post.timestamp)}
                 comments={post.commentCount}
                 votes={post.voteScore}
-                name={post.author}
-                message={post.body}/>
+                name={reduceAuthorLength(post.author)}
+                message={reduceBodyLength(post.body)}/>
             </GridListTile>
           ))}
         </GridList>

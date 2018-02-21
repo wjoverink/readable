@@ -24,9 +24,15 @@ class VoteActions extends Component {
   }
 
   state = {
-    votes: this.props.votes || 0,
+    votes: 0,
     anchorEl: null,
     open: false
+  }
+
+  componentWillReceiveProps(props){
+    this.setState({
+      votes: props.votes
+    })
   }
 
   onVoteChange = (e) => {

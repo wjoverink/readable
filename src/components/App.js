@@ -26,7 +26,16 @@ class App extends Component {
   }
 
   state = {
+    loading:true,
+  }
 
+  componentWillReceiveProps(props){
+    //TODO: better loading also posts etc
+    if (props.categories.length>0){
+      this.setState({
+        loading: false
+      })
+    }
   }
 
   componentDidMount() {
@@ -38,7 +47,10 @@ class App extends Component {
     return (
       <div className="app">
         <div className="loading-area">
-          <LinearProgress value={90}   variant="determinate" className="loading-area__progress-bar--transparent"  />
+          {this.state.loading && (
+            <LinearProgress className="loading-area__progress-bar--transparent"  />
+          )}
+
         </div>
         <AppBar className="appBar appBar--transparent appBar--defWidth" position="static" color="default">
           <Toolbar className="toolbar" disableGutters={true}>

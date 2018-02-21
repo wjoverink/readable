@@ -1,5 +1,5 @@
 import * as Api from '../api';
-import { FETCH_POSTS, GET_POST, UPDATE_POST } from './types';
+import { FETCH_POSTS, GET_POST, UPDATE_POST, ADD_POST } from './types';
 
 export const fetchPosts = () => dispatch =>
   Api.getPosts().then(payload =>
@@ -21,6 +21,14 @@ export const editPost = post => dispatch =>
   Api.editPost(post).then(payload =>
     dispatch({
         type:UPDATE_POST,
+        value:payload
+      })
+  );
+
+export const addPost = post => dispatch =>
+  Api.addPost(post).then(payload =>
+    dispatch({
+        type:ADD_POST,
         value:payload
       })
   );

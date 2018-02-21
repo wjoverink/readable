@@ -39,7 +39,7 @@ class Posts extends Component {
         <CardHeader
           className="cardHeader"
           title={post.title}
-          subheader={post.author}
+          subheader={`${post.author} - ${new Date(post.timestamp).toLocaleString()}`}
           avatar={<Avatar aria-label="Author" >{firstLetter}</Avatar>}>
         </CardHeader>
         <Typography variant="title" gutterBottom  align="left">

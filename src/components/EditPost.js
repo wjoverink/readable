@@ -13,8 +13,9 @@ import Button from 'material-ui/Button';
 import AddIcon from 'material-ui-icons/Save';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { getPost, editPost} from '../actions/PostsActions'
+import { getPost, editPost, addPost} from '../actions/PostsActions'
 import {initialPost} from '../reducers/PostsReducer'
+import { v4 } from 'uuid';
 
 class EditPost extends Component {
 
@@ -54,10 +55,20 @@ class EditPost extends Component {
 
   handleSave = () => {
     const { postId } = this.props.match.params;
+    const post = {
+        author: this.state.author,
+        body: this.state.body,
+        title: this.state.title,
+        category: this.state.category || this.props.categories[0].path,
+        id:postId || v4(),
+        timestamp: Date.now()
+      }
     if (postId){
-      this.props.editPost({...this.state, id:postId});    
+      this.props.editPost({...this.props.post, ...post});
+    } else {
+      this.props.addPost(post);
     }
-    this.props.history.push(`/${this.state.category}/${postId}`);
+    this.props.history.push(`/${post.category}/${post.id}`);
   }
 
   handleChange = name => event => {
@@ -135,5 +146,6 @@ function mapStateToProps({categories, posts}, { match }) {
 
 export default connect(mapStateToProps, {
   getPost,
-  editPost
+  editPost,
+  addPost
 })(EditPost);

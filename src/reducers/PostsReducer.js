@@ -1,4 +1,4 @@
-import {FETCH_POSTS, GET_POST, UPDATE_POST} from '../actions/types';
+import {FETCH_POSTS, GET_POST, UPDATE_POST, ADD_POST} from '../actions/types';
 
 export const initialPost = {
   author: "",
@@ -28,6 +28,8 @@ export default function(state = [], action) {
       return state.filter(function(post) {
         return post.id !== action.value.id;
       }).concat([action.value]);
+    case ADD_POST:
+      return state.concat([action.value]);
     default:
       return state;
   }

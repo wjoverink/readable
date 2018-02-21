@@ -123,10 +123,10 @@ class Response extends Component {
             <CardContent>
               <TextField
                 className="response__textField"
-                multiline="multiline"
-                rowsMax="40"
-                autoFocus="true"
-                rows="3"
+                multiline={true}
+                rowsMax={40}
+                autoFocus={true}
+                rows={3}
                 margin="normal"
                 defaultValue={message}
               />

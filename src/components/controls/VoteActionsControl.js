@@ -111,13 +111,13 @@ class VoteActions extends Component {
           <ListItemIcon>
             <Create/>
           </ListItemIcon>
-          <ListItemText inset="inset" primary="Edit"/>
+          <ListItemText inset={true} primary="Edit"/>
         </MenuItem>
         <MenuItem onClick={this.handleDialogClickOpen}>
           <ListItemIcon >
             <DeleteIcon/>
           </ListItemIcon>
-          <ListItemText inset="inset" primary="Delete"/>
+          <ListItemText inset={true} primary="Delete"/>
         </MenuItem>
       </Menu>
       <Dialog className="deleteDialog" open={this.state.open} onClose={this.handleDialogClose} aria-labelledby="delete-dialog-text">

@@ -67,10 +67,10 @@ class EditPost extends Component {
         <article>
           <TextField
             className="response__textField"
-            multiline="multiline"
-            rowsMax="40"
-            autoFocus="true"
-            rows="3"
+            multiline={true}
+            rowsMax={40}
+            autoFocus={true}
+            rows={3}
             label="Tell you story"
             margin="normal"
             defaultValue={message}

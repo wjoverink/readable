@@ -6,9 +6,15 @@ import Divider from 'material-ui/Divider';
 import GridList, {GridListTile} from 'material-ui/GridList';
 import { PostCard } from './controls/ResponseControl'
 import './Posts.css';
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux';
 
 
 class Posts extends Component {
+  static propTypes = {
+    categories: PropTypes.array,
+  };
+
   handleEditClick = (id, e) => {
       this.props.history.push('/post/edit/'+id);
   }
@@ -17,19 +23,34 @@ class Posts extends Component {
       this.props.history.push('/category/'+id);
   }
 
+  findCategoryAndRelated = (categories, categoryPath) => {
+    let category = ""
+    let related = ""
+    if ( categoryPath && categories && categories.length>0){
+      const cat = categories.find(cat => cat.path === categoryPath);
+      const rel = categories.find(cat => cat.path !== categoryPath);
+      category = cat ? cat.name : ""
+      related = rel ? rel.name : ""
+    }
+    return {category, related}
+  }
+
   render() {
     const isCategory = this.props.match.params.category || false
+    const {categories} = this.props
+
+    const categoryAndRelated = this.findCategoryAndRelated(categories, this.props.match.params.category)
 
     return (<main className="postsMain main-content main-content--defWidth">
       <header className="relativ">
         {isCategory && (
-          <Typography variant="title" gutterBottom align="left">
-            Category 1
+          <Typography variant="title" className="text--firstUppercase" gutterBottom align="left">
+            {categoryAndRelated.category}
           </Typography>)
         }
         {isCategory && (
           <Typography align="left">
-            Related topics: Category 1
+            <span> Related topics: </span><span className="text--firstUppercase">{categoryAndRelated.related}</span>
           </Typography>)
         }
         <IconButton className="header__action" aria-label="Show Actions">
@@ -57,4 +78,10 @@ class Posts extends Component {
   }
 }
 
-export default Posts;
+function mapStateToProps({categories }, { match }) {
+  return {
+    categories
+  };
+}
+
+export default connect(mapStateToProps)(Posts);

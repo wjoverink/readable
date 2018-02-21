@@ -9,6 +9,7 @@ import './Posts.css';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import {findCategoryAndRelated} from '../utils/helper'
+import {fetchPosts} from '../actions/PostsActions';
 
 
 class Posts extends Component {
@@ -25,11 +26,14 @@ class Posts extends Component {
       this.props.history.push('/category/'+id);
   }
 
+  componentDidMount() {
+    this.props.fetchPosts();
+  }
 
 
   render() {
     const isCategory = this.props.match.params.category || false
-    const {categories} = this.props
+    const {categories, posts} = this.props
 
     const categoryAndRelated = findCategoryAndRelated(categories, this.props.match.params.category)
 
@@ -54,15 +58,19 @@ class Posts extends Component {
 
       <section>
         <GridList spacing={14} className="posts" cellHeight='auto' cols={isCategory ? 1 : 2}>
-          <GridListTile >
-            <PostCard onHeaderClick={() => this.handleHeaderClick(isCategory)} onEditClick={(e) => this.handleEditClick(isCategory,e)} title={"Word of the Day"} date={new Date("September 14 2016")} comments={3} votes={0} name={"Willem-Jan Overink"} message={"This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."}/>
-          </GridListTile>
-          <GridListTile>
-            <PostCard title={"Word of the Day"} date={new Date("September 14 2016")} comments={3} votes={0} name={"Willem-Jan Overink"} message={"This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."}/>
-          </GridListTile>
-          <GridListTile>
-            <PostCard title={"Word of the Day"} date={new Date("September 14 2016")} comments={3} votes={0} name={"Willem-Jan Overink"} message={"This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."}/>
-          </GridListTile>
+          { posts.map(post => (
+            <GridListTile key={post.id}>
+              <PostCard
+                onHeaderClick={() => this.handleHeaderClick(post.id)}
+                onEditClick={(e) => this.handleEditClick(post.id,e)}
+                title={post.title}
+                date={new Date(post.timestamp)}
+                comments={post.commentCount}
+                votes={post.voteScore}
+                name={post.author}
+                message={post.body}/>
+            </GridListTile>
+          ))}
         </GridList>
       </section>
 
@@ -70,10 +78,13 @@ class Posts extends Component {
   }
 }
 
-function mapStateToProps({categories }, { match }) {
+function mapStateToProps({categories, posts }, { match }) {
   return {
-    categories
+    categories,
+    posts:posts.filter(post => !post.deleted)
   };
 }
 
-export default connect(mapStateToProps)(Posts);
+export default connect(mapStateToProps, {
+  fetchPosts
+})(Posts);

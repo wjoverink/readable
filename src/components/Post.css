@@ -10,6 +10,9 @@
   margin-left: 5em;
   margin-right: 5em;
 }
+.posts .response__content{
+  min-height: 5.5em;
+}
 
 .postInfo__actions{
   margin:0px -19px!important;

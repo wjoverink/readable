@@ -36,6 +36,7 @@ class EditPost extends Component {
   }
 
   render() {
+  // this.props.match.params.postId
     const { title, name, message, category} = this.state
     const {categories} = this.props
 

@@ -11,21 +11,34 @@ import FaceIcon from 'material-ui-icons/Face';
 import {Link} from 'react-router-dom'
 import Button from 'material-ui/Button';
 import AddIcon from 'material-ui-icons/Save';
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux';
 
 class EditPost extends Component {
+
+  static propTypes = {
+    categories: PropTypes.array,
+  };
+
   state = {
     name :"Willem-Jan Overink",
     title :"Word of the Day",
-    message :"This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."
+    message :"This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like.",
+    category : "react"
   }
 
   handleSave = () => {
 
   }
 
+  handleSelectChange = (event) => {
+    this.setState({ category: event.target.value });
+  }
+
   render() {
-    const { title, name, message} = this.state
-  
+    const { title, name, message, category} = this.state
+    const {categories} = this.props
+
     return (
       <main className="editPost main-content main-content--defWidth">
         <header>
@@ -33,14 +46,13 @@ class EditPost extends Component {
             <Typography className="category__label" align="left">
               Category:
             </Typography>
-            <Select className="category__select"
-              value={10}
+            <Select  onChange={this.handleSelectChange} className="category__select"
+              value={category}
             >
+              {categories.map(category => (
+                <MenuItem className="select--firstUppercase" key={category.path} value={category.path}>{category.name}</MenuItem>
+              ))}
 
-              <MenuItem value={10}>Home</MenuItem>
-              <MenuItem value={20}>Category 1</MenuItem>
-              <MenuItem value={30}>Category 2</MenuItem>
-              <MenuItem value={40}>Category 3</MenuItem>
             </Select>
           </div>
           <Divider />
@@ -73,4 +85,10 @@ class EditPost extends Component {
   }
 }
 
-export default EditPost;
+function mapStateToProps({categories }, { match }) {
+  return {
+    categories
+  };
+}
+
+export default connect(mapStateToProps)(EditPost);

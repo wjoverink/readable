@@ -1,4 +1,4 @@
-import {getCategories} from '../Api';
+import {getCategories} from '../api';
 import { FETCH_CATEGORIES } from './types';
 
 export const fetchCategories = () => dispatch =>

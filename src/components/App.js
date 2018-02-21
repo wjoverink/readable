@@ -30,10 +30,11 @@ class App extends Component {
   }
 
   componentDidMount() {
-    // this.props.fetchCategories();
+    this.props.fetchCategories();
   }
 
   render() {
+    const {categories} = this.props
     return (
       <div className="app">
         <div className="loading-area">
@@ -56,15 +57,12 @@ class App extends Component {
             <Button className="main-Nav__item" activeClassName="main-Nav__item--selected" exact component={NavLink} to="/" >
               Home
             </Button>
-            <Button component={NavLink} to={`/${"Category 1"}`}  activeClassName="main-Nav__item--selected" className="main-Nav__item">
-              Category 1
-            </Button>
-            <Button component={NavLink} to={`/${"Category 2"}`}  activeClassName="main-Nav__item--selected" className="main-Nav__item">
-              Category 2
-            </Button>
-            <Button  component={NavLink} to={`/${"Category 3"}`} activeClassName="main-Nav__item--selected" className="main-Nav__item">
-              Category 3
-            </Button>
+            {
+              categories.map(category => (
+                <Button key={category.path} component={NavLink} to={`/${category.path}`}  activeClassName="main-Nav__item--selected" className="main-Nav__item">
+                  {category.name}
+                </Button>
+              ))}
           </Toolbar>
         </nav>
 

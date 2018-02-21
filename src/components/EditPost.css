@@ -7,7 +7,7 @@
 }
 
 .editPost header{
-    margin:2em 0px;
+    margin:1em 0px;
 }
 
 .category__label{
@@ -17,12 +17,19 @@
 .category__select{
   font-size: 1.2em!important;
   margin-left: 8px;
-
 }
+  .category__select::before{
+    background-color: transparent!important;
+  }
 
 .category__select div[role=button]{
   padding-top: 3px;
 }
-.category__select::before{
-  background-color: transparent!important;
-}
+  .category__select div[role=button]:first-letter {
+      text-transform: uppercase;
+  }
+
+.select--firstUppercase {display:block!important}
+  .select--firstUppercase:first-letter {
+      text-transform: uppercase;
+  }

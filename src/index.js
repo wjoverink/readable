@@ -13,7 +13,6 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 
 const theme = createMuiTheme({
-
   palette: {
     primary: {
       light: '#8bf6ff',

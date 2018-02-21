@@ -14,8 +14,25 @@ import logo from '../logo.svg';
 import Posts from './Posts.js';
 import Post from './Post.js';
 import EditPost from './EditPost.js';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types'
+import {fetchCategories} from '../actions/CategoriesActions';
+import { withRouter } from 'react-router-dom';
 
 class App extends Component {
+  static propTypes = {
+    fetchCategories: PropTypes.func.isRequired,
+    categories: PropTypes.array,
+  }
+
+  state = {
+
+  }
+
+  componentDidMount() {
+    // this.props.fetchCategories();
+  }
+
   render() {
     return (
       <div className="app">
@@ -69,4 +86,12 @@ class App extends Component {
   }
 }
 
-export default App;
+function mapStateToProps({ categories}) {
+  return {
+    categories,
+  };
+}
+
+export default withRouter(connect(mapStateToProps, {
+  fetchCategories,
+})(App));

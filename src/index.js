@@ -9,7 +9,8 @@ import Reboot from 'material-ui/Reboot';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import reducer from './reducers';
-
+import { createStore, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
 
 const theme = createMuiTheme({
 
@@ -30,25 +31,20 @@ const theme = createMuiTheme({
   },
 });
 
-// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-//
-// const store = createStore(
-//   reducer,
-//   composeEnhancers(
-//     applyMiddleware(logger)
-//   )
-// )
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+
+const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
 
 function AppTheme() {
   return (
-    // <Provider store={store}>
-      <MuiThemeProvider theme={theme}>
-        <Reboot />
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </MuiThemeProvider>
-    // </Provider>
+     <Provider store={store}>
+       <MuiThemeProvider theme={theme}>
+         <Reboot />
+         <BrowserRouter>
+           <App />
+         </BrowserRouter>
+       </MuiThemeProvider>
+     </Provider>
   );
 }
 

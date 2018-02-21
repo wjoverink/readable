@@ -1,5 +1,5 @@
 import * as Api from '../api';
-import { FETCH_POSTS, GET_POST, UPDATE_POST, ADD_POST } from './types';
+import { FETCH_POSTS, GET_POST, UPDATE_POST, ADD_POST, DELETE_POST} from './types';
 
 export const fetchPosts = () => dispatch =>
   Api.getPosts().then(payload =>
@@ -32,3 +32,13 @@ export const addPost = post => dispatch =>
         value:payload
       })
   );
+
+export const deletePost = post => dispatch =>
+  Api.deletePost(post.id).then(res => {
+    if (res.status === 200) {
+      dispatch({
+        type: DELETE_POST,
+        value: post
+      });
+    }
+  });

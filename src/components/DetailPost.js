@@ -9,7 +9,7 @@ import Response, { ResponseCard } from './controls/ResponseControl'
 import VoteActions from './controls/VoteActionsControl'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { getPost} from '../actions/PostsActions'
+import { getPost, deletePost} from '../actions/PostsActions'
 import PropTypes from 'prop-types'
 import {initialPost} from '../reducers/PostsReducer'
 
@@ -21,7 +21,11 @@ class Posts extends Component {
 
 
   handleEditClick = () => {
-      this.props.history.push('/post/edit/'+this.props.post.id);
+    this.props.history.push('/post/edit/'+this.props.post.id);
+  }
+
+  handleDeleteClick = () => {
+    this.props.deletePost(this.props.post);
   }
 
   componentDidMount() {
@@ -32,80 +36,83 @@ class Posts extends Component {
   render() {
 
     const post= this.props.post || initialPost
-    const firstLetter = post.author ? post.author.substring(0,1).toUpperCase() : ""
+    const firstLetter = post.title ? post.title.substring(0,1).toUpperCase() : ""
 
-    return (<main className="post main-content main-content--defWidth">
-      <header>
-        <CardHeader
-          className="cardHeader"
-          title={post.title}
-          subheader={`${post.author} - ${new Date(post.timestamp).toLocaleString()}`}
-          avatar={<Avatar aria-label="Author" >{firstLetter}</Avatar>}>
-        </CardHeader>
-        <Typography variant="title" gutterBottom  align="left">
-          {post.title}
-        </Typography>
-      </header>
+    return (
+      <main className="post main-content main-content--defWidth">
 
-      <article>
-        <Typography>
-          {post.body}
-        </Typography>
-      </article>
+        <header>
+          <CardHeader
+            className="cardHeader"
+            title={post.title}
+            subheader={`${post.author} - ${new Date(post.timestamp).toLocaleString()}`}
+            avatar={<Avatar aria-label="Author" >{firstLetter}</Avatar>}>
+          </CardHeader>
+          <Typography variant="title" gutterBottom  align="left">
+            {post.title}
+          </Typography>
+        </header>
 
-      <section className="postInfo">
-        <Divider />
-        <VoteActions onEditClick={this.handleEditClick} className="postInfo__actions" votes={post.voteScore} />
+        <article>
+          <Typography>
+            {post.body}
+          </Typography>
+        </article>
 
-        <Divider />
-      </section>
 
-      {/* <Divider className="divider--bigMargin"/> */}
+        <section className="postInfo">
+          <Divider />
+          <VoteActions onDeleteClick={this.handleDeleteClick} onEditClick={this.handleEditClick} className="postInfo__actions" votes={post.voteScore} />
 
-      <section className="writeResponse">
-        <Response hasEditMode={true} isSimpleEditControl={true} title={1===1 ? "Write a response..." : "Be the first to write a response"}></Response>
-      </section>
+          <Divider />
+        </section>
 
-      <section className="responses">
-        <Typography variant="subheading">
-          Conversation about "Word of the Day":
-        </Typography>
-        <GridList cellHeight='auto'  spacing={16} className="posts" cols={1}>
-          <GridListTile>
-            <ResponseCard
-              hasEditMode={true}
-              author={"Willem-Jan Overink"}
-              votes={15}
-              date={new Date("September 14 2016")}
-              message={"This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."} />
-          </GridListTile>
-          <GridListTile>
-            <ResponseCard
-              hasEditMode={true}
-              author={"Willem-Jan Overink"}
-              date={new Date("September 14 2016")}
-              message={"This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."} />
-          </GridListTile>
-          <GridListTile>
-            <ResponseCard
-              hasEditMode={true}
-              author={"Willem-Jan Overink"}
-              date={new Date("September 14 2016")}
-              message={"This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."} />
-          </GridListTile>
-        </GridList>
-      </section>
+        <section className="writeResponse">
+          <Response hasEditMode={true} isSimpleEditControl={true} title={1===1 ? "Write a response..." : "Be the first to write a response"}></Response>
+        </section>
 
-    </main>);
+        <section className="responses">
+          <Typography variant="subheading">
+            Conversation about "Word of the Day":
+          </Typography>
+          <GridList cellHeight='auto'  spacing={16} className="posts" cols={1}>
+            <GridListTile>
+              <ResponseCard
+                hasEditMode={true}
+                author={"Willem-Jan Overink"}
+                votes={15}
+                date={new Date("September 14 2016")}
+                message={"This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."} />
+            </GridListTile>
+            <GridListTile>
+              <ResponseCard
+                hasEditMode={true}
+                author={"Willem-Jan Overink"}
+                date={new Date("September 14 2016")}
+                message={"This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."} />
+            </GridListTile>
+            <GridListTile>
+              <ResponseCard
+                hasEditMode={true}
+                author={"Willem-Jan Overink"}
+                date={new Date("September 14 2016")}
+                message={"This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."} />
+            </GridListTile>
+          </GridList>
+        </section>
+
+      </main>);
   }
 }
 
 function mapStateToProps({posts}, { match }) {
+  console.log(posts)
   return {
     post: posts.find(post=> post.id === match.params.postId)
   };
 }
 
 export default withRouter(connect(mapStateToProps, {
-  getPost
+  getPost,
+  deletePost
 })(Posts));

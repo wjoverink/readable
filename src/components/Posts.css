@@ -10,7 +10,7 @@
   border: 1px solid rgba(0, 0, 0, .1) !important;
 }
 
-.posts .response__header{
+.postsMain .posts .response__header{
   cursor:pointer;
 
 }

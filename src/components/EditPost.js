@@ -13,7 +13,7 @@ import Button from 'material-ui/Button';
 import AddIcon from 'material-ui-icons/Save';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { getPost} from '../actions/PostsActions'
+import { getPost, editPost} from '../actions/PostsActions'
 import {initialPost} from '../reducers/PostsReducer'
 
 class EditPost extends Component {
@@ -28,7 +28,7 @@ class EditPost extends Component {
     body: "",
     category: "",
     title: "",
-    isNew:true
+    hasChanges:false
   }
 
 
@@ -40,6 +40,7 @@ class EditPost extends Component {
         body: props.post.body,
         category: props.post.category,
         title: props.post.title,
+        hasChanges:false
       })
     }
   }
@@ -52,18 +53,23 @@ class EditPost extends Component {
   }
 
   handleSave = () => {
-
+    const { postId } = this.props.match.params;
+    if (postId){
+      this.props.editPost({...this.state, id:postId});    
+    }
+    this.props.history.push(`/${this.state.category}/${postId}`);
   }
 
   handleChange = name => event => {
     this.setState({
-      [name]: event.target.value
+      [name]: event.target.value,
+      hasChanges : true
     });
   };
 
   render() {
 
-    const {title, body, author} = this.state
+    const {title, body, author, hasChanges} = this.state
     const {categories} = this.props
     const category= !this.state.category ? categories.length>0 ? categories[0].path : "" : this.state.category
     return (
@@ -112,7 +118,7 @@ class EditPost extends Component {
           />
         </article>
         <footer className='footer footer--alignRight'>
-          <Button onClick={this.handleSave} color="primary" className="showShadow" variant="fab" aria-label="Save post">
+          <Button disabled={!hasChanges} onClick={this.handleSave} color="primary" className="showShadow" variant="fab" aria-label="Save post">
             <AddIcon/>
           </Button>
         </footer>
@@ -128,5 +134,6 @@ function mapStateToProps({categories, posts}, { match }) {
 }
 
 export default connect(mapStateToProps, {
-  getPost
+  getPost,
+  editPost
 })(EditPost);

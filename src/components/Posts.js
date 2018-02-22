@@ -37,7 +37,6 @@ class Posts extends Component {
     this.props.fetchPosts();
   }
 
-
   render() {
     const isCategory = this.props.match.params.category
     const {categories} = this.props
@@ -51,7 +50,7 @@ class Posts extends Component {
     return (<main className="postsMain main-content main-content--defWidth">
       <header className="relativ">
         {isCategory && (
-          <Typography variant="title" className="text--firstUppercase" gutterBottom align="left">
+          <Typography variant="display1" className="text--firstUppercase" gutterBottom align="left">
             {categoryAndRelated.category}
           </Typography>)
         }

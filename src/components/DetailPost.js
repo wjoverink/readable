@@ -100,7 +100,7 @@ class Posts extends Component {
             </CardHeader>
           )}
 
-          <Typography variant="title" gutterBottom  align="left">
+          <Typography variant="display1" gutterBottom  align="left">
             {post.title}
           </Typography>
         </header>

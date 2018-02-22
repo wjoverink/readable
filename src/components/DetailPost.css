@@ -10,6 +10,11 @@
   margin-left: 5em;
   margin-right: 5em;
 }
+
+.post>header{
+    min-height: 8em;
+}
+
 .posts .response__content{
   min-height: 5.5em;
 }

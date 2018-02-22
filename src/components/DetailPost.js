@@ -19,6 +19,10 @@ class Posts extends Component {
     getPost: PropTypes.func.isRequired,
   };
 
+  state ={
+    isLoading:true
+  }
+
   handleEditClick = () => {
     this.props.history.push('/post/edit/'+this.props.post.id);
   }
@@ -33,11 +37,15 @@ class Posts extends Component {
     this.props.getPost(postId);
   }
 
-
+  componentWillReceiveProps(props){
+    this.setState({isLoading:false})
+  }
 
   render() {
+    const showNoteFound = !this.props.post && !this.state.isLoading
 
-    const post= this.props.post || {...initialPost}
+    const post= this.props.post ||
+      (showNoteFound ? {...initialPost, title:"Ooooops something went wrong", body:"Article can't be found"} : initialPost)
 
     const firstLetter = post.author ? post.author.substring(0,1).toUpperCase() : ""
     const dateTime = post.timestamp ? new Date(post.timestamp).toLocaleString() : ""
@@ -47,12 +55,14 @@ class Posts extends Component {
 
 
         <header>
-          <CardHeader
-            className="cardHeader"
-            title={post.author}
-            subheader={`${dateTime}`}
-            avatar={<Avatar aria-label="Author" >{firstLetter}</Avatar>}>
-          </CardHeader>
+          {!showNoteFound && (
+            <CardHeader
+              className="cardHeader"
+              title={post.author}
+              subheader={`${dateTime}`}
+              avatar={<Avatar aria-label="Author" >{firstLetter}</Avatar>}>
+            </CardHeader>
+          )}
 
           <Typography variant="title" gutterBottom  align="left">
             {post.title}
@@ -65,47 +75,52 @@ class Posts extends Component {
           </Typography>
         </article>
 
-        <section className="postInfo">
-          <Divider />
-          <VoteActions onDeleteClick={this.handleDeleteClick} onEditClick={this.handleEditClick} className="postInfo__actions" votes={post.voteScore} />
+        {!showNoteFound && (
+          <section className="postInfo">
+            <Divider />
+            <VoteActions onDeleteClick={this.handleDeleteClick} onEditClick={this.handleEditClick} className="postInfo__actions" votes={post.voteScore} />
 
-          <Divider />
-        </section>
+            <Divider />
+          </section>
+        )}
 
-        <section className="writeResponse">
-          <Response hasEditMode={true} isSimpleEditControl={true} title={1===1 ? "Write a response..." : "Be the first to write a response"}></Response>
-        </section>
+        {!showNoteFound && (
+          <section className="writeResponse">
+            <Response hasEditMode={true} isSimpleEditControl={true} title={1===1 ? "Write a response..." : "Be the first to write a response"}></Response>
+          </section>
+        )}
 
-        <section className="responses">
-          <Typography variant="subheading">
-            {`Conversation about "${post.title}":`}
-          </Typography>
-          <GridList cellHeight='auto'  spacing={16} className="posts" cols={1}>
-            <GridListTile>
-              <ResponseCard
-                hasEditMode={true}
-                author={"Willem-Jan Overink"}
-                votes={15}
-                date={new Date("September 14 2016")}
-                message={"This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."} />
-            </GridListTile>
-            <GridListTile>
-              <ResponseCard
-                hasEditMode={true}
-                author={"Willem-Jan Overink"}
-                date={new Date("September 14 2016")}
-                message={"This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."} />
-            </GridListTile>
-            <GridListTile>
-              <ResponseCard
-                hasEditMode={true}
-                author={"Willem-Jan Overink"}
-                date={new Date("September 14 2016")}
-                message={"This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."} />
-            </GridListTile>
-          </GridList>
-        </section>
-
+        {!showNoteFound && (
+          <section className="responses">
+            <Typography variant="subheading">
+              {`Conversation about "${post.title}":`}
+            </Typography>
+            <GridList cellHeight='auto'  spacing={16} className="posts" cols={1}>
+              <GridListTile>
+                <ResponseCard
+                  hasEditMode={true}
+                  author={"Willem-Jan Overink"}
+                  votes={15}
+                  date={new Date("September 14 2016")}
+                  message={"This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."} />
+              </GridListTile>
+              <GridListTile>
+                <ResponseCard
+                  hasEditMode={true}
+                  author={"Willem-Jan Overink"}
+                  date={new Date("September 14 2016")}
+                  message={"This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."} />
+              </GridListTile>
+              <GridListTile>
+                <ResponseCard
+                  hasEditMode={true}
+                  author={"Willem-Jan Overink"}
+                  date={new Date("September 14 2016")}
+                  message={"This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."} />
+              </GridListTile>
+            </GridList>
+          </section>
+        )}
       </main>);
   }
 }

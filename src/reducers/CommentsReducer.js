@@ -1,4 +1,4 @@
-import { FETCH_COMMENTS, UPDATE_COMMENT } from '../actions/types';
+import { FETCH_COMMENTS, UPDATE_COMMENT, ADD_COMMENT } from '../actions/types';
 
 export default function(state = [], action) {
   switch (action.type) {
@@ -7,7 +7,15 @@ export default function(state = [], action) {
         ...state,
         [action.value.postId]: action.value.payload
       };
-      case UPDATE_COMMENT:
+    case ADD_COMMENT:
+      return{
+        ...state,
+        [action.value.parentId]: [
+          ...state[action.value.parentId],
+          action.value
+        ]
+      }
+    case UPDATE_COMMENT:
 
       return {
         ...state,

@@ -66,9 +66,10 @@ class Response extends Component {
   }
 
   handleSubmit = (e) => {
+      e.preventDefault();
       this.setState({editMode:false})
       if (this.props.onChange) {
-        this.props.onChange(e)
+        this.props.onChange(this.headerTextField.value, this.bodyTextField.value)
       }
   }
 
@@ -107,7 +108,7 @@ class Response extends Component {
 
           {this.state.editMode && (
             <CardHeader
-              title={<TextField className="response__author" defaultValue={isSimpleEditControl ? "" : title} required label="Name"/>}
+              title={<TextField inputRef={el => this.headerTextField = el}  className="response__author" defaultValue={isSimpleEditControl ? "" : title} required label="Name"/>}
               avatar={<Avatar className="response__label" role="button" aria-label="Face Icon"><FaceIcon/></Avatar>}></CardHeader>
           )}
 
@@ -122,6 +123,7 @@ class Response extends Component {
           {this.state.editMode && (
             <CardContent>
               <TextField
+                inputRef={el => this.bodyTextField = el}
                 className="response__textField"
                 multiline={true}
                 rowsMax={40}

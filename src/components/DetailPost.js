@@ -10,11 +10,12 @@ import VoteActions from './controls/VoteActionsControl'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getPost, deletePost, votePost} from '../actions/PostsActions'
-import { fetchComments, voteComments} from '../actions/CommentsActions'
+import { fetchComments, voteComments, addNewComment} from '../actions/CommentsActions'
 import PropTypes from 'prop-types'
 import {initialPost} from '../reducers/PostsReducer'
 import {prepareVoteForAPI} from '../utils/helper'
 import sortBy from 'sort-by'
+import { v4 } from 'uuid';
 
 class Posts extends Component {
   static propTypes = {
@@ -25,6 +26,16 @@ class Posts extends Component {
 
   state ={
     isLoading:true
+  }
+
+  handleNewComment = (author, body)=>{
+    this.props.addNewComment({
+        id: v4(),
+        parentId: this.props.post.id,
+        timestamp: Date.now(),
+        author: author,
+        body: body
+      })
   }
 
   handleVoteChangeClick = (votes) =>{
@@ -99,7 +110,7 @@ class Posts extends Component {
 
         {!showNoteFound && (
           <section className="writeResponse">
-            <Response hasEditMode={true} isSimpleEditControl={true} title={this.props.comments.length>0 ? "Write a response..." : "Be the first to write a response"}></Response>
+            <Response onChange={this.handleNewComment} hasEditMode={true} isSimpleEditControl={true} title={this.props.comments.length>0 ? "Write a response..." : "Be the first to write a response"}></Response>
           </section>
         )}
 
@@ -131,7 +142,7 @@ function mapStateToProps({posts, comments}, { match }) {
   const commentsArray =  comments ? comments[match.params.postId] || [] : []
   return {
     post: posts.find(post=> post.id === match.params.postId),
-    comments : commentsArray.sort(sortBy('timestamp'))
+    comments : commentsArray.sort(sortBy('-timestamp'))
   };
 }
 
@@ -140,5 +151,6 @@ export default withRouter(connect(mapStateToProps, {
   deletePost,
   votePost,
   fetchComments,
-  voteComments
+  voteComments,
+  addNewComment
 })(Posts));

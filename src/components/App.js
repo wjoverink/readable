@@ -12,6 +12,7 @@ import {Route, Link, Switch, NavLink} from 'react-router-dom'
 import PostButton from './PostButton'
 import logo from '../logo.svg';
 import Posts from './Posts.js';
+import Page404 from './Page404.js';
 import DetailPost from './DetailPost.js';
 import EditPost from './EditPost.js';
 import { connect } from 'react-redux';
@@ -78,11 +79,22 @@ class App extends Component {
           </Toolbar>
         </nav>
 
+
         <Route exact path="/" component={Posts} />
-        <Route exact path="/:category" component={Posts} />
+        {/* <Route exact path="/:category" component={Posts} /> */}
+        <Route exact path="/:category" render={({match}) => {
+          if (!this.props.categories ||
+            this.props.categories.length==0 ||
+            (match.params.category && this.props.categories.find(cat => cat.path === match.params.category))){
+              return <Posts match={match}/>
+            } else {
+              return <Page404/>
+            }
+        }
+        } />
         <Switch>
-          <Route path="/post/new" component={EditPost} />
-          <Route path="/post/edit/:postId" component={EditPost} />
+          <Route exact path="/post/new" component={EditPost} />
+          <Route exact path="/post/edit/:postId" component={EditPost} />
           <Route path="/:category/:postId" component={DetailPost} />
         </Switch>
 

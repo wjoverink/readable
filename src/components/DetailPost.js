@@ -19,13 +19,13 @@ class Posts extends Component {
     getPost: PropTypes.func.isRequired,
   };
 
-
   handleEditClick = () => {
     this.props.history.push('/post/edit/'+this.props.post.id);
   }
 
   handleDeleteClick = () => {
     this.props.deletePost(this.props.post);
+    this.props.history.push('/')
   }
 
   componentDidMount() {
@@ -33,21 +33,27 @@ class Posts extends Component {
     this.props.getPost(postId);
   }
 
+
+
   render() {
 
-    const post= this.props.post || initialPost
-    const firstLetter = post.title ? post.title.substring(0,1).toUpperCase() : ""
+    const post= this.props.post || {...initialPost}
+
+    const firstLetter = post.author ? post.author.substring(0,1).toUpperCase() : ""
+    const dateTime = post.timestamp ? new Date(post.timestamp).toLocaleString() : ""
 
     return (
       <main className="post main-content main-content--defWidth">
 
+
         <header>
           <CardHeader
             className="cardHeader"
-            title={post.title}
-            subheader={`${post.author} - ${new Date(post.timestamp).toLocaleString()}`}
+            title={post.author}
+            subheader={`${dateTime}`}
             avatar={<Avatar aria-label="Author" >{firstLetter}</Avatar>}>
           </CardHeader>
+
           <Typography variant="title" gutterBottom  align="left">
             {post.title}
           </Typography>
@@ -58,7 +64,6 @@ class Posts extends Component {
             {post.body}
           </Typography>
         </article>
-
 
         <section className="postInfo">
           <Divider />
@@ -73,7 +78,7 @@ class Posts extends Component {
 
         <section className="responses">
           <Typography variant="subheading">
-            Conversation about "Word of the Day":
+            {`Conversation about "${post.title}":`}
           </Typography>
           <GridList cellHeight='auto'  spacing={16} className="posts" cols={1}>
             <GridListTile>
@@ -106,9 +111,9 @@ class Posts extends Component {
 }
 
 function mapStateToProps({posts}, { match }) {
-  console.log(posts)
   return {
-    post: posts.find(post=> post.id === match.params.postId)
+    post: posts.find(post=> post.id === match.params.postId),
+    isLoading:false
   };
 }
 

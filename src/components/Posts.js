@@ -21,8 +21,8 @@ class Posts extends Component {
       this.props.history.push('/post/edit/'+id);
   }
 
-  handleHeaderClick = (id) => {
-      this.props.history.push('/category/'+id);
+  handleHeaderClick = (id,category) => {
+      this.props.history.push(`/${category}/${id}`);
   }
 
   componentDidMount() {
@@ -64,7 +64,7 @@ class Posts extends Component {
           { postList.map(post => (
             <GridListTile key={post.id}>
               <PostCard
-                onHeaderClick={() => this.handleHeaderClick(post.id)}
+                onHeaderClick={() => this.handleHeaderClick(post.id, post.category)}
                 onEditClick={() => this.handleEditClick(post.id)}
                 title={reduceTitleLength(post.title)}
                 date={new Date(post.timestamp)}

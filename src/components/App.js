@@ -56,7 +56,7 @@ class App extends Component {
         <AppBar className="appBar appBar--transparent appBar--defWidth" position="static" color="default">
           <Toolbar className="toolbar" disableGutters={true}>
             <Link to="/"><img src={logo} className="appBar__App-logo" alt="logo" /></Link>
-            <Typography variant="display1" color="inherit">
+            <Typography className="appName" variant="display1" color="inherit">
               READABLE
             </Typography>
             <IconButton className="toolbar__search--toRight">

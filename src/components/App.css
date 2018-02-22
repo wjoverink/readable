@@ -22,9 +22,10 @@
 }
 
 .appBar--defWidth, .main-Nav--defWidth, .main-content--defWidth, footer {
-  max-width: 1000px !important;
+  max-width: 1050px !important;
   margin-left: auto !important;
   margin-right: auto !important;
+  padding:0 2em;
 }
 
 .footer--alignRight {
@@ -69,6 +70,16 @@
 
 .footer {
   margin: 2em auto;
+}
+
+.link{
+  color: #ff5722;
+  font-style: normal;
+  text-decoration: none;
+}
+
+.appName {
+  font-size: 1.5em !important;
 }
 
 .divider--bigMargin {

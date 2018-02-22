@@ -9,7 +9,7 @@ import './Posts.css';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import {findCategoryAndRelated, reduceTitleLength, reduceBodyLength, reduceAuthorLength} from '../utils/helper'
-import {fetchPosts} from '../actions/PostsActions';
+import {fetchPosts, deletePost} from '../actions/PostsActions';
 
 class Posts extends Component {
   static propTypes = {
@@ -23,6 +23,10 @@ class Posts extends Component {
 
   handleHeaderClick = (id,category) => {
       this.props.history.push(`/${category}/${id}`);
+  }
+
+  handleDeleteClick = (post) => {
+    this.props.deletePost(post);
   }
 
   componentDidMount() {
@@ -66,6 +70,7 @@ class Posts extends Component {
               <PostCard
                 onHeaderClick={() => this.handleHeaderClick(post.id, post.category)}
                 onEditClick={() => this.handleEditClick(post.id)}
+                onDeleteClick={() => this.handleDeleteClick(post)}
                 title={reduceTitleLength(post.title)}
                 date={new Date(post.timestamp)}
                 comments={post.commentCount}
@@ -89,5 +94,6 @@ function mapStateToProps({categories, posts }, { match }) {
 }
 
 export default connect(mapStateToProps, {
-  fetchPosts
+  fetchPosts,
+  deletePost
 })(Posts);

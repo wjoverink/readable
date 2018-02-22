@@ -35,21 +35,20 @@ class VoteActions extends Component {
     })
   }
 
-  onVoteChange = (e) => {
+  onVoteChange = (vote, e) => {
+    this.setState(state => ({
+      votes: state.votes + vote
+    }))
     if (this.props.onVoteChange) {
-      this.props.onVoteChange(this.state.votes, e.target.value)
+      this.props.onVoteChange({votes:this.state.votes, difference:vote}, e.target.value)
     }
   }
 
   onVoteUp = (e) => {
-    this.setState(state => ({
-      votes: state.votes + 1
-    }))
+    this.onVoteChange(+1, e);
   }
   onVoteDown = (e) => {
-    this.setState(state => ({
-      votes: state.votes - 1
-    }))
+    this.onVoteChange(-1, e);
   }
 
   openMenu = event => {

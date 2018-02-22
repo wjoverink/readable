@@ -19,15 +19,11 @@ export default function(state = [], action) {
     case GET_POST:
       //Because of the direct url to get a post i remove the post from the state (direct url state is empty)
       //and add the post to the state
-      return state.filter(function(post) {
-        return post.id !== action.value.id;
-      }).concat([action.value]);
+      return state.filter(post => post.id !== action.value.id).concat([action.value])
     case UPDATE_POST:
       //Because of the direct url to get a post i remove the post from the state (direct url state is empty)
       //and add the post to the state
-      return state.filter(function(post) {
-        return post.id !== action.value.id;
-      }).concat([action.value]);
+      return state.filter(post => post.id !== action.value.id).concat([action.value])
     case ADD_POST:
       return state.concat([action.value]);
     case DELETE_POST:

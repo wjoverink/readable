@@ -1,4 +1,4 @@
-import {MAXTITLELENGTH, MAXBODYLENGTH,MAXAUTHORLENGTH} from '../utils/config'
+import {MAXTITLELENGTH, MAXBODYLENGTH,MAXAUTHORLENGTH, UPVOTE, DOWNVOTE} from '../utils/config'
 
 export const findCategoryAndRelated = (categories, categoryPath) => {
     let category = ""
@@ -28,3 +28,10 @@ export const findCategoryAndRelated = (categories, categoryPath) => {
   export const reduceAuthorLength = (text) => {
     return reduceStringLength(text, MAXAUTHORLENGTH)
   }
+
+export const prepareVoteForAPI = (vote) =>{
+  if (vote>0){
+    return UPVOTE
+  }
+  return DOWNVOTE
+}

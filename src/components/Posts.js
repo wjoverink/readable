@@ -8,8 +8,8 @@ import { PostCard } from './controls/ResponseControl'
 import './Posts.css';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
-import {findCategoryAndRelated, reduceTitleLength, reduceBodyLength, reduceAuthorLength} from '../utils/helper'
-import {fetchPosts, deletePost} from '../actions/PostsActions';
+import {findCategoryAndRelated, reduceTitleLength, reduceBodyLength, reduceAuthorLength, prepareVoteForAPI} from '../utils/helper'
+import {fetchPosts, deletePost, votePost} from '../actions/PostsActions';
 
 class Posts extends Component {
   static propTypes = {
@@ -23,6 +23,10 @@ class Posts extends Component {
 
   handleHeaderClick = (id,category) => {
       this.props.history.push(`/${category}/${id}`);
+  }
+
+  handleVoteChangeClick = (votes,post) =>{
+    this.props.votePost(post.id, prepareVoteForAPI(votes.difference))
   }
 
   handleDeleteClick = (post) => {
@@ -71,6 +75,7 @@ class Posts extends Component {
                 onHeaderClick={() => this.handleHeaderClick(post.id, post.category)}
                 onEditClick={() => this.handleEditClick(post.id)}
                 onDeleteClick={() => this.handleDeleteClick(post)}
+                onVoteChange={(votes) => this.handleVoteChangeClick(votes,post)}
                 title={reduceTitleLength(post.title)}
                 date={new Date(post.timestamp)}
                 comments={post.commentCount}
@@ -95,5 +100,6 @@ function mapStateToProps({categories, posts }, { match }) {
 
 export default connect(mapStateToProps, {
   fetchPosts,
-  deletePost
+  deletePost,
+  votePost
 })(Posts);

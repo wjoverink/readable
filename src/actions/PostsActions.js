@@ -33,6 +33,14 @@ export const addPost = post => dispatch =>
       })
   );
 
+export const votePost = (id, vote) => dispatch =>
+  Api.votePost(id, vote).then(payload =>
+    dispatch({
+        type:UPDATE_POST,
+        value:payload
+      })
+);
+
 export const deletePost = post => dispatch =>
   Api.deletePost(post.id).then(res => {
     if (res.status === 200) {

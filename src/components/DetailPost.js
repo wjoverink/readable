@@ -9,9 +9,10 @@ import Response, { ResponseCard } from './controls/ResponseControl'
 import VoteActions from './controls/VoteActionsControl'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { getPost, deletePost} from '../actions/PostsActions'
+import { getPost, deletePost, votePost} from '../actions/PostsActions'
 import PropTypes from 'prop-types'
 import {initialPost} from '../reducers/PostsReducer'
+import {prepareVoteForAPI} from '../utils/helper'
 
 class Posts extends Component {
   static propTypes = {
@@ -21,6 +22,10 @@ class Posts extends Component {
 
   state ={
     isLoading:true
+  }
+
+  handleVoteChangeClick = (votes) =>{
+    this.props.votePost(this.props.post.id, prepareVoteForAPI(votes.difference))
   }
 
   handleEditClick = () => {
@@ -78,7 +83,7 @@ class Posts extends Component {
         {!showNoteFound && (
           <section className="postInfo">
             <Divider />
-            <VoteActions onDeleteClick={this.handleDeleteClick} onEditClick={this.handleEditClick} className="postInfo__actions" votes={post.voteScore} />
+            <VoteActions onVoteChange={this.handleVoteChangeClick} onDeleteClick={this.handleDeleteClick} onEditClick={this.handleEditClick} className="postInfo__actions" votes={post.voteScore} />
 
             <Divider />
           </section>
@@ -134,5 +139,6 @@ function mapStateToProps({posts}, { match }) {
 
 export default withRouter(connect(mapStateToProps, {
   getPost,
-  deletePost
+  deletePost,
+  votePost
 })(Posts));

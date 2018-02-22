@@ -10,6 +10,11 @@
   border: 1px solid rgba(0, 0, 0, .1) !important;
 }
 
+
+.posts .response__content{
+  min-height: 5.5em;
+}
+
 .postsMain .posts .response__header{
   cursor:pointer;
 
@@ -17,5 +22,5 @@
 .response__header>div:nth-child(2)>span:first-child{
     font-size: 1.2em!important;
     line-height: 1.4em!important;
-    
+
 }

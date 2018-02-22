@@ -1,4 +1,4 @@
-import { FETCH_COMMENTS } from '../actions/types';
+import { FETCH_COMMENTS, UPDATE_COMMENT } from '../actions/types';
 
 export default function(state = [], action) {
   switch (action.type) {
@@ -7,6 +7,20 @@ export default function(state = [], action) {
         ...state,
         [action.value.postId]: action.value.payload
       };
+      case UPDATE_COMMENT:
+
+      return {
+        ...state,
+       [action.value.parentId]: state[action.value.parentId].map(
+         comment =>
+           action.value.id === comment.id ? action.value : comment
+       )
+         // [action.value.parentId]: {
+         //   ...state[action.value.parentId],
+         //   [action.payload.id] : action.payload
+         // }
+
+       };
     default:
       return state;
   }

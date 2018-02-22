@@ -11,20 +11,16 @@
   margin-right: 5em;
 }
 
+.comments>li>* {
+  border: 1px solid rgba(0, 0, 0, .1) !important;
+}
+
 .post>header{
     min-height: 8em;
 }
 
-.posts .response__content{
-  min-height: 5.5em;
-}
-
 .postInfo__actions{
   margin:0px -19px!important;
-}
-
-.postInfo{
-
 }
 
 .responses{

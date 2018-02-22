@@ -10,7 +10,7 @@ import VoteActions from './controls/VoteActionsControl'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getPost, deletePost, votePost} from '../actions/PostsActions'
-import { fetchComments } from '../actions/CommentsActions'
+import { fetchComments, voteComments} from '../actions/CommentsActions'
 import PropTypes from 'prop-types'
 import {initialPost} from '../reducers/PostsReducer'
 import {prepareVoteForAPI} from '../utils/helper'
@@ -29,6 +29,10 @@ class Posts extends Component {
 
   handleVoteChangeClick = (votes) =>{
     this.props.votePost(this.props.post.id, prepareVoteForAPI(votes.difference))
+  }
+
+  handleCommentVoteChangeClick = (id, votes) =>{
+    this.props.voteComments(id, prepareVoteForAPI(votes.difference))
   }
 
   handleEditClick = () => {
@@ -104,7 +108,7 @@ class Posts extends Component {
             <Typography variant="subheading">
               {this.props.comments.length>0 ? `Conversation about "${post.title}":` : ""}
             </Typography>
-            <GridList cellHeight='auto'  spacing={16} className="posts" cols={1}>
+            <GridList cellHeight='auto'  spacing={16} className="comments" cols={1}>
               {this.props.comments.map(comment => (
                 <GridListTile key={comment.id}>
                   <ResponseCard
@@ -112,6 +116,7 @@ class Posts extends Component {
                     author={comment.author}
                     votes={comment.voteScore}
                     date={new Date(comment.timestamp)}
+                    onVoteChange={(votes) => this.handleCommentVoteChangeClick(comment.id, votes)}
                     message={comment.body} />
                 </GridListTile>
               ))}
@@ -134,5 +139,6 @@ export default withRouter(connect(mapStateToProps, {
   getPost,
   deletePost,
   votePost,
-  fetchComments
+  fetchComments,
+  voteComments
 })(Posts));

@@ -1,5 +1,5 @@
-import {getPostComments} from '../api';
-import { FETCH_COMMENTS } from './types';
+import {getPostComments, voteComment} from '../api';
+import { FETCH_COMMENTS, UPDATE_COMMENT } from './types';
 
 
 export const fetchComments = postId => dispatch =>
@@ -10,3 +10,11 @@ export const fetchComments = postId => dispatch =>
 
       })
   );
+
+export const voteComments = (id, vote) => dispatch =>
+  voteComment(id, vote).then(payload =>
+    dispatch({
+        type:UPDATE_COMMENT,
+        value:payload
+      })
+);

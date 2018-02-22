@@ -1,9 +1,9 @@
-import React, {Component} from 'react';
-import Typography from 'material-ui/Typography';
-import IconButton from 'material-ui/IconButton';
-import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
-import Divider from 'material-ui/Divider';
-import GridList, {GridListTile} from 'material-ui/GridList';
+import React, {Component} from 'react'
+import Typography from 'material-ui/Typography'
+import IconButton from 'material-ui/IconButton'
+import ExpandMoreIcon from 'material-ui-icons/ExpandMore'
+import Divider from 'material-ui/Divider'
+import GridList, {GridListTile} from 'material-ui/GridList'
 import { PostCard } from './controls/ResponseControl'
 import './Posts.css';
 import PropTypes from 'prop-types'
@@ -12,8 +12,9 @@ import {findCategoryAndRelated, reduceTitleLength, reduceBodyLength, reduceAutho
 import {fetchPosts, deletePost, votePost} from '../actions/PostsActions'
 import {sortAction} from '../actions/SortActions'
 import sortBy from 'sort-by'
-import { VOTE_ORDER, TIMESTAMP_ORDER } from '../utils/config';
+import { VOTE_ORDER, TIMESTAMP_ORDER } from '../utils/config'
 import Menu, {MenuItem} from 'material-ui/Menu'
+import {Link} from 'react-router-dom'
 
 class Posts extends Component {
   static propTypes = {
@@ -24,6 +25,17 @@ class Posts extends Component {
 
   state = {
     anchorEl: null,
+    loading:true,
+  }
+
+  state = {
+    loading:true,
+  }
+
+  componentWillReceiveProps(props){
+      this.setState({
+        loading: false
+      })
   }
 
   openSortMenu = event => {
@@ -62,7 +74,7 @@ class Posts extends Component {
   render() {
     const isCategory = this.props.match.params.category
     const {categories} = this.props
-    const {anchorEl} = this.state;
+    const {anchorEl, loading} = this.state;
     const categoryAndRelated = findCategoryAndRelated(categories, this.props.match.params.category)
 
     let postList = this.props.posts;
@@ -98,6 +110,18 @@ class Posts extends Component {
         </Menu>
         <Divider className="divider--bigMargin"/>
       </header>
+
+      {postList.length===0 && !loading &&(
+        <section>
+          <Typography variant="display3">
+            There are no articles yet
+          </Typography>
+          <Typography>
+            Be the first one to write a article.
+          </Typography>
+          <Link className='link page404__link' to='/post/new'>Write new article</Link>
+        </section>
+      )}
 
       <section>
         <GridList spacing={14} className="posts" cellHeight='auto' cols={isCategory ? 1 : 2}>

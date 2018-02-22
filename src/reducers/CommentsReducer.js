@@ -1,4 +1,4 @@
-import { FETCH_COMMENTS, UPDATE_COMMENT, ADD_COMMENT } from '../actions/types';
+import { FETCH_COMMENTS, UPDATE_COMMENT, ADD_COMMENT, DELETE_COMMENT } from '../actions/types';
 
 export default function(state = [], action) {
   switch (action.type) {
@@ -7,6 +7,12 @@ export default function(state = [], action) {
         ...state,
         [action.value.postId]: action.value.payload
       };
+      case DELETE_COMMENT:
+      console.log("DELETE_COMMENT")
+        return{
+          ...state,
+          [action.value.parentId]:state[action.value.parentId].filter(comment => comment.id !== action.value.id),
+        }
     case ADD_COMMENT:
       return{
         ...state,

@@ -1,5 +1,5 @@
-import {getPostComments, voteComment, addComment, editComment} from '../api';
-import { FETCH_COMMENTS, UPDATE_COMMENT, ADD_COMMENT } from './types';
+import {getPostComments, voteComment, addComment, editComment, deleteComment} from '../api';
+import { FETCH_COMMENTS, UPDATE_COMMENT, ADD_COMMENT, DELETE_COMMENT } from './types';
 
 
 export const fetchComments = postId => dispatch =>
@@ -19,6 +19,16 @@ export const voteComments = (id, vote) => dispatch =>
       })
 );
 
+
+export const removeComment = comment => dispatch =>
+  deleteComment(comment.id).then(res => {
+
+      dispatch({
+        type: DELETE_COMMENT,
+        value: comment
+      });
+
+  });
 
 export const changeComment = comment => dispatch =>
   editComment(comment).then(payload =>

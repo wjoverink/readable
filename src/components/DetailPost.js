@@ -10,7 +10,7 @@ import VoteActions from './controls/VoteActionsControl'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getPost, deletePost, votePost} from '../actions/PostsActions'
-import { fetchComments, voteComments, addNewComment, changeComment} from '../actions/CommentsActions'
+import { fetchComments, voteComments, addNewComment, changeComment, removeComment} from '../actions/CommentsActions'
 import PropTypes from 'prop-types'
 import {initialPost} from '../reducers/PostsReducer'
 import {prepareVoteForAPI} from '../utils/helper'
@@ -46,6 +46,9 @@ class Posts extends Component {
       })
   }
 
+  handleDeleteComment = (comment)=>{
+    this.props.removeComment(comment)
+  }
 
   handleVoteChangeClick = (votes) =>{
     this.props.votePost(this.props.post.id, prepareVoteForAPI(votes.difference))
@@ -137,6 +140,7 @@ class Posts extends Component {
                     author={comment.author}
                     votes={comment.voteScore}
                     date={new Date(comment.timestamp)}
+                    onDeleteClick={()=>this.handleDeleteComment(comment)}
                     onVoteChange={(votes) => this.handleCommentVoteChangeClick(comment.id, votes)}
                     message={comment.body} />
                 </GridListTile>
@@ -163,5 +167,6 @@ export default withRouter(connect(mapStateToProps, {
   fetchComments,
   voteComments,
   addNewComment,
-  changeComment
+  changeComment,
+  removeComment
 })(Posts));

@@ -10,7 +10,7 @@ import VoteActions from './controls/VoteActionsControl'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getPost, deletePost, votePost} from '../actions/PostsActions'
-import { fetchComments, voteComments, addNewComment} from '../actions/CommentsActions'
+import { fetchComments, voteComments, addNewComment, changeComment} from '../actions/CommentsActions'
 import PropTypes from 'prop-types'
 import {initialPost} from '../reducers/PostsReducer'
 import {prepareVoteForAPI} from '../utils/helper'
@@ -37,6 +37,15 @@ class Posts extends Component {
         body: body
       })
   }
+  handleEditComment = (comment, author, body)=>{
+    this.props.changeComment({
+        ...comment,
+        timestamp: Date.now(),
+        author: author,
+        body: body
+      })
+  }
+
 
   handleVoteChangeClick = (votes) =>{
     this.props.votePost(this.props.post.id, prepareVoteForAPI(votes.difference))
@@ -123,6 +132,7 @@ class Posts extends Component {
               {this.props.comments.map(comment => (
                 <GridListTile key={comment.id}>
                   <ResponseCard
+                    onChange={(author, body)=>this.handleEditComment(comment,author, body)}
                     hasEditMode={true}
                     author={comment.author}
                     votes={comment.voteScore}
@@ -152,5 +162,6 @@ export default withRouter(connect(mapStateToProps, {
   votePost,
   fetchComments,
   voteComments,
-  addNewComment
+  addNewComment,
+  changeComment
 })(Posts));

@@ -122,7 +122,7 @@ class Posts extends Component {
 
         {!showNoteFound && (
           <section className="writeResponse">
-            <Response onChange={this.handleNewComment} hasEditMode={true} isSimpleEditControl={true} title={this.props.comments.length>0 ? "Write a response..." : "Be the first to write a response"}></Response>
+            <Response className="writeResponse__control" onChange={this.handleNewComment} hasEditMode={true} isSimpleEditControl={true} title={this.props.comments.length>0 ? "Write a response..." : "Be the first to write a response"}></Response>
           </section>
         )}
 

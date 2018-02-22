@@ -5,7 +5,6 @@ import 'typeface-roboto'
 import App from './components/App';
 import registerServiceWorker from './registerServiceWorker';
 import { createMuiTheme, MuiThemeProvider } from 'material-ui/styles';
-import Reboot from 'material-ui/Reboot';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import reducer from './reducers';
@@ -38,7 +37,6 @@ function AppTheme() {
   return (
      <Provider store={store}>
        <MuiThemeProvider theme={theme}>
-         <Reboot />
          <BrowserRouter>
            <App />
          </BrowserRouter>

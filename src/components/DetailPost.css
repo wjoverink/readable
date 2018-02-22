@@ -11,7 +11,12 @@
   margin-right: 5em;
 }
 
-.comments>li>* {
+.writeResponse__control{
+  box-shadow: initial !important;
+}
+
+.comments>li>*,
+.writeResponse__control{
   border: 1px solid rgba(0, 0, 0, .1) !important;
 }
 

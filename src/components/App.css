@@ -4,7 +4,7 @@
   min-height: 5px;
 }
 
-.appBar {
+.appBar, .hideShadow {
   box-shadow: initial !important;
 }
 

@@ -14,7 +14,8 @@
   cursor:pointer;
 
 }
-.posts .response__header>div:nth-child(2)>span:first-child{
+.response__header>div:nth-child(2)>span:first-child{
     font-size: 1.2em!important;
     line-height: 1.4em!important;
+    
 }

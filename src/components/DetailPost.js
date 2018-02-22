@@ -10,14 +10,17 @@ import VoteActions from './controls/VoteActionsControl'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getPost, deletePost, votePost} from '../actions/PostsActions'
+import { fetchComments } from '../actions/CommentsActions'
 import PropTypes from 'prop-types'
 import {initialPost} from '../reducers/PostsReducer'
 import {prepareVoteForAPI} from '../utils/helper'
+import sortBy from 'sort-by'
 
 class Posts extends Component {
   static propTypes = {
     post: PropTypes.object,
     getPost: PropTypes.func.isRequired,
+    comments: PropTypes.array
   };
 
   state ={
@@ -40,6 +43,7 @@ class Posts extends Component {
   componentDidMount() {
     const { postId } = this.props.match.params;
     this.props.getPost(postId);
+    this.props.fetchComments(postId);
   }
 
   componentWillReceiveProps(props){
@@ -62,7 +66,7 @@ class Posts extends Component {
         <header>
           {!showNoteFound && (
             <CardHeader
-              className="cardHeader"
+              className="cardHeader response__header"
               title={post.author}
               subheader={`${dateTime}`}
               avatar={<Avatar aria-label="Author" >{firstLetter}</Avatar>}>
@@ -91,38 +95,26 @@ class Posts extends Component {
 
         {!showNoteFound && (
           <section className="writeResponse">
-            <Response hasEditMode={true} isSimpleEditControl={true} title={1===1 ? "Write a response..." : "Be the first to write a response"}></Response>
+            <Response hasEditMode={true} isSimpleEditControl={true} title={this.props.comments.length>0 ? "Write a response..." : "Be the first to write a response"}></Response>
           </section>
         )}
 
         {!showNoteFound && (
           <section className="responses">
             <Typography variant="subheading">
-              {`Conversation about "${post.title}":`}
+              {this.props.comments.length>0 ? `Conversation about "${post.title}":` : ""}
             </Typography>
             <GridList cellHeight='auto'  spacing={16} className="posts" cols={1}>
-              <GridListTile>
-                <ResponseCard
-                  hasEditMode={true}
-                  author={"Willem-Jan Overink"}
-                  votes={15}
-                  date={new Date("September 14 2016")}
-                  message={"This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."} />
-              </GridListTile>
-              <GridListTile>
-                <ResponseCard
-                  hasEditMode={true}
-                  author={"Willem-Jan Overink"}
-                  date={new Date("September 14 2016")}
-                  message={"This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."} />
-              </GridListTile>
-              <GridListTile>
-                <ResponseCard
-                  hasEditMode={true}
-                  author={"Willem-Jan Overink"}
-                  date={new Date("September 14 2016")}
-                  message={"This impressive paella is a perfect party dish and a fun meal to cook together with your guests. Add 1 cup of frozen peas along with the mussels, if you like."} />
-              </GridListTile>
+              {this.props.comments.map(comment => (
+                <GridListTile key={comment.id}>
+                  <ResponseCard
+                    hasEditMode={true}
+                    author={comment.author}
+                    votes={comment.voteScore}
+                    date={new Date(comment.timestamp)}
+                    message={comment.body} />
+                </GridListTile>
+              ))}
             </GridList>
           </section>
         )}
@@ -130,15 +122,17 @@ class Posts extends Component {
   }
 }
 
-function mapStateToProps({posts}, { match }) {
+function mapStateToProps({posts, comments}, { match }) {
+  const commentsArray =  comments ? comments[match.params.postId] || [] : []
   return {
     post: posts.find(post=> post.id === match.params.postId),
-    isLoading:false
+    comments : commentsArray.sort(sortBy('timestamp'))
   };
 }
 
 export default withRouter(connect(mapStateToProps, {
   getPost,
   deletePost,
-  votePost
+  votePost,
+  fetchComments
 })(Posts));

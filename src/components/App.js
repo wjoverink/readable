@@ -84,7 +84,7 @@ class App extends Component {
         {/* <Route exact path="/:category" component={Posts} /> */}
         <Route exact path="/:category" render={({match, history}) => {
           if (!this.props.categories ||
-            this.props.categories.length==0 ||
+            this.props.categories.length===0 ||
             (match.params.category && this.props.categories.find(cat => cat.path === match.params.category))){
               return <Posts match={match} history={history}/>
             } else {
@@ -103,7 +103,7 @@ class App extends Component {
           {/* <Route exact path="/:category" component={PostButton} /> */}
           <Route exact path="/:category" render={({match, history}) => {
             if (!this.props.categories ||
-              this.props.categories.length==0 ||
+              this.props.categories.length===0 ||
               (match.params.category && this.props.categories.find(cat => cat.path === match.params.category))){
                 return <PostButton />
               } else {

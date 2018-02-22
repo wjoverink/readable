@@ -9,13 +9,35 @@ import './Posts.css';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import {findCategoryAndRelated, reduceTitleLength, reduceBodyLength, reduceAuthorLength, prepareVoteForAPI} from '../utils/helper'
-import {fetchPosts, deletePost, votePost} from '../actions/PostsActions';
+import {fetchPosts, deletePost, votePost} from '../actions/PostsActions'
+import {sortAction} from '../actions/SortActions'
+import sortBy from 'sort-by'
+import { VOTE_ORDER, TIMESTAMP_ORDER } from '../utils/config';
+import Menu, {MenuItem} from 'material-ui/Menu'
 
 class Posts extends Component {
   static propTypes = {
     categories: PropTypes.array,
     posts: PropTypes.array,
+    sort: PropTypes.string,
   };
+
+  state = {
+    anchorEl: null,
+  }
+
+  openSortMenu = event => {
+    this.setState({anchorEl: event.currentTarget})
+  }
+
+  handleSortMenuClose = () => {
+    this.setState({anchorEl: null})
+  }
+
+  handleSortClick = (s,event) => {
+    this.handleSortMenuClose()
+    this.props.sortAction(s)
+  }
 
   handleEditClick = (id) => {
       this.props.history.push('/post/edit/'+id);
@@ -40,6 +62,7 @@ class Posts extends Component {
   render() {
     const isCategory = this.props.match.params.category
     const {categories} = this.props
+    const {anchorEl} = this.state;
     const categoryAndRelated = findCategoryAndRelated(categories, this.props.match.params.category)
 
     let postList = this.props.posts;
@@ -59,10 +82,20 @@ class Posts extends Component {
             <span> Related topics: </span><span className="text--firstUppercase">{categoryAndRelated.related}</span>
           </Typography>)
         }
-        <IconButton className="header__action" aria-label="Show Actions">
+        <IconButton className="header__action" onClick={this.openSortMenu} aria-owns={anchorEl
+          ? 'simple-menu'
+          : null} aria-haspopup="true" aria-label="Show Sorting">
           Sort
           <ExpandMoreIcon/>
         </IconButton>
+        <Menu id="sort-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={this.handleSortMenuClose}>
+          <MenuItem selected={this.props.sort === TIMESTAMP_ORDER} onClick={() => this.handleSortClick(TIMESTAMP_ORDER)}>
+            Date
+          </MenuItem>
+          <MenuItem selected={this.props.sort === VOTE_ORDER} onClick={() => this.handleSortClick(VOTE_ORDER)}>
+            Votes
+          </MenuItem>
+        </Menu>
         <Divider className="divider--bigMargin"/>
       </header>
 
@@ -90,15 +123,17 @@ class Posts extends Component {
   }
 }
 
-function mapStateToProps({categories, posts }, { match }) {
+function mapStateToProps({categories, posts, sort}, { match }) {
   return {
     categories,
-    posts:posts.filter(post => !post.deleted)
+    sort,
+    posts:posts.filter(post => !post.deleted).sort(sortBy(sort))
   };
 }
 
 export default connect(mapStateToProps, {
   fetchPosts,
   deletePost,
-  votePost
+  votePost,
+  sortAction
 })(Posts);

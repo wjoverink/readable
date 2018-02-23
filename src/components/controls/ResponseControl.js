@@ -140,10 +140,10 @@ class Response extends Component {
 
           {this.state.editMode && (
             <CardActions className="writeResponse__actions">
-              <Button type="submit" className="form__saveButton" variant="raised" color="primary" >
+              <Button type="submit" className="actions__save" variant="raised" color="primary" >
                 Save
               </Button>
-              <Button onClick={this.stopEditMode} color="secondary">
+              <Button onClick={this.stopEditMode} className="actions__cancel" color="secondary">
                 Cancel
               </Button>
             </CardActions>

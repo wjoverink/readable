@@ -64,12 +64,6 @@ class Posts extends Component {
     this.props.history.push('/')
   }
 
-  handleCommentEditClick = (comment) => {
-    var e = document.getElementById("comment"+comment.id);
-    setTimeout(function(){ e.scrollIntoView(true); }, 1);
-
-  }
-
   componentDidMount() {
     const { postId } = this.props.match.params;
     this.props.getPost(postId);
@@ -139,7 +133,6 @@ class Posts extends Component {
                     author={comment.author}
                     votes={comment.voteScore}
                     date={new Date(comment.timestamp)}
-                    onEditClick={()=>this.handleCommentEditClick(comment)}
                     onDeleteClick={()=>this.handleDeleteComment(comment)}
                     onVoteChange={(votes) => this.handleCommentVoteChangeClick(comment.id, votes)}
                     message={comment.body} />

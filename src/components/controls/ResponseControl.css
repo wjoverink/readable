@@ -15,3 +15,11 @@
 .simpleForm .response__header{
   cursor:text;
 }
+
+.writeResponse__actions{
+  padding: 2px 14px 14px!important;
+}
+
+.actions__cancel{
+  text-decoration: underline!important;
+}

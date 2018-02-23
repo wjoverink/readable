@@ -82,7 +82,12 @@ class EditPost extends Component {
 
     const {title, body, author, hasChanges} = this.state
     const {categories} = this.props
-    const category= !this.state.category ? categories.length>0 ? categories[0].path : "" : this.state.category
+
+
+    let category= !this.state.category ? categories.length>0 ? categories[0].path : "" : this.state.category
+    if (!this.props.match.params.postId && this.props.match.params.category){
+      category = this.props.match.params.category
+    }
     return (
       <main className="editPost main-content main-content--defWidth">
         <header>

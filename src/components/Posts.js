@@ -109,7 +109,7 @@ class Posts extends Component {
           subHeader={`Be the first one to write a ${isCategory || ""} article.`}
           body="here you go:"
           image={typewriter}
-          links={[{to:'/post/new', caption:'Write a new article'}]}
+          links={[{to:`/post/new/${categoryAndRelated.category.path}`, caption:'Write a new article'}]}
         />
       )}
 
@@ -133,7 +133,7 @@ class Posts extends Component {
         </GridList>
       </section>
       {!isEmpty &&(
-        <PostButton />
+        <PostButton category={isCategory ? categoryAndRelated.category.path : ""}/>
       )}
     </main>);
   }

@@ -93,24 +93,11 @@ class App extends Component {
         } />
         <Switch>
           <Route exact path="/post/new" component={EditPost} />
+          <Route exact path="/post/new/:category" component={EditPost} />
           <Route exact path="/post/edit/:postId" component={EditPost} />
           <Route path="/:category/:postId" component={DetailPost} />
         </Switch>
 
-        {/* <footer className='footer footer--alignRight'>
-          <Route exact path="/" component={PostButton} />
-
-          <Route exact path="/:category" render={({match, history}) => {
-            if (!this.props.categories ||
-          this.props.categories.length===0 ||
-          (match.params.category && this.props.categories.find(cat => cat.path === match.params.category))){
-          return <PostButton />
-          } else {
-          return <span/>
-          }
-          }}/>
-
-        </footer> */}
       </div>
     );
   }

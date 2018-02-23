@@ -104,3 +104,7 @@ button:not(.showShadow) {
 div[role=dialog]>div:first-child{
   background-color:#b0b0b0ad ;
 }
+
+.footer__button{
+   position: sticky!important; top: -1px 
+}

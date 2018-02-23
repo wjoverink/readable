@@ -128,11 +128,11 @@ class EditPost extends Component {
             value={body}
           />
         </article>
-        <footer className='footer footer--alignRight'>
-          <Button disabled={!hasChanges} onClick={this.handleSave} color="primary" className="showShadow" variant="fab" aria-label="Save post">
+        <section className='footer footer--alignRight'>
+          <Button disabled={!hasChanges} onClick={this.handleSave} color="primary" className="footer__button showShadow" variant="fab" aria-label="Save post">
             <AddIcon/>
           </Button>
-        </footer>
+        </section>
       </main>);
   }
 }

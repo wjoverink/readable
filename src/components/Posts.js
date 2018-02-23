@@ -1,8 +1,6 @@
 import React, {Component} from 'react'
-import Typography from 'material-ui/Typography'
-import IconButton from 'material-ui/IconButton'
+import {Typography, IconButton, Divider} from 'material-ui'
 import ExpandMoreIcon from 'material-ui-icons/ExpandMore'
-import Divider from 'material-ui/Divider'
 import GridList, {GridListTile} from 'material-ui/GridList'
 import { PostCard } from './controls/ResponseControl'
 import './Posts.css';
@@ -17,6 +15,7 @@ import Menu, {MenuItem} from 'material-ui/Menu'
 import Page404 from './Page404.js';
 import typewriter from '../images/typewriter.svg';
 import {Link} from 'react-router-dom'
+import PostButton from './PostButton'
 
 class Posts extends Component {
   static propTypes = {
@@ -133,7 +132,9 @@ class Posts extends Component {
           ))}
         </GridList>
       </section>
-
+      {!isEmpty &&(
+        <PostButton />
+      )}
     </main>);
   }
 }

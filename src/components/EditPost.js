@@ -112,7 +112,7 @@ class EditPost extends Component {
                    />}
             avatar={<Avatar aria-label="Author" ><FaceIcon/></Avatar>}>
           </CardHeader>
-          <TextField className="response__author" value={this.state.title}  onChange={this.handleChange('title')} required label="Title"/>
+          <TextField className="response__author" fullWidth value={this.state.title}  onChange={this.handleChange('title')} required label="Title"/>
         </header>
 
         <article>

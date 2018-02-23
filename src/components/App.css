@@ -105,9 +105,9 @@ div[role=dialog]>div:first-child{
   background-color:#eceaeabf ;
 }
 
-.footer__button{
+/* .footer__button{
    position: sticky!important; top: -1px
-}
+} */
 
 #simple-menu>div:first-child, #simple-menu{
   width:initial!important;

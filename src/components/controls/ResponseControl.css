@@ -19,7 +19,9 @@
 .writeResponse__actions{
   padding: 2px 14px 14px!important;
 }
-
+.PostCard{
+  height: 100%;
+}
 .actions__cancel{
   text-decoration: underline!important;
 }

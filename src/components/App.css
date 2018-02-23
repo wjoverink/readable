@@ -78,6 +78,10 @@
   text-decoration: none;
 }
 
+.postsMain__link{
+    color: #0093c4;
+}
+
 .appName {
   font-size: 1.5em !important;
 }

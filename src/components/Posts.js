@@ -78,12 +78,13 @@ class Posts extends Component {
       <header className="relativ">
         {isCategory && !isEmpty && (
           <Typography variant="display1" className="text--firstUppercase" gutterBottom align="left">
-            {categoryAndRelated.category}
+            {categoryAndRelated.category.name}
           </Typography>)
         }
         {isCategory && !isEmpty && (
           <Typography align="left">
-            <span> Related topics: </span><span className="text--firstUppercase">{categoryAndRelated.related}</span>
+
+            <span> Related topics: </span>  <Link className='link postsMain__link text--firstUppercase' to={categoryAndRelated.related.path}>{categoryAndRelated.related.name}</Link>
           </Typography>)
         }
         <IconButton className="header__action" onClick={this.openSortMenu} aria-owns={anchorEl

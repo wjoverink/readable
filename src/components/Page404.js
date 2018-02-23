@@ -28,7 +28,7 @@ class Page404 extends Component {
       image = page404,
       className = ""
     } = this.props
-console.log(page404Classnames)
+
     return (<main className={`page404 ${className} ${!this.props.header ? page404Classnames : ""}`} style={{
         background: `transparent url(${image}) no-repeat bottom right`,
         backgroundSize: '26%'

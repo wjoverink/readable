@@ -7,7 +7,7 @@ import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
 import Search from 'material-ui-icons/Search';
 import AddIcon from 'material-ui-icons/Add';
-import { LinearProgress } from 'material-ui/Progress';
+import LoadingBar from 'react-redux-loading-bar'
 import {Route, Link, Switch, NavLink} from 'react-router-dom'
 import PostButton from './PostButton'
 import logo from '../images/logo.svg';
@@ -45,13 +45,12 @@ class App extends Component {
 
   render() {
     const {categories} = this.props
+
     return (
       <div className="app">
-        <div className="loading-area">
-          {this.state.loading && (
-            <LinearProgress className="loading-area__progress-bar--transparent"  />
-          )}
 
+        <div className="loading-area">
+          <LoadingBar showFastActions  style={{ top:"0px", left:"0px", backgroundColor: '#0093c4' }} />
         </div>
         <AppBar className="appBar appBar--transparent appBar--defWidth" position="static" color="default">
           <Toolbar className="toolbar" disableGutters={true}>

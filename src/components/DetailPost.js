@@ -21,12 +21,9 @@ class Posts extends Component {
   static propTypes = {
     post: PropTypes.object,
     getPost: PropTypes.func.isRequired,
-    comments: PropTypes.array
+    comments: PropTypes.array,
+    isLoading: PropTypes.bool.isRequired
   };
-
-  state ={
-    isLoading:true
-  }
 
   handleNewComment = (author, body)=>{
     this.props.addNewComment({
@@ -73,15 +70,11 @@ class Posts extends Component {
     this.props.fetchComments(postId);
   }
 
-  componentWillReceiveProps(props){
-    this.setState({isLoading:false})
-  }
-
   render() {
-    const showNoteFound = !this.props.post && !this.state.isLoading
+    const showNotFound = !this.props.post && !this.props.isLoading
 
     const post= this.props.post ||
-      (showNoteFound ? {...initialPost, title:"Ooooops something went wrong", body:"Article can't be found"} : initialPost)
+      (showNotFound ? {...initialPost, title:"Ooooops something went wrong", body:"Article can't be found"} : initialPost)
 
     const firstLetter = post.author ? post.author.substring(0,1).toUpperCase() : ""
     const dateTime = post.timestamp ? new Date(post.timestamp).toLocaleString() : ""
@@ -91,7 +84,7 @@ class Posts extends Component {
 
 
         <header>
-          {!showNoteFound && (
+          {!showNotFound && (
             <CardHeader
               className="cardHeader response__header"
               title={post.author}
@@ -111,7 +104,7 @@ class Posts extends Component {
           </Typography>
         </article>
 
-        {!showNoteFound && (
+        {!showNotFound && (
           <section className="postInfo">
             <Divider />
             <VoteActions onVoteChange={this.handleVoteChangeClick} onDeleteClick={this.handleDeleteClick} onEditClick={this.handleEditClick} className="postInfo__actions" votes={post.voteScore} />
@@ -120,13 +113,13 @@ class Posts extends Component {
           </section>
         )}
 
-        {!showNoteFound && (
+        {!showNotFound && (
           <section className="writeResponse">
             <Response className="writeResponse__control" onChange={this.handleNewComment} hasEditMode={true} isSimpleEditControl={true} title={this.props.comments.length>0 ? "Write a response..." : "Be the first to write a response"}></Response>
           </section>
         )}
 
-        {!showNoteFound && (
+        {!showNotFound && (
           <section className="responses">
             <Typography variant="subheading">
               {this.props.comments.length>0 ? `Conversation about "${post.title}":` : ""}
@@ -152,11 +145,12 @@ class Posts extends Component {
   }
 }
 
-function mapStateToProps({posts, comments}, { match }) {
+function mapStateToProps({posts, comments, loadingBar}, { match }) {
   const commentsArray =  comments ? comments[match.params.postId] || [] : []
   return {
     post: posts.find(post=> post.id === match.params.postId),
-    comments : commentsArray.sort(sortBy('-timestamp'))
+    comments : commentsArray.sort(sortBy('-timestamp')),
+    isLoading: loadingBar.default > 0
   };
 }
 

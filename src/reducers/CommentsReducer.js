@@ -8,7 +8,6 @@ export default function(state = [], action) {
         [action.value.postId]: action.value.payload
       };
       case DELETE_COMMENT:
-      console.log("DELETE_COMMENT")
         return{
           ...state,
           [action.value.parentId]:state[action.value.parentId].filter(comment => comment.id !== action.value.id),
@@ -29,11 +28,6 @@ export default function(state = [], action) {
          comment =>
            action.value.id === comment.id ? action.value : comment
        )
-         // [action.value.parentId]: {
-         //   ...state[action.value.parentId],
-         //   [action.payload.id] : action.payload
-         // }
-
        };
     default:
       return state;

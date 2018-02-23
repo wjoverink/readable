@@ -23,21 +23,12 @@ class Posts extends Component {
     categories: PropTypes.array,
     posts: PropTypes.array,
     sort: PropTypes.string,
+    isLoading: PropTypes.bool.isRequired
   };
 
   state = {
     anchorEl: null,
     loading:true,
-  }
-
-  state = {
-    loading:true,
-  }
-
-  componentWillReceiveProps(props){
-      this.setState({
-        loading: false
-      })
   }
 
   openSortMenu = event => {
@@ -75,13 +66,13 @@ class Posts extends Component {
 
   render() {
     const isCategory = this.props.match.params.category
-    const {categories, posts} = this.props
-    const {anchorEl, loading} = this.state;
+    const {categories, posts, isLoading} = this.props
+    const {anchorEl} = this.state;
     const categoryAndRelated = findCategoryAndRelated(categories, this.props.match.params.category)
 
     const postList = !isCategory ? posts : posts.filter(post => post.category === this.props.match.params.category);
 
-    const isEmpty = postList.length===0 && !loading ;
+    const isEmpty = postList.length===0 && !isLoading;
 
     return (<main className="postsMain main-content main-content--defWidth">
       <header className="relativ">
@@ -146,11 +137,12 @@ class Posts extends Component {
   }
 }
 
-function mapStateToProps({categories, posts, sort}, { match }) {
+function mapStateToProps({categories, posts, sort, loadingBar}, { match }) {
   return {
     categories,
     sort,
-    posts:posts.filter(post => !post.deleted).sort(sortBy(sort))
+    posts:posts.filter(post => !post.deleted).sort(sortBy(sort)),
+    isLoading: loadingBar.default > 0
   };
 }
 

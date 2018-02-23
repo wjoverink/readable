@@ -10,6 +10,8 @@ import { BrowserRouter } from 'react-router-dom';
 import reducer from './reducers';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
+import { loadingBarMiddleware } from 'react-redux-loading-bar'
+import { createLogger } from 'redux-logger'
 
 const theme = createMuiTheme({
   palette: {
@@ -31,7 +33,7 @@ const theme = createMuiTheme({
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
-const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
+const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk, loadingBarMiddleware())));
 
 function AppTheme() {
   return (

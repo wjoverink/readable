@@ -14,6 +14,8 @@ import {sortAction} from '../actions/SortActions'
 import sortBy from 'sort-by'
 import { VOTE_ORDER, TIMESTAMP_ORDER } from '../utils/config'
 import Menu, {MenuItem} from 'material-ui/Menu'
+import Page404 from './Page404.js';
+import typewriter from '../images/typewriter.svg';
 import {Link} from 'react-router-dom'
 
 class Posts extends Component {
@@ -73,23 +75,22 @@ class Posts extends Component {
 
   render() {
     const isCategory = this.props.match.params.category
-    const {categories} = this.props
+    const {categories, posts} = this.props
     const {anchorEl, loading} = this.state;
     const categoryAndRelated = findCategoryAndRelated(categories, this.props.match.params.category)
 
-    let postList = this.props.posts;
-    if (isCategory){
-      postList = postList.filter(post => post.category === this.props.match.params.category)
-    }
+    const postList = !isCategory ? posts : posts.filter(post => post.category === this.props.match.params.category);
+
+    const isEmpty = postList.length===0 && !loading ;
 
     return (<main className="postsMain main-content main-content--defWidth">
       <header className="relativ">
-        {isCategory && (
+        {isCategory && !isEmpty && (
           <Typography variant="display1" className="text--firstUppercase" gutterBottom align="left">
             {categoryAndRelated.category}
           </Typography>)
         }
-        {isCategory && (
+        {isCategory && !isEmpty && (
           <Typography align="left">
             <span> Related topics: </span><span className="text--firstUppercase">{categoryAndRelated.related}</span>
           </Typography>)
@@ -111,16 +112,15 @@ class Posts extends Component {
         <Divider className="divider--bigMargin"/>
       </header>
 
-      {postList.length===0 && !loading &&(
-        <section>
-          <Typography variant="display3">
-            There are no articles yet
-          </Typography>
-          <Typography>
-            Be the first one to write a article.
-          </Typography>
-          <Link className='link page404__link' to='/post/new'>Write new article</Link>
-        </section>
+      {isEmpty &&(
+        <Page404
+          style={{margin:"0 -2em"}}
+          header="Nice!"
+          subHeader={`Be the first one to write a ${isCategory || ""} article.`}
+          body="here you go:"
+          image={typewriter}
+          links={[{to:'/post/new', caption:'Write a new article'}]}
+        />
       )}
 
       <section>

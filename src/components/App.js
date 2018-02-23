@@ -10,7 +10,7 @@ import AddIcon from 'material-ui-icons/Add';
 import { LinearProgress } from 'material-ui/Progress';
 import {Route, Link, Switch, NavLink} from 'react-router-dom'
 import PostButton from './PostButton'
-import logo from '../logo.svg';
+import logo from '../images/logo.svg';
 import Posts from './Posts.js';
 import Page404 from './Page404.js';
 import DetailPost from './DetailPost.js';

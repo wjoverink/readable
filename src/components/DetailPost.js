@@ -16,6 +16,7 @@ import {initialPost} from '../reducers/PostsReducer'
 import {prepareVoteForAPI} from '../utils/helper'
 import sortBy from 'sort-by'
 import { v4 } from 'uuid';
+import moment from 'moment'
 
 class Posts extends Component {
   static propTypes = {
@@ -77,7 +78,9 @@ class Posts extends Component {
       (showNotFound ? {...initialPost, title:"Ooooops something went wrong", body:"Article can't be found"} : initialPost)
 
     const firstLetter = post.author ? post.author.substring(0,1).toUpperCase() : ""
-    const dateTime = post.timestamp ? new Date(post.timestamp).toLocaleString() : ""
+
+    const mDate = moment(post.timestamp);
+    const dateTime = mDate.format(`MMM D ${moment().year !== mDate.year ? "YYYY" : ""}, h:mm:ss`)
 
     return (
       <main className="post main-content main-content--defWidth">

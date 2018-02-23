@@ -3,8 +3,7 @@ import {CardActions} from 'material-ui/Card'
 import {ListItemIcon, ListItemText} from 'material-ui/List';
 import Dialog, {DialogActions, DialogContent, DialogContentText, withMobileDialog, DialogTitle} from 'material-ui/Dialog';
 import PropTypes from 'prop-types'
-import ThumbDown from 'material-ui-icons/ThumbDown'
-import ThumbUp from 'material-ui-icons/ThumbUp'
+import {ThumbDown, ThumbUp} from 'material-ui-icons'
 import DeleteIcon from 'material-ui-icons/Delete'
 import Create from 'material-ui-icons/Create'
 import IconButton from 'material-ui/IconButton'

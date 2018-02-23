@@ -9,6 +9,7 @@ import Typography from 'material-ui/Typography';
 import VoteActions from './VoteActionsControl'
 import './ResponseControl.css';
 import Collapse from 'material-ui/transitions/Collapse';
+import moment from 'moment'
 
 class Response extends Component {
   static propTypes = {
@@ -174,7 +175,8 @@ class ResponseCard extends Response {
       ...props
     } = this.props
     const firstLetter = author.substring(0, 1).toUpperCase()
-    const formatedDate = date.toLocaleString() //TODO: "September 14 2016"
+    const mDate = moment(date);
+    const formatedDate = mDate.format(`MMM D ${moment().year !== mDate.year ? "YYYY" : ""}, h:mm:ss`)
     return (<Response title={author} className="ResponseCard" subTitle={`${formatedDate}`} icon={firstLetter} {...props}/>);
   }
 }
@@ -199,7 +201,10 @@ class PostCard extends Response {
       name,
       ...props
     } = this.props
-    const formatedDate = date.toLocaleString() //TODO: "September 14 2016"
+
+    const mDate = moment(date);
+    const formatedDate = mDate.format(`MMM D ${moment().year !== mDate.year ? "YYYY" : ""}`)
+
     const firstLetter = title.substring(0, 1).toUpperCase()
     return (<Response title={title} className="PostCard" subTitle={`${name} - ${formatedDate} - Comments: ${comments}`} icon={firstLetter} {...props}/>);
   }

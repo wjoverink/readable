@@ -8,13 +8,11 @@ import { MenuItem } from 'material-ui/Menu';
 import Select from 'material-ui/Select';
 import TextField from 'material-ui/TextField';
 import FaceIcon from 'material-ui-icons/Face';
-import {Link} from 'react-router-dom'
 import Button from 'material-ui/Button';
 import AddIcon from 'material-ui-icons/Save';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { getPost, editPost, addPost} from '../actions/PostsActions'
-import {initialPost} from '../reducers/PostsReducer'
 import { v4 } from 'uuid';
 
 class EditPost extends Component {
@@ -109,7 +107,7 @@ class EditPost extends Component {
             className="cardHeader"
             title={<TextField
               className="response__author"
-              value={this.state.author}
+              value={author}
               autoFocus={true}
               onChange={this.handleChange('author')}
               required
@@ -117,7 +115,7 @@ class EditPost extends Component {
                    />}
             avatar={<Avatar aria-label="Author" ><FaceIcon/></Avatar>}>
           </CardHeader>
-          <TextField className="response__author" fullWidth value={this.state.title}  onChange={this.handleChange('title')} required label="Title"/>
+          <TextField className="response__author" fullWidth value={title}  onChange={this.handleChange('title')} required label="Title"/>
         </header>
 
         <article>

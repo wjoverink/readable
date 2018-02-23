@@ -1,15 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
-import Button from 'material-ui/Button';
-import AppBar from 'material-ui/AppBar';
-import Toolbar from 'material-ui/Toolbar';
-import Typography from 'material-ui/Typography';
-import IconButton from 'material-ui/IconButton';
+import {Button, AppBar, Toolbar, Typography, IconButton} from 'material-ui';
 import Search from 'material-ui-icons/Search';
-import AddIcon from 'material-ui-icons/Add';
 import LoadingBar from 'react-redux-loading-bar'
 import {Route, Link, Switch, NavLink} from 'react-router-dom'
-import PostButton from './PostButton'
 import logo from '../images/logo.svg';
 import Posts from './Posts.js';
 import Page404 from './Page404.js';

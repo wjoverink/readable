@@ -46,7 +46,7 @@ export const deletePost = post => dispatch => {
   dispatch(showLoading())
   Api.deletePost(post.id).then(res => {
       if (res.status === 200) {
-        dispatch({type: UPDATE_POST, value: post})
+        dispatch({type: DELETE_POST, value: post})
     }
     dispatch(hideLoading())
   })

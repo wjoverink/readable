@@ -102,9 +102,15 @@ button:not(.showShadow) {
   text-transform: uppercase;
 }
 div[role=dialog]>div:first-child{
-  background-color:#b0b0b0ad ;
+  background-color:#eceaeabf ;
 }
 
 .footer__button{
-   position: sticky!important; top: -1px 
+   position: sticky!important; top: -1px
+}
+
+#simple-menu>div:first-child, #simple-menu{
+  width:initial!important;
+  right:0px!important;
+  margin:0px!important;
 }

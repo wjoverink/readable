@@ -8,7 +8,6 @@ import FaceIcon from 'material-ui-icons/Face';
 import Typography from 'material-ui/Typography';
 import VoteActions from './VoteActionsControl'
 import './ResponseControl.css';
-import Collapse from 'material-ui/transitions/Collapse';
 import moment from 'moment'
 
 class Response extends Component {

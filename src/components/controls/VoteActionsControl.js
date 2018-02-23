@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {CardActions} from 'material-ui/Card'
 import {ListItemIcon, ListItemText} from 'material-ui/List';
-import Dialog, {DialogActions, DialogContent, DialogContentText, withMobileDialog, DialogTitle} from 'material-ui/Dialog';
+import Dialog, {DialogActions, DialogContent, withMobileDialog, DialogTitle} from 'material-ui/Dialog' //DialogContentText
 import PropTypes from 'prop-types'
 import {ThumbDown, ThumbUp} from 'material-ui-icons'
 import DeleteIcon from 'material-ui-icons/Delete'

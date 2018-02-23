@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {CardActions} from 'material-ui/Card'
 import {ListItemIcon, ListItemText} from 'material-ui/List';
-import Dialog, {DialogActions, DialogContent, DialogContentText, withMobileDialog} from 'material-ui/Dialog';
+import Dialog, {DialogActions, DialogContent, DialogContentText, withMobileDialog, DialogTitle} from 'material-ui/Dialog';
 import PropTypes from 'prop-types'
 import ThumbDown from 'material-ui-icons/ThumbDown'
 import ThumbUp from 'material-ui-icons/ThumbUp'
@@ -127,16 +127,17 @@ class VoteActions extends Component {
       </Menu>
       <Dialog className="deleteDialog" open={this.state.open} onClose={this.handleDialogClose} aria-labelledby="delete-dialog-text">
         <DialogContent>
-          <DialogContentText id="delete-dialog-text">
+          <DialogTitle id="alert-dialog-title">{discardText}</DialogTitle>
+          {/* <DialogContentText id="delete-dialog-text">
             {discardText}
-          </DialogContentText>
+          </DialogContentText> */}
         </DialogContent>
-        <DialogActions>
+        <DialogActions className="deleteDialog__actions">
           <Button onClick={this.handleDialogClose} variant="raised" color="primary" autoFocus="autoFocus">
             Cancel
           </Button>
-          <Button onClick={this.handleDelete} color="secondary">
-            Delete
+          <Button onClick={this.handleDelete} className="actions__cancel" color="secondary">
+            Discard
           </Button>
         </DialogActions>
       </Dialog>

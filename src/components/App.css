@@ -101,3 +101,6 @@ button:not(.showShadow) {
 .text--firstUppercase:first-letter {
   text-transform: uppercase;
 }
+div[role=dialog]>div:first-child{
+  background-color:#b0b0b0ad ;
+}

@@ -16,10 +16,6 @@ body {
   }
 }
 
-h2 {
-  font-size: 2em !important;
-}
-
 p, input, textarea{
   font-size: 1.2em !important;
 }

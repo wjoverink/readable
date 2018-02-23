@@ -1,7 +1,7 @@
 {
   "name": "readable",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "dependencies": {
     "material-ui": "^1.0.0-beta.34",
     "material-ui-icons": "^1.0.0-beta.10",

@@ -114,7 +114,6 @@ class Posts extends Component {
 
       {isEmpty &&(
         <Page404
-          style={{margin:"0 -2em"}}
           header="Nice!"
           subHeader={`Be the first one to write a ${isCategory || ""} article.`}
           body="here you go:"

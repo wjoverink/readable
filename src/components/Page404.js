@@ -6,14 +6,15 @@ import PropTypes from 'prop-types'
 import page404 from '../images/Page404.svg';
 import './Page404.css';
 
+export const page404Classnames = "main-content main-content--defWidth"
+
 class Page404 extends Component {
-  static page404Classnames = "main-content main-content--defWidth"
   static propTypes = {
     header: PropTypes.string,
     subHeader: PropTypes.string,
     body: PropTypes.string,
     links: PropTypes.array,
-    image: PropTypes.object
+    image: PropTypes.string
   };
 
   render() {
@@ -25,15 +26,16 @@ class Page404 extends Component {
       body = "Here are some helpfull links instead:",
       links = [{to:'/', caption:'Back to Homepage'}, {to:'/post/new', caption:'Write new article'}],
       image = page404,
+      className = ""
     } = this.props
-
-    return (<main className={`page404 ${!this.props ? this.page404Classnames : ""}`} style={{
+console.log(page404Classnames)
+    return (<main className={`page404 ${className} ${!this.props.header ? page404Classnames : ""}`} style={{
         background: `transparent url(${image}) no-repeat bottom right`,
         backgroundSize: '26%'
     }}>
 
       <header>
-        <Typography variant="display4" gutterBottom="gutterBottom" align="left">
+        <Typography variant="display4" gutterBottom={true} align="left">
           {header}
         </Typography>
       </header>
@@ -47,7 +49,7 @@ class Page404 extends Component {
           {body}
         </Typography>
         {links.map(link=> (
-          <Link className='link page404__link' to={link.to}>{link.caption}</Link>
+          <Link className='link page404__link' key={link.to} to={link.to}>{link.caption}</Link>
         ))}
       </article>
     </main>)

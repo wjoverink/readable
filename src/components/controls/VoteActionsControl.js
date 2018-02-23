@@ -62,14 +62,14 @@ class VoteActions extends Component {
   handleEdit = (e) => {
     this.handleMenuClose();
     if (this.props.onEditClick) {
-      this.props.onEditClick(e.target.value)
+      this.props.onEditClick(this.mainControl)
     }
   };
 
   handleDelete = (e) => {
     this.handleDialogClose();
     if (this.props.onDeleteClick) {
-      this.props.onDeleteClick(e.target.value)
+      this.props.onDeleteClick(e.target)
     }
   };
 

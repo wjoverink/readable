@@ -95,8 +95,7 @@ class Response extends Component {
     return (
       <Card {...props}>
 
-        <form onSubmit={this.handleSubmit} className={isSimpleEditControl ? "simpleForm" : "form" } autoComplete="off">
-
+        <form  onSubmit={this.handleSubmit} className={isSimpleEditControl ? "simpleForm" : "form" } autoComplete="off">
           {!this.state.editMode && (
             <CardHeader onClick={this.onSimpleEditClick} className="response__header" title={title} subheader={subTitle} avatar={
               <Avatar aria-label={isSimpleEditControl? "Face Icon" : "First letter of title"} > {
@@ -141,7 +140,7 @@ class Response extends Component {
 
           {this.state.editMode && (
             <CardActions className="writeResponse__actions">
-              <Button type="submit" variant="raised" color="primary" >
+              <Button type="submit" className="form__saveButton" variant="raised" color="primary" >
                 Save
               </Button>
               <Button onClick={this.stopEditMode} color="secondary">

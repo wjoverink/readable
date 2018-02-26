@@ -12,6 +12,7 @@ class Sortmenu extends Component {
     caption: PropTypes.string,
     sortItems: PropTypes.array,
     selected: PropTypes.string,
+    asc: PropTypes.bool,
     onSortChanged: PropTypes.func
   }
 
@@ -19,41 +20,35 @@ class Sortmenu extends Component {
     anchorEl: null,
   }
 
-  openSortMenus = event => {
+  openSortMenu = event => {
     this.setState({anchorEl: event.currentTarget})
-    console.log("openSortMenu",this.state.anchorEl)
   }
 
   handleSortMenuClose = () => {
-    this.setState({anchorEl: null})
-    console.log("handleSortMenuClose",this.state.anchorEl)
-  }
+    this.setState({anchorEl: null})  }
 
-  handleSortClick = (s) => {
-    console.log("handleSortClick")
+  handleSortClick = (s, wasSelected) => {
     this.handleSortMenuClose()
     if (this.props.onSortChanged) {
-      this.props.onSortChanged(s)
+
+      this.props.onSortChanged(s.value, wasSelected ? !this.props.asc : this.props.asc)
     }
   }
 
-  getarrow = (item) =>{
-    if (item.direction === 0){
+  getarrow = (isSelected) =>{
+    if (isSelected && !this.props.asc){
       return <ArrowUpward />
-    } else if (item.direction === 1){
-      return <ArrowDownward />
     }
-
+    return <ArrowDownward />
   }
 
   render() {
     const {caption="Sort", sortItems,selected} = this.props
     const {anchorEl} = this.state;
-  console.log("Boolean(anchorEl)",Boolean(anchorEl))
 
     return (
       <div>
-        <IconButton className="header__action" onClick={this.openSortMenus} aria-owns={anchorEl
+        <IconButton className="header__action" onClick={this.openSortMenu} aria-owns={anchorEl
           ? 'simple-menu'
           : null} aria-haspopup="true" aria-label="Show Sorting">
           {caption}
@@ -62,9 +57,11 @@ class Sortmenu extends Component {
         </IconButton>
         <Menu id="sort-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={this.handleSortMenuClose}>
           {sortItems.map(item => (
-            <MenuItem key={item.value} selected={item.value === selected} onClick={() => this.handleSortClick(item.value)}>
-
-              <ListItemText primary={item.name} />
+            <MenuItem key={item.value} selected={item.value === selected} onClick={(e) => this.handleSortClick(item, item.value === selected)}>
+              <ListItemIcon>
+                {this.getarrow(item.value === selected)}
+              </ListItemIcon>
+              <ListItemText inset primary={item.name} />
             </MenuItem>
           ))}
         </Menu>

@@ -20,7 +20,7 @@ class Posts extends Component {
   static propTypes = {
     categories: PropTypes.array,
     posts: PropTypes.array,
-    sort: PropTypes.string,
+    sort: PropTypes.object,
     isLoading: PropTypes.bool.isRequired
   };
 
@@ -28,8 +28,8 @@ class Posts extends Component {
     loading:true,
   }
 
-  handleSortChanged= (sort) => {
-       this.props.sortAction(sort)
+  handleSortChanged= (sort, asc) => {
+       this.props.sortAction(sort,asc)
   }
 
   handleEditClick = (id) => {
@@ -79,7 +79,9 @@ class Posts extends Component {
           caption="Sort"
           sortItems={[{value:TIMESTAMP_ORDER, name:'Date'}, {value:VOTE_ORDER, name:'Votes'}]}
           onSortChanged={this.handleSortChanged}
-          selected={this.props.sort}/>
+          selected={this.props.sort.name}
+          asc={this.props.sort.asc}
+        />
         <Divider className="divider--bigMargin"/>
       </header>
 
@@ -123,7 +125,7 @@ function mapStateToProps({categories, posts, sort, loadingBar}, { match }) {
   return {
     categories,
     sort,
-    posts:posts.filter(post => !post.deleted).sort(sortBy(sort)),
+    posts:posts.filter(post => !post.deleted).sort(sortBy(`${sort.asc?'-':''}${sort.name}`)),
     isLoading: loadingBar.default > 0
   };
 }

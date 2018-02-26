@@ -30,8 +30,6 @@ class EditPost extends Component {
     hasChanges:false
   }
 
-
-
   componentWillReceiveProps(props){
     if (props.post){
       this.setState({

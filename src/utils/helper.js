@@ -5,7 +5,7 @@ import indigo from 'material-ui/colors/indigo';
 import blue from 'material-ui/colors/blue';
 import cyan from 'material-ui/colors/cyan';
 import lightgreen from 'material-ui/colors/lightGreen';
-import yellow from 'material-ui/colors/yellow';
+import yellow from 'material-ui/colors/lime';
 import orange from 'material-ui/colors/amber';
 
 export const findCategoryAndRelated = (categories, categoryPath) => {

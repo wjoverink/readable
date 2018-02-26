@@ -6,7 +6,7 @@ import { PostCard } from './controls/ResponseControl'
 import './Posts.css';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
-import {findCategoryAndRelated, reduceTitleLength, reduceBodyLength, reduceAuthorLength, prepareVoteForAPI, getColorForName} from '../utils/helper'
+import {findCategoryAndRelated, reduceBodyLength, reduceAuthorLength, prepareVoteForAPI} from '../utils/helper'
 import {fetchPosts, deletePost, votePost} from '../actions/PostsActions'
 import {sortAction} from '../actions/SortActions'
 import sortBy from 'sort-by'
@@ -122,7 +122,7 @@ class Posts extends Component {
                 onEditClick={() => this.handleEditClick(post.id)}
                 onDeleteClick={() => this.handleDeleteClick(post)}
                 onVoteChange={(votes) => this.handleVoteChangeClick(votes,post)}
-                title={reduceTitleLength(post.title)}
+                title={post.title}
                 date={new Date(post.timestamp)}
                 comments={post.commentCount}
                 votes={post.voteScore}

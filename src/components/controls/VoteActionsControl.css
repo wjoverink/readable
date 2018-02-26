@@ -9,3 +9,7 @@
   box-shadow: initial !important;
   min-width: 300px;
 }
+
+.dialog__actions{
+      margin: 0px 1em 1em!important;
+}

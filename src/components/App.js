@@ -44,7 +44,7 @@ class App extends Component {
       <div className="app">
 
         <div className="loading-area">
-          <LoadingBar showFastActions  style={{ top:"0px", left:"0px", backgroundColor: '#0093c4' }} />
+          <LoadingBar showFastActions  style={{ top:"0px", left:"0px", backgroundColor: '#ff5722' }} />
         </div>
         <AppBar className="appBar appBar--transparent appBar--defWidth" position="static" color="default">
           <Toolbar className="toolbar" disableGutters={true}>

@@ -107,7 +107,7 @@ class Posts extends Component {
         <Page404
           header="Nice!"
           subHeader={`Be the first one to write a ${isCategory || ""} article.`}
-          body="here you go:"
+          body="Here you go:"
           image={typewriter}
           links={[{to:`/post/new/${categoryAndRelated.category.path}`, caption:'Write a new article'}]}
         />

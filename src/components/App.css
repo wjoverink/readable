@@ -69,7 +69,8 @@
 }
 
 .footer {
-  margin: 2em auto;
+  margin: 2em auto 0;
+  padding:0px;
 }
 
 .link{
@@ -106,7 +107,9 @@ div[role=dialog]>div:first-child{
 }
 
 /* .footer__button{
-   position: sticky!important; top: -1px
+   position: fixed!important;
+   bottom: 1em;
+   margin-right: -1em
 } */
 
 #simple-menu>div:first-child, #simple-menu{

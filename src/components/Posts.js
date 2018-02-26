@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
-import {Typography, IconButton, Divider} from 'material-ui'
-import ExpandMoreIcon from 'material-ui-icons/ExpandMore'
+import {Typography, Divider} from 'material-ui'
 import GridList, {GridListTile} from 'material-ui/GridList'
 import { PostCard } from './controls/ResponseControl'
 import './Posts.css';
@@ -11,11 +10,11 @@ import {fetchPosts, deletePost, votePost} from '../actions/PostsActions'
 import {sortAction} from '../actions/SortActions'
 import sortBy from 'sort-by'
 import { VOTE_ORDER, TIMESTAMP_ORDER } from '../utils/config'
-import Menu, {MenuItem} from 'material-ui/Menu'
 import Page404 from './Page404.js';
 import typewriter from '../images/typewriter.svg';
 import {Link} from 'react-router-dom'
-import PostButton from './PostButton'
+import PostButton from './controls/PostButton'
+import Sortmenu from './controls/SortMenu'
 
 class Posts extends Component {
   static propTypes = {
@@ -26,21 +25,11 @@ class Posts extends Component {
   };
 
   state = {
-    anchorEl: null,
     loading:true,
   }
 
-  openSortMenu = event => {
-    this.setState({anchorEl: event.currentTarget})
-  }
-
-  handleSortMenuClose = () => {
-    this.setState({anchorEl: null})
-  }
-
-  handleSortClick = (s,event) => {
-    this.handleSortMenuClose()
-    this.props.sortAction(s)
+  handleSortChanged= (sort) => {
+       this.props.sortAction(sort)
   }
 
   handleEditClick = (id) => {
@@ -66,7 +55,7 @@ class Posts extends Component {
   render() {
     const isCategory = this.props.match.params.category
     const {categories, posts, isLoading} = this.props
-    const {anchorEl} = this.state;
+
     const categoryAndRelated = findCategoryAndRelated(categories, this.props.match.params.category)
 
     const postList = !isCategory ? posts : posts.filter(post => post.category === this.props.match.params.category);
@@ -86,26 +75,17 @@ class Posts extends Component {
             <span> Related topics: </span>  <Link className='link postsMain__link text--firstUppercase' to={categoryAndRelated.related.path}>{categoryAndRelated.related.name}</Link>
           </Typography>)
         }
-        <IconButton className="header__action" onClick={this.openSortMenu} aria-owns={anchorEl
-          ? 'simple-menu'
-          : null} aria-haspopup="true" aria-label="Show Sorting">
-          Sort
-          <ExpandMoreIcon/>
-        </IconButton>
-        <Menu id="sort-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={this.handleSortMenuClose}>
-          <MenuItem selected={this.props.sort === TIMESTAMP_ORDER} onClick={() => this.handleSortClick(TIMESTAMP_ORDER)}>
-            Date
-          </MenuItem>
-          <MenuItem selected={this.props.sort === VOTE_ORDER} onClick={() => this.handleSortClick(VOTE_ORDER)}>
-            Votes
-          </MenuItem>
-        </Menu>
+        <Sortmenu
+          caption="Sort"
+          sortItems={[{value:TIMESTAMP_ORDER, name:'Date'}, {value:VOTE_ORDER, name:'Votes'}]}
+          onSortChanged={this.handleSortChanged}
+          selected={this.props.sort}/>
         <Divider className="divider--bigMargin"/>
       </header>
 
       {isEmpty &&(
         <Page404
-          header="Nice!"
+          header="First!"
           subHeader={`Be the first one to write a ${isCategory || ""} article.`}
           body="Here you go:"
           image={typewriter}

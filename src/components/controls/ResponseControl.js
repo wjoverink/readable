@@ -24,7 +24,8 @@ class Response extends Component {
     onChange: PropTypes.func,
     editMode:PropTypes.bool,
     hasEditMode:PropTypes.bool,
-    isSimpleEditControl:PropTypes.bool
+    isSimpleEditControl:PropTypes.bool,
+    avatarColor: PropTypes.string,
   }
 
   state = {
@@ -87,6 +88,7 @@ class Response extends Component {
       onEditClick,
       onDeleteClick,
       onHeaderClick,
+      avatarColor = '#bdbdbd',
       onChange,
       ...props
     } = this.props
@@ -98,7 +100,7 @@ class Response extends Component {
         <form  onSubmit={this.handleSubmit} className={isSimpleEditControl ? "simpleForm" : "form" } autoComplete="off">
           {!this.state.editMode && (
             <CardHeader onClick={this.onSimpleEditClick} className="response__header" title={title} subheader={subTitle} avatar={
-              <Avatar aria-label={isSimpleEditControl? "Face Icon" : "First letter of title"} > {
+              <Avatar style={{backgroundColor:avatarColor}} aria-label={isSimpleEditControl? "Face Icon" : "First letter of title"} > {
                 isSimpleEditControl ? <FaceIcon/> : firstLetter
               }
               </Avatar>}>
@@ -164,7 +166,9 @@ class ResponseCard extends Response {
     votes: PropTypes.number,
     onVoteChange: PropTypes.func,
     onEditClick: PropTypes.func,
-    onDeleteClick: PropTypes.func
+    onDeleteClick: PropTypes.func,
+    backgroundColor: PropTypes.string,
+    avatarColor: PropTypes.string,
   }
 
   render() {
@@ -190,7 +194,8 @@ class PostCard extends Response {
     votes: PropTypes.number,
     onVoteChange: PropTypes.func,
     onEditClick: PropTypes.func,
-    onDeleteClick: PropTypes.func
+    onDeleteClick: PropTypes.func,
+    avatarColor: PropTypes.string,
   }
   render() {
     const {

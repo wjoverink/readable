@@ -13,7 +13,7 @@ import { getPost, deletePost, votePost} from '../actions/PostsActions'
 import { fetchComments, voteComments, addNewComment, changeComment, removeComment} from '../actions/CommentsActions'
 import PropTypes from 'prop-types'
 import {initialPost} from '../reducers/PostsReducer'
-import {prepareVoteForAPI} from '../utils/helper'
+import {prepareVoteForAPI, getColorForName} from '../utils/helper'
 import sortBy from 'sort-by'
 import { v4 } from 'uuid';
 import moment from 'moment'
@@ -92,7 +92,7 @@ class Posts extends Component {
               className="cardHeader response__header"
               title={post.author}
               subheader={`${dateTime}`}
-              avatar={<Avatar aria-label="Author" >{firstLetter}</Avatar>}>
+              avatar={<Avatar  style={{backgroundColor:getColorForName(post.author)}} aria-label="Author" >{firstLetter}</Avatar>}>
             </CardHeader>
           )}
 
@@ -134,6 +134,7 @@ class Posts extends Component {
                     onChange={(author, body)=>this.handleEditComment(comment,author, body)}
                     hasEditMode={true}
                     author={comment.author}
+                    avatarColor={getColorForName(comment.author)}
                     votes={comment.voteScore}
                     date={new Date(comment.timestamp)}
                     onDeleteClick={()=>this.handleDeleteComment(comment)}

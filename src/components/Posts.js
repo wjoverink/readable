@@ -6,7 +6,7 @@ import { PostCard } from './controls/ResponseControl'
 import './Posts.css';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
-import {findCategoryAndRelated, reduceTitleLength, reduceBodyLength, reduceAuthorLength, prepareVoteForAPI} from '../utils/helper'
+import {findCategoryAndRelated, reduceTitleLength, reduceBodyLength, reduceAuthorLength, prepareVoteForAPI, getColorForName} from '../utils/helper'
 import {fetchPosts, deletePost, votePost} from '../actions/PostsActions'
 import {sortAction} from '../actions/SortActions'
 import sortBy from 'sort-by'

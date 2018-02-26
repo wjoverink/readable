@@ -100,7 +100,7 @@ class EditPost extends Component {
 
             </Select>
           </div>
-          <Divider classname="article-edit__divider"/>
+          <Divider className="article-edit__divider"/>
           <CardHeader
             className="cardHeader"
             title={<TextField

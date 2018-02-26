@@ -7,6 +7,10 @@ import './Page404.css';
 
 export const page404Classnames = "main-content main-content--defWidth"
 
+/**
+* @description Represents the page 404
+* @constructor
+*/
 class Page404 extends Component {
   static propTypes = {
     header: PropTypes.string,
@@ -17,8 +21,6 @@ class Page404 extends Component {
   };
 
   render() {
-
-
     const {
       header = "Oops!",
       subHeader = "We can't seem to find the  page you're looking for.",

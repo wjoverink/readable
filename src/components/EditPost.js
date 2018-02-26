@@ -15,6 +15,10 @@ import { connect } from 'react-redux'
 import { getPost, editPost, addPost} from '../actions/PostsActions'
 import { v4 } from 'uuid';
 
+/**
+* @description Represents the edit article page
+* @constructor
+*/
 class EditPost extends Component {
 
   static propTypes = {
@@ -30,6 +34,11 @@ class EditPost extends Component {
     hasChanges:false
   }
 
+  /**
+  * @description react lifecycle
+  * sets the state of this page from the article to edit
+  * @param {object} props - the props
+  */
   componentWillReceiveProps(props){
     if (props.post){
       this.setState({
@@ -42,6 +51,10 @@ class EditPost extends Component {
     }
   }
 
+  /**
+  * @description react lifecycle
+  * gets the article to edit
+  */
   componentDidMount() {
     const { postId } = this.props.match.params;
     if (postId){
@@ -49,6 +62,10 @@ class EditPost extends Component {
     }
   }
 
+  /**
+  * @description event handles the save button click
+  * updates or adds (new) a article in the redux-sate
+  */
   handleSave = () => {
     const { postId } = this.props.match.params;
     const post = {
@@ -67,6 +84,11 @@ class EditPost extends Component {
     this.props.history.push(`/${post.category}/${post.id}`)
   }
 
+  /**
+  * @description event handles changes from the category/title/content controls
+  * @param {string} name - property that changes
+  * @param {object} event - event
+  */
   handleChange = name => event => {
     this.setState({
       [name]: event.target.value,

@@ -8,6 +8,11 @@ import PropTypes from 'prop-types'
 import { ListItemIcon, ListItemText } from 'material-ui/List';
 import './SortMenu.css';
 
+/**
+* @description Represents a SortMenu
+* sortItems array of object {name:sort name, value:sort value}
+* @constructor
+*/
 class Sortmenu extends Component {
   static propTypes = {
     caption: PropTypes.string,
@@ -22,13 +27,26 @@ class Sortmenu extends Component {
     anchorEl: null,
   }
 
+  /**
+  * @description set state to open the menu
+  * @param {object} event - event
+  */
   openSortMenu = event => {
     this.setState({anchorEl: event.currentTarget})
   }
 
+  /**
+  * @description set state to close the menu
+  */
   handleSortMenuClose = () => {
-    this.setState({anchorEl: null})  }
+    this.setState({anchorEl: null})
+  }
 
+  /**
+  * @description event a sortitem is selected
+  * @param {object} sort - the sort object
+  * @param {wasSelected} bool - if this object was selected before
+  */
   handleSortClick = (s, wasSelected) => {
     this.handleSortMenuClose()
     if (this.props.onSortChanged) {
@@ -37,6 +55,11 @@ class Sortmenu extends Component {
     }
   }
 
+  /**
+  * @description return the right arrow based on if it was selected before
+  * @param {isSelected} bool - if this object was selected before
+  * @return control - up or down arrow
+  */
   getarrow = (isSelected) =>{
     if (isSelected && !this.props.asc){
       return <ArrowUpward />

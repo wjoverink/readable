@@ -13,6 +13,10 @@ import Menu, {MenuItem} from 'material-ui/Menu';
 import Button from 'material-ui/Button';
 import './VoteActionsControl.css'
 
+/**
+* @description Represents a control with vote actions and a edit/delete actions
+* @constructor
+*/
 class VoteActions extends Component {
   static propTypes = {
     votes: PropTypes.number,
@@ -28,12 +32,21 @@ class VoteActions extends Component {
     open: false
   }
 
+  /**
+  * @description recat lifecycle
+  * @param {object} props - the props
+  */
   componentWillReceiveProps(props){
     this.setState({
       votes: props.votes
     })
   }
 
+  /**
+  * @description event vote changes
+  * @param {number} vote - added votes
+  * @param {object} e - event
+  */
   onVoteChange = (vote, e) => {
     this.setState(state => ({
       votes: state.votes + vote
@@ -43,21 +56,42 @@ class VoteActions extends Component {
     }
   }
 
+  /**
+  * @description event up vote
+  * @param {object} e - event
+  */
   onVoteUp = (e) => {
     this.onVoteChange(+1, e);
   }
+
+  /**
+  * @description event up down
+  * @param {object} e - event
+  */
   onVoteDown = (e) => {
     this.onVoteChange(-1, e);
   }
 
+  /**
+  * @description opens edit/delete menu
+  * @param {object} event - event
+  */
   openMenu = event => {
     this.setState({anchorEl: event.currentTarget});
   };
 
+  /**
+  * @description closes edit/delete menu
+  * @param {object} event - event
+  */
   handleMenuClose = () => {
     this.setState({anchorEl: null});
   };
 
+  /**
+  * @description event edit menu click
+  * @param {object} e - event
+  */
   handleEdit = (e) => {
     this.handleMenuClose();
     if (this.props.onEditClick) {
@@ -65,6 +99,10 @@ class VoteActions extends Component {
     }
   };
 
+  /**
+  * @description event delete menu click
+  * @param {object} e - event
+  */
   handleDelete = (e) => {
     this.handleDialogClose();
     if (this.props.onDeleteClick) {
@@ -72,11 +110,17 @@ class VoteActions extends Component {
     }
   };
 
+  /**
+  * @description opens delete question dialog
+  */
   handleDialogClickOpen = () => {
     this.handleMenuClose();
     this.setState({open: true});
   };
 
+  /**
+  * @description closes delete question dialog
+  */
   handleDialogClose = () => {
     this.setState({open: false});
   };

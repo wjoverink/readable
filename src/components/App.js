@@ -14,25 +14,20 @@ import PropTypes from 'prop-types'
 import {fetchCategories} from '../actions/CategoriesActions';
 import { withRouter } from 'react-router-dom';
 
+/**
+* @description Represents a the main readable page
+* @constructor
+*/
 class App extends Component {
   static propTypes = {
     fetchCategories: PropTypes.func.isRequired,
     categories: PropTypes.array,
   }
 
-  state = {
-    loading:true,
-  }
-
-  componentWillReceiveProps(props){
-    //TODO: better loading also posts etc
-    if (props.categories.length>0){
-      this.setState({
-        loading: false
-      })
-    }
-  }
-
+  /**
+  * @description react lifecycle
+  * fetch all Categories
+  */
   componentDidMount() {
     this.props.fetchCategories();
   }
@@ -70,7 +65,6 @@ class App extends Component {
               ))}
           </Toolbar>
         </nav>
-
 
         <Route exact path="/" component={Posts} />
         {/* <Route exact path="/:category" component={Posts} /> */}

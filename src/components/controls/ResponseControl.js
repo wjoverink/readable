@@ -10,6 +10,15 @@ import VoteActions from './VoteActionsControl'
 import './ResponseControl.css';
 import moment from 'moment'
 
+/**
+* @description Represents a content card
+* card contains of a header with avatar, vote actions and a edit/delete actions
+*
+* if editMode then on edit click the title and message can be inline edited
+*
+* if isSimpleEditControl then its just an inputfield with an avatar
+* @constructor
+*/
 class Response extends Component {
   static propTypes = {
     title: PropTypes.string,
@@ -32,12 +41,22 @@ class Response extends Component {
     editMode: this.props.editMode && this.props.hasEditMode,
   }
 
+  /**
+  * @description event, Vote changes
+  * @param {object} votes
+  * @param {object} e - control
+  */
   onVoteChange = (votes, e) => {
     if (this.props.onVoteChange) {
       this.props.onVoteChange(votes, e)
     }
   }
 
+  /**
+  * @description event, Edit button click
+  * Updates the editMode state so it sets the controls in editmode
+  * @param {object} e - control
+  */
   onEditClick = (e) => {
     if (this.props.hasEditMode){
       this.setState({editMode:true})
@@ -47,6 +66,11 @@ class Response extends Component {
     }
   }
 
+  /**
+  * @description event, Edit button click in simpleEditMode
+  * or click on the header
+  * @param {object} e - control
+  */
   onSimpleEditClick = (e) => {
     if (this.props.isSimpleEditControl){
       this.onEditClick(e);
@@ -56,19 +80,30 @@ class Response extends Component {
     }
   }
 
+  /**
+    * @description Updates the editMode state so it stops the edit mode
+    */
   stopEditMode = () => {
       this.setState({editMode:false})
   }
 
+  /**
+  * @description event, Delete button click
+  * @param {object} e - control
+  */
   onDeleteClick = (e) => {
     if (this.props.onDeleteClick) {
       this.props.onDeleteClick(e)
     }
   }
 
+  /**
+  * @description event on form submit
+  * @param {object} e - control
+  */
   handleSubmit = (e) => {
       e.preventDefault();
-      this.setState({editMode:false})
+      this.stopEditMode();
       if (this.props.onChange) {
         this.props.onChange(this.headerTextField.value, this.bodyTextField.value)
       }
@@ -158,6 +193,10 @@ class Response extends Component {
   }
 }
 
+/**
+* @description Represents a comment card
+* @constructor
+*/
 class ResponseCard extends Response {
   static propTypes = {
     author: PropTypes.string.isRequired,
@@ -184,6 +223,10 @@ class ResponseCard extends Response {
   }
 }
 
+/**
+* @description Represents a Article card
+* @constructor
+*/
 class PostCard extends Response {
   static propTypes = {
     title: PropTypes.string.isRequired,

@@ -18,6 +18,10 @@ import sortBy from 'sort-by'
 import { v4 } from 'uuid'
 import moment from 'moment'
 
+/**
+* @description Represents the detail article page
+* @constructor
+*/
 class Posts extends Component {
   static propTypes = {
     post: PropTypes.object,
@@ -26,6 +30,12 @@ class Posts extends Component {
     isLoading: PropTypes.bool.isRequired,
   };
 
+  /**
+  * @description event new comment
+  * adds new comment to the redux-state
+  * @param {string} author - the author
+  * @param {string} body - the comment
+  */
   handleNewComment = (author, body)=>{
     this.props.addNewComment({
         id: v4(),
@@ -35,6 +45,14 @@ class Posts extends Component {
         body: body
       })
   }
+
+  /**
+  * @description event change comment
+  * changes a comment in the redux-state
+  * @param {object} comment - the old comment
+  * @param {string} author - the author
+  * @param {string} body - the comment
+  */
   handleEditComment = (comment, author, body)=>{
     this.props.changeComment({
         ...comment,
@@ -44,27 +62,54 @@ class Posts extends Component {
       })
   }
 
+  /**
+  * @description event delete comment
+  * deletes a comment from the redux-state
+  * @param {object} comment - the comment
+  */
   handleDeleteComment = (comment)=>{
     this.props.removeComment(comment)
   }
 
+  /**
+  * @description event changes votes for a article
+  * changes votes for a article in the redux-state
+  * @param {object} votes - the vote
+  */
   handleVoteChangeClick = (votes) =>{
     this.props.votePost(this.props.post.id, prepareVoteForAPI(votes.difference))
   }
 
+  /**
+  * @description event changes votes for a comment
+  * changes votes for a comment in the redux-state
+  * @param {string} id - the id of the comment
+  * @param {object} votes - the vote
+  */
   handleCommentVoteChangeClick = (id, votes) =>{
     this.props.voteComments(id, prepareVoteForAPI(votes.difference))
   }
 
+  /**
+  * @description event changed the page to edit a article
+  */
   handleEditClick = () => {
     this.props.history.push('/post/edit/'+this.props.post.id);
   }
 
+  /**
+  * @description event the article
+  * deletes this article from the redux-state
+  */
   handleDeleteClick = () => {
     this.props.deletePost(this.props.post);
     this.props.history.push('/')
   }
 
+  /**
+  * @description react lifecycle
+  * fetch the post and comments for this post
+  */
   componentDidMount() {
     const { postId } = this.props.match.params;
     this.props.getPost(postId);

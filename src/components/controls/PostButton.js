@@ -4,6 +4,10 @@ import {Link} from 'react-router-dom'
 import Button from 'material-ui/Button'
 import PropTypes from 'prop-types'
 
+/**
+* @description Represents a footer with a button that links to a new post
+* @constructor
+*/
 class PostButton extends Component {
   static propTypes = {
     category: PropTypes.string,

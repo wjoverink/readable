@@ -16,6 +16,10 @@ import {Link} from 'react-router-dom'
 import PostButton from './controls/PostButton'
 import Sortmenu from './controls/SortMenu'
 
+/**
+* @description Represents the article overview page
+* @constructor
+*/
 class Posts extends Component {
   static propTypes = {
     categories: PropTypes.array,
@@ -28,26 +32,51 @@ class Posts extends Component {
     loading:true,
   }
 
+  /**
+  * @description event, sorting is changed
+  * Updates the sorting in the redux-state
+  * @param {string} sort - name to sort on
+  * @param {boolean} asc - ascending
+  */
   handleSortChanged= (sort, asc) => {
        this.props.sortAction(sort,asc)
   }
 
+  /**
+  * @description event changed the page to edit a article
+  */
   handleEditClick = (id) => {
       this.props.history.push('/post/edit/'+id);
   }
 
+  /**
+  * @description event changed the page to article detail
+  */
   handleHeaderClick = (id,category) => {
       this.props.history.push(`/${category}/${id}`);
   }
 
+  /**
+  * @description event changes votes for a article
+  * changes votes for a article in the redux-state
+  * @param {object} votes - the vote
+  */
   handleVoteChangeClick = (votes,post) =>{
     this.props.votePost(post.id, prepareVoteForAPI(votes.difference))
   }
 
+  /**
+  * @description event the article
+  * deletes this article from the redux-state
+  */
   handleDeleteClick = (post) => {
     this.props.deletePost(post);
   }
 
+  /**
+  * @description event the article
+  *get all articles
+  */
   componentDidMount() {
     this.props.fetchPosts();
   }

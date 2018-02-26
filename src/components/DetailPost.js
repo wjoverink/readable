@@ -15,7 +15,7 @@ import PropTypes from 'prop-types'
 import {initialPost} from '../reducers/PostsReducer'
 import {prepareVoteForAPI, getColorForName} from '../utils/helper'
 import sortBy from 'sort-by'
-import { v4 } from 'uuid';
+import { v4 } from 'uuid'
 import moment from 'moment'
 
 class Posts extends Component {
@@ -148,7 +148,7 @@ class Posts extends Component {
             </GridList>
           </section>
         )}
-      </main>);
+      </main>)
   }
 }
 
@@ -158,7 +158,7 @@ function mapStateToProps({posts, comments, loadingBar}, { match }) {
     post: posts.find(post=> post.id === match.params.postId),
     comments : commentsArray.sort(sortBy('-timestamp')),
     isLoading: loadingBar.default > 0
-  };
+  }
 }
 
 export default withRouter(connect(mapStateToProps, {

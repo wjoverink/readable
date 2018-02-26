@@ -1,29 +1,16 @@
-.postsMain .header__action{
-  position: absolute!important;
-  right: 5px;
-  bottom:0px;
-  font-size: 1em!important;
-  color:inherit!important;
-}
-
-.posts>li>* {
-  border: 1px solid rgba(0, 0, 0, .1) !important;
-}
-
-
-.posts .response__content{
+.posts__gridlist .card__content{
   min-height: 5.5em;
 }
 
-.postsMain .posts .response__header{
+.posts__gridlist .card__header{
   cursor:pointer;
 
 }
-.response__header>div:nth-child(2){
+.card__header>div:nth-child(2){
   width: calc(100% - 56px - 1em);
 }
 
-.response__header>div:nth-child(2)>span:first-child{
+.card__header>div:nth-child(2)>span:first-child{
     font-size: 1.2em!important;
     line-height: 1.4em!important;
     font-weight: normal!important;
@@ -32,11 +19,45 @@
     overflow: hidden
 }
 
+.posts__sortmenu{
+  position: absolute!important;
+  right: 5px;
+  bottom:0px;
+}
+
+.posts__sortmenu span{
+  font-weight: 500;
+  line-height: 1.71429em;
+  font-size: 0.875rem;
+}
+
+.posts__link{
+    color: #0093c4;
+}
+
+/* post cards*/
+.postCard {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/*post-button*/
+.post-button {
+  margin: 2em auto 0;
+  padding:0px;
+}
+
+.post-button--alignRight {
+  text-align: right;
+}
+
+/*small screen*/
 @media screen and (max-width: 700px) {
-           .posts>*{
+           .gridlist__tile{
              width:100%!important;
            }
-           .post>*:not(.writeResponse):not(.responses){
+           .gridlist__tile:not(.article__write-response-section):not(.article__write-responses-section){
              margin-left: 2em!important;
              margin-right: 2em!important;
             }

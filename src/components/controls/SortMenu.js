@@ -6,6 +6,7 @@ import ArrowUpward from 'material-ui-icons/ArrowUpward'
 import Menu, {MenuItem} from 'material-ui/Menu'
 import PropTypes from 'prop-types'
 import { ListItemIcon, ListItemText } from 'material-ui/List';
+import './SortMenu.css';
 
 class Sortmenu extends Component {
   static propTypes = {
@@ -13,7 +14,8 @@ class Sortmenu extends Component {
     sortItems: PropTypes.array,
     selected: PropTypes.string,
     asc: PropTypes.bool,
-    onSortChanged: PropTypes.func
+    onSortChanged: PropTypes.func,
+    className:PropTypes.string
   }
 
   state = {
@@ -43,18 +45,18 @@ class Sortmenu extends Component {
   }
 
   render() {
-    const {caption="Sort", sortItems,selected} = this.props
+    const {caption="Sort", sortItems,selected, className} = this.props
     const {anchorEl} = this.state;
 
     return (
-      <div>
-        <IconButton className="header__action" onClick={this.openSortMenu} aria-owns={anchorEl
+      <div className={`sort-menu ${className}`}>
+        <IconButton className="sort-menu__button" onClick={this.openSortMenu} aria-owns={anchorEl
           ? 'simple-menu'
           : null} aria-haspopup="true" aria-label="Show Sorting">
           {caption}
           <ExpandMoreIcon/>
-
         </IconButton>
+
         <Menu id="sort-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={this.handleSortMenuClose}>
           {sortItems.map(item => (
             <MenuItem key={item.value} selected={item.value === selected} onClick={(e) => this.handleSortClick(item, item.value === selected)}>

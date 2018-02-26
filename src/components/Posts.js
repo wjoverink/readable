@@ -62,7 +62,7 @@ class Posts extends Component {
 
     const isEmpty = postList.length===0 && !isLoading;
 
-    return (<main className="postsMain main-content main-content--defWidth">
+    return (<main className="posts main-content main-content--defWidth">
       <header className="relativ">
         {isCategory && !isEmpty && (
           <Typography variant="display1" className="text--firstUppercase" gutterBottom align="left">
@@ -72,10 +72,11 @@ class Posts extends Component {
         {isCategory && !isEmpty && (
           <Typography align="left">
 
-            <span> Related topics: </span>  <Link className='link postsMain__link text--firstUppercase' to={categoryAndRelated.related.path}>{categoryAndRelated.related.name}</Link>
+            <span> Related topics: </span>  <Link className='link posts__link text--firstUppercase' to={categoryAndRelated.related.path}>{categoryAndRelated.related.name}</Link>
           </Typography>)
         }
         <Sortmenu
+          className="posts__sortmenu"
           caption="Sort"
           sortItems={[{value:TIMESTAMP_ORDER, name:'Date'}, {value:VOTE_ORDER, name:'Votes'}]}
           onSortChanged={this.handleSortChanged}
@@ -96,9 +97,9 @@ class Posts extends Component {
       )}
 
       <section>
-        <GridList spacing={14} className="posts" cellHeight='auto' cols={isCategory ? 1 : 2}>
+        <GridList spacing={14} className="posts__gridlist gridlist" cellHeight='auto' cols={isCategory ? 1 : 2}>
           { postList.map(post => (
-            <GridListTile key={post.id}>
+            <GridListTile className="gridlist__tile" key={post.id}>
               <PostCard
                 onHeaderClick={() => this.handleHeaderClick(post.id, post.category)}
                 onEditClick={() => this.handleEditClick(post.id)}
@@ -115,7 +116,7 @@ class Posts extends Component {
         </GridList>
       </section>
       {!isEmpty &&(
-        <PostButton category={isCategory ? categoryAndRelated.category.path : ""}/>
+        <PostButton className="post-button post-button--alignRight" category={isCategory ? categoryAndRelated.category.path : ""}/>
       )}
     </main>);
   }

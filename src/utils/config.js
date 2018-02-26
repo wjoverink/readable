@@ -1,5 +1,5 @@
 export const MAXTITLELENGTH = 40;
-export const MAXBODYLENGTH = 150;
+export const MAXBODYLENGTH = 100;
 export const MAXAUTHORLENGTH = 30;
 
 export const UPVOTE = 'upVote';

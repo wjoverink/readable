@@ -87,26 +87,26 @@ class EditPost extends Component {
       category = this.props.match.params.category
     }
     return (
-      <main className="editPost main-content main-content--defWidth">
+      <main className="article-edit main-content main-content--defWidth">
         <header>
-          <div className="post__category">
+          <div className="article-edit__category">
             <Typography className="category__label" align="left">
               Category:
             </Typography>
-            <Select onChange={this.handleChange('category')} className="category__select"
+            <Select onChange={this.handleChange('category')} className="category__select select"
               value={category}
             >
               {categories.map(cat => (
-                <MenuItem className="select--firstUppercase" key={cat.path} value={cat.path}>{cat.name}</MenuItem>
+                <MenuItem className="select__item select__item--firstUppercase" key={cat.path} value={cat.path}>{cat.name}</MenuItem>
               ))}
 
             </Select>
           </div>
-          <Divider />
+          <Divider classname="article-edit__divider"/>
           <CardHeader
             className="cardHeader"
             title={<TextField
-              className="response__author"
+              className="card__headerField"
               value={author}
               autoFocus={true}
               onChange={this.handleChange('author')}
@@ -115,14 +115,14 @@ class EditPost extends Component {
                    />}
             avatar={<Avatar aria-label="Author" ><FaceIcon/></Avatar>}>
           </CardHeader>
-          <TextField className="response__author" fullWidth value={title}  onChange={this.handleChange('title')} required label="Title"/>
+          <TextField className="card__headerField" fullWidth value={title}  onChange={this.handleChange('title')} required label="Title"/>
         </header>
 
         <article>
           <TextField
-            className="response__textField"
+            className="card__ContentField"
             multiline={true}
-            rowsMax={40}
+            rowsMax={12}
             // /autoFocus={isNew}
             rows={3}
             label="Tell you story"
@@ -131,8 +131,8 @@ class EditPost extends Component {
             value={body}
           />
         </article>
-        <section className='footer footer--alignRight'>
-          <Button disabled={!hasChanges} onClick={this.handleSave} color="primary" className="footer__button showShadow" variant="fab" aria-label="Save post">
+        <section className='article-edit__footer article-edit__footer--alignRight'>
+          <Button disabled={!hasChanges} onClick={this.handleSave} color="primary" className="footer__button button--showShadow" variant="fab" aria-label="Save post">
             <AddIcon/>
           </Button>
         </section>

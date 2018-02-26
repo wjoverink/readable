@@ -1,12 +1,11 @@
 .voteActions>button:last-of-type{
   margin-left: auto!important;
 }
-.voteActions>span{
+.voteActions__votes{
   min-width: 1.3em;
   text-align: center;
 }
-
-.deleteDialog>div:last-child {
+.voteActions__deleteDialog>div:last-child {
   box-shadow: initial !important;
   min-width: 300px;
 }

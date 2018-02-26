@@ -1,13 +1,13 @@
-.post__category{
+.article-edit__category{
   display: flex;
 }
 
-.editPost hr{
+.article-edit__divider{
   margin:8px 0px;
 }
 
-.editPost header{
-    margin:1em 0px;
+.article-edit>header, .card__headerField{
+    margin:1em 0px!important;
 }
 
 .category__label{
@@ -16,20 +16,31 @@
 
 .category__select{
   font-size: 1.2em!important;
-  margin-left: 8px;
+  margin-left: 0.5em;
 }
   .category__select::before{
     background-color: transparent!important;
   }
 
+/*post-button*/
+.article-edit__footer {
+  margin: 2em auto 0;
+  padding:0px;
+}
+
+.article-edit__footer--alignRight {
+  text-align: right;
+}
+
+/*TODO:change in material-ui*/
 .category__select div[role=button]{
   padding-top: 3px;
 }
-  .category__select div[role=button]:first-letter {
-      text-transform: uppercase;
-  }
 
-.select--firstUppercase {display:block!important}
-  .select--firstUppercase:first-letter {
+.select__item {display:block!important}
+
+.select__item--firstUppercase:first-letter,
+/*TODO:change in material-ui*/
+.category__select div[role=button]:first-letter  {
       text-transform: uppercase;
   }

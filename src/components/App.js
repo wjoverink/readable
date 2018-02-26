@@ -42,30 +42,29 @@ class App extends Component {
 
     return (
       <div className="app">
-
         <div className="loading-area">
           <LoadingBar showFastActions  style={{ top:"0px", left:"0px", backgroundColor: '#ff5722' }} />
         </div>
-        <AppBar className="appBar appBar--transparent appBar--defWidth" position="static" color="default">
-          <Toolbar className="toolbar" disableGutters={true}>
-            <Link to="/"><img src={logo} className="appBar__App-logo" alt="logo" /></Link>
-            <Typography className="appName" variant="display1" color="inherit">
+        <AppBar className="app_header appBar app_header--transparent app_header--defWidth" position="static" color="default">
+          <Toolbar className="appBar__toolbar" disableGutters={true}>
+            <Link to="/"><img src={logo} className="app__logo" alt="logo" /></Link>
+            <Typography className="app__name" variant="display1" color="inherit">
               READABLE
             </Typography>
-            <IconButton className="toolbar__search--toRight">
+            <IconButton className="app__search--right">
               <Search />
             </IconButton>
           </Toolbar>
         </AppBar>
 
-        <nav className="main-Nav main-Nav--defWidth">
+        <nav className="navigation app__navigation app__navigation--defWidth">
           <Toolbar disableGutters={true}>
-            <Button className="main-Nav__item" activeClassName="main-Nav__item--selected" exact component={NavLink} to="/" >
+            <Button className="navigation__item" activeClassName="navigation__item--selected" exact component={NavLink} to="/" >
               Home
             </Button>
             {
               categories.map(category => (
-                <Button key={category.path} component={NavLink} to={`/${category.path}`}  activeClassName="main-Nav__item--selected" className="main-Nav__item">
+                <Button key={category.path} component={NavLink} to={`/${category.path}`}  activeClassName="navigation__item--selected" className="navigation__item">
                   {category.name}
                 </Button>
               ))}

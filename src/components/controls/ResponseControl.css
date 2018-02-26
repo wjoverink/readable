@@ -1,27 +1,30 @@
-.response__textField{
-  width:100%!important;
-  margin: 0px!important;
-
+.card__ContentField {
+  width: 100% !important;
+  margin: 0px !important;
 }
 
-.response__author>div {
+.card__headerField>div {
   margin: 0 !important;
 }
 
-.response__author>label {
+.card__headerField>label {
   top: -11px !important;
 }
 
-.simpleForm .response__header{
-  cursor:text;
+.card__form--simple .card__header {
+  cursor: text;
 }
 
-.writeResponse__actions{
-  padding: 2px 14px 14px!important;
+.card__saveActions {
+  padding: 2px 14px 14px !important;
 }
-.PostCard{
-  height: 100%;
+
+.card__content {
+  flex: 1;
 }
-.actions__cancel{
-  text-decoration: underline!important;
+
+.card__form {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }

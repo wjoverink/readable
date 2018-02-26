@@ -99,7 +99,7 @@ class VoteActions extends Component {
       </IconButton>
       <Typography color={this.state.votes >= 0
         ? "default"
-        : "secondary"} component="span">
+        : "secondary"} className="voteActions__votes" component="span">
         {this.state.votes}
       </Typography>
       <IconButton onClick={this.onVoteDown} aria-label="Vote negativ">
@@ -124,18 +124,15 @@ class VoteActions extends Component {
           <ListItemText inset={true} primary="Delete"/>
         </MenuItem>
       </Menu>
-      <Dialog className="deleteDialog" open={this.state.open} onClose={this.handleDialogClose} aria-labelledby="delete-dialog-text">
+      <Dialog className="voteActions__deleteDialog" open={this.state.open} onClose={this.handleDialogClose} aria-labelledby="delete-dialog-text">
         <DialogContent>
           <DialogTitle id="alert-dialog-title">{discardText}</DialogTitle>
-          {/* <DialogContentText id="delete-dialog-text">
-            {discardText}
-          </DialogContentText> */}
         </DialogContent>
-        <DialogActions className="deleteDialog__actions">
+        <DialogActions className="dialog__actions">
           <Button onClick={this.handleDialogClose} variant="raised" color="primary" autoFocus="autoFocus">
             Cancel
           </Button>
-          <Button onClick={this.handleDelete} className="actions__cancel" color="secondary">
+          <Button onClick={this.handleDelete} className="button--cancel" color="secondary">
             Discard
           </Button>
         </DialogActions>

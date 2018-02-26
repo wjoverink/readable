@@ -97,9 +97,9 @@ class Response extends Component {
     return (
       <Card {...props}>
 
-        <form  onSubmit={this.handleSubmit} className={isSimpleEditControl ? "simpleForm" : "form" } autoComplete="off">
+        <form  onSubmit={this.handleSubmit} className={isSimpleEditControl ? "card__form--simple" : "card__form" } autoComplete="off">
           {!this.state.editMode && (
-            <CardHeader onClick={this.onSimpleEditClick} className="response__header" title={title} subheader={subTitle} avatar={
+            <CardHeader onClick={this.onSimpleEditClick} className="card__header" title={title} subheader={subTitle} avatar={
               <Avatar style={{backgroundColor:avatarColor}} aria-label={isSimpleEditControl? "Face Icon" : "First letter of title"} > {
                 isSimpleEditControl ? <FaceIcon/> : firstLetter
               }
@@ -109,12 +109,12 @@ class Response extends Component {
 
           {this.state.editMode && (
             <CardHeader
-              title={<TextField inputRef={el => this.headerTextField = el}  className="response__author" defaultValue={isSimpleEditControl ? "" : title} required label="Name"/>}
-              avatar={<Avatar className="response__label" role="button" aria-label="Face Icon"><FaceIcon/></Avatar>}></CardHeader>
+              title={<TextField inputRef={el => this.headerTextField = el}  className="card__headerField" defaultValue={isSimpleEditControl ? "" : title} required label="Name"/>}
+              avatar={<Avatar className="card__headerLabel" role="button" aria-label="Face Icon"><FaceIcon/></Avatar>}></CardHeader>
           )}
 
           {!this.state.editMode &&!isSimpleEditControl && (
-            <CardContent className="response__content">
+            <CardContent className="card__content">
               <Typography component="p">
                 {message}
               </Typography>
@@ -125,7 +125,7 @@ class Response extends Component {
             <CardContent>
               <TextField
                 inputRef={el => this.bodyTextField = el}
-                className="response__textField"
+                className="card__ContentField"
                 multiline={true}
                 rowsMax={40}
                 autoFocus={true}
@@ -137,15 +137,15 @@ class Response extends Component {
           )}
 
           {!this.state.editMode && !isSimpleEditControl && (
-            <VoteActions onVoteChange={this.onVoteChange} onEditClick={this.onEditClick} onDeleteClick={this.onDeleteClick} className="response__actions" votes={votes}/>
+            <VoteActions onVoteChange={this.onVoteChange} onEditClick={this.onEditClick} onDeleteClick={this.onDeleteClick} className="card__actions" votes={votes}/>
           )}
 
           {this.state.editMode && (
-            <CardActions className="writeResponse__actions">
-              <Button type="submit" className="actions__save" variant="raised" color="primary" >
+            <CardActions className="cardActions card__saveActions">
+              <Button type="submit" className="cardActions__save" variant="raised" color="primary" >
                 Save
               </Button>
-              <Button onClick={this.stopEditMode} className="actions__cancel" color="secondary">
+              <Button onClick={this.stopEditMode} className="button--cancel cardAction__cancel" color="secondary">
                 Cancel
               </Button>
             </CardActions>
@@ -210,7 +210,7 @@ class PostCard extends Response {
     const formatedDate = mDate.format(`MMM D ${moment().year() !== mDate.year() ? "YYYY" : ""}`)
 
     const firstLetter = title.substring(0, 1).toUpperCase()
-    return (<Response title={title} className="PostCard" subTitle={`${name} - ${formatedDate} - Comments: ${comments}`} icon={firstLetter} {...props}/>);
+    return (<Response title={title} className="postCard" subTitle={`${name} - ${formatedDate} - Comments: ${comments}`} icon={firstLetter} {...props}/>);
   }
 }
 

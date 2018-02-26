@@ -1,54 +1,50 @@
-/*main elements*/
+.app_header--defWidth, .app__navigation--defWidth, .main-content--defWidth, footer {
+  max-width: 1050px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding: 0 2em;
+}
+
+/*loading*/
 
 .loading-area {
   min-height: 5px;
 }
 
-.appBar{
+/* header */
+
+.app_header {
   box-shadow: initial !important;
 }
 
-.appBar__App-logo {
+.app__logo {
   width: 43px;
   margin: 4px 16px 0 -7px
 }
 
-.appBar--transparent, .loading-area__progress-bar--transparent {
-  background-color: transparent !important;
+.app_header--transparent {
+  background: transparent !important;
 }
 
-.loading-area__progress-bar--transparent>div {
-  background-color: #4fc3f7 !important;
-}
-
-.appBar--defWidth, .main-Nav--defWidth, .main-content--defWidth, footer {
-  max-width: 1050px !important;
+.app__search--right {
   margin-left: auto !important;
-  margin-right: auto !important;
-  padding:0 2em;
 }
 
-.footer--alignRight {
-  text-align: right;
+.app__name {
+  font-size: 1.5em !important;
 }
 
-.toolbar {
-  justify-content: space-between;
-}
+/*Navigation*/
 
-.main-Nav {
+.app__navigation {
   margin: 0.5em 0 1.5em;
 }
 
-.main-Nav .main-Nav__item:first-child {
+.app__navigation .navigation__item:first-child {
   padding-left: 0px !important;
 }
 
-.toolbar__search--toRight {
-  margin-left: auto !important;
-}
-
-.main-Nav__item {
+.navigation__item {
   margin: 0px;
   color: rgba(0, 0, 0, 0.64) !important;
   background-color: rgba(0, 0, 0, 0);
@@ -59,39 +55,38 @@
   text-transform: uppercase;
 }
 
-.main-Nav__item:hover, .main-Nav__item--selected {
+.navigation__item:hover, .navigation__item--selected {
   background-color: transparent !important;
   color: black !important;
 }
+
+/*Pages / main-content*/
 
 .main-content, .relativ {
   position: relative;
 }
 
-.footer {
-  margin: 2em auto 0;
-  padding:0px;
-}
+/* basic control styles */
 
-.link{
+.link {
   color: #ff5722;
   font-style: normal;
   text-decoration: none;
 }
 
-.postsMain__link{
-    color: #0093c4;
+.button--cancel {
+  text-decoration: underline !important;
 }
 
-.appName {
-  font-size: 1.5em !important;
+.gridlist__tile>* {
+  border: 1px solid rgba(0, 0, 0, .1) !important;
 }
 
 .divider--bigMargin {
   margin: 1.5em 0 2em !important;
 }
 
-button:not(.showShadow) {
+button:not(.button--showShadow) {
   box-shadow: initial !important;
 }
 
@@ -102,18 +97,9 @@ button:not(.showShadow) {
 .text--firstUppercase:first-letter {
   text-transform: uppercase;
 }
-div[role=dialog]>div:first-child{
-  background-color:#eceaeabf ;
-}
 
-/* .footer__button{
-   position: fixed!important;
-   bottom: 1em;
-   margin-right: -1em
-} */
+/*TODO: change in material-ui*/
 
-#simple-menu>div:first-child, #simple-menu{
-  width:initial!important;
-  right:0px!important;
-  margin:0px!important;
+div[role=dialog]>div:first-child {
+  background-color: #eceaeabf;
 }

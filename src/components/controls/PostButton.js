@@ -7,13 +7,14 @@ import PropTypes from 'prop-types'
 class PostButton extends Component {
   static propTypes = {
     category: PropTypes.string,
+    className:PropTypes.string
   };
 
   render() {
-    const {category} = this.props
+    const {category, className} = this.props
     const to = `/post/new${category ? "/"+category : ""}`
-    return (<footer className='footer footer--alignRight'>
-      <Button component={Link} to={to} className="showShadow footer__button" variant="fab" color="secondary" aria-label="Write post">
+    return (<footer className={`footer ${className}`}>
+      <Button component={Link} to={to} className="button--showShadow footer__button" variant="fab" color="secondary" aria-label="Write post">
         <AddIcon/>
       </Button>
     </footer>);

@@ -23,7 +23,7 @@ class Posts extends Component {
     post: PropTypes.object,
     getPost: PropTypes.func.isRequired,
     comments: PropTypes.array,
-    isLoading: PropTypes.bool.isRequired
+    isLoading: PropTypes.bool.isRequired,
   };
 
   handleNewComment = (author, body)=>{
@@ -83,13 +83,11 @@ class Posts extends Component {
     const dateTime = mDate.format(`MMM D ${moment().year !== mDate.year ? "YYYY" : ""}, h:mm:ss`)
 
     return (
-      <main className="post main-content main-content--defWidth">
-
-
+      <main className="article main-content main-content--defWidth">
         <header>
           {!showNotFound && (
             <CardHeader
-              className="cardHeader response__header"
+              className="article__header card__header"
               title={post.author}
               subheader={`${dateTime}`}
               avatar={<Avatar  style={{backgroundColor:getColorForName(post.author)}} aria-label="Author" >{firstLetter}</Avatar>}>
@@ -101,33 +99,38 @@ class Posts extends Component {
           </Typography>
         </header>
 
-        <article>
+        <article className="article__content">
           <Typography>
             {post.body}
           </Typography>
         </article>
 
         {!showNotFound && (
-          <section className="postInfo">
-            <Divider />
-            <VoteActions onVoteChange={this.handleVoteChangeClick} onDeleteClick={this.handleDeleteClick} onEditClick={this.handleEditClick} className="postInfo__actions" votes={post.voteScore} />
+          <section className="article__actions">
+            <Divider className="article__divider" />
 
-            <Divider />
+            <VoteActions onVoteChange={this.handleVoteChangeClick}
+              onDeleteClick={this.handleDeleteClick}
+              onEditClick={this.handleEditClick}
+              className="article__voteActions"
+              votes={post.voteScore} />
+
+            <Divider className="article__divider"  />
           </section>
         )}
 
         {!showNotFound && (
-          <section className="writeResponse">
-            <Response className="writeResponse__control" onChange={this.handleNewComment} hasEditMode={true} isSimpleEditControl={true} title={this.props.comments.length>0 ? "Write a response..." : "Be the first to write a response"}></Response>
+          <section className="article__write-response-section">
+            <Response className="article__write-response" onChange={this.handleNewComment} hasEditMode={true} isSimpleEditControl={true} title={this.props.comments.length>0 ? "Write a response..." : "Be the first to write a response"}></Response>
           </section>
         )}
 
         {!showNotFound && (
-          <section className="responses">
+          <section className="article__responses-section">
             <Typography variant="subheading">
               {this.props.comments.length>0 ? `Conversation about "${post.title}":` : ""}
             </Typography>
-            <GridList cellHeight='auto'  spacing={16} className="comments" cols={1}>
+            <GridList cellHeight='auto'  spacing={16} className="article__responses" cols={1}>
               {this.props.comments.map(comment => (
                 <GridListTile id={`comment${comment.id}`} key={comment.id}>
                   <ResponseCard

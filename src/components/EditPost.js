@@ -1,15 +1,15 @@
-import React, {Component} from 'react';
-import Typography from 'material-ui/Typography';
-import Divider from 'material-ui/Divider';
-import Avatar from 'material-ui/Avatar';
-import {CardHeader} from 'material-ui/Card';
+import React, {Component} from 'react'
+import Typography from 'material-ui/Typography'
+import Divider from 'material-ui/Divider'
+import Avatar from 'material-ui/Avatar'
+import {CardHeader} from 'material-ui/Card'
 import './EditPost.css';
-import { MenuItem } from 'material-ui/Menu';
-import Select from 'material-ui/Select';
-import TextField from 'material-ui/TextField';
-import FaceIcon from 'material-ui-icons/Face';
+import { MenuItem } from 'material-ui/Menu'
+import Select from 'material-ui/Select'
+import TextField from 'material-ui/TextField'
+import FaceIcon from 'material-ui-icons/Face'
 import Button from 'material-ui/Button';
-import AddIcon from 'material-ui-icons/Save';
+import AddIcon from 'material-ui-icons/Save'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { getPost, editPost, addPost} from '../actions/PostsActions'
@@ -45,7 +45,7 @@ class EditPost extends Component {
   componentDidMount() {
     const { postId } = this.props.match.params;
     if (postId){
-      this.props.getPost(postId);
+      this.props.getPost(postId)
     }
   }
 
@@ -60,11 +60,11 @@ class EditPost extends Component {
         timestamp: Date.now()
       }
     if (postId){
-      this.props.editPost({...this.props.post, ...post});
+      this.props.editPost({...this.props.post, ...post})
     } else {
-      this.props.addPost(post);
+      this.props.addPost(post)
     }
-    this.props.history.push(`/${post.category}/${post.id}`);
+    this.props.history.push(`/${post.category}/${post.id}`)
   }
 
   handleChange = name => event => {
@@ -75,10 +75,8 @@ class EditPost extends Component {
   };
 
   render() {
-
     const {title, body, author, hasChanges} = this.state
     const {categories} = this.props
-
 
     let category= !this.state.category ? categories.length>0 ? categories[0].path : "" : this.state.category
     if (!this.props.match.params.postId && this.props.match.params.category){
@@ -142,11 +140,11 @@ function mapStateToProps({categories, posts}, { match }) {
   return {
     categories,
     post: posts.find(post=> post.id === match.params.postId)
-  };
+  }
 }
 
 export default connect(mapStateToProps, {
   getPost,
   editPost,
   addPost
-})(EditPost);
+})(EditPost)

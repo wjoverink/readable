@@ -207,7 +207,7 @@ class PostCard extends Response {
     } = this.props
 
     const mDate = moment(date);
-    const formatedDate = mDate.format(`MMM D ${moment().year !== mDate.year ? "YYYY" : ""}`)
+    const formatedDate = mDate.format(`MMM D ${moment().year() !== mDate.year() ? "YYYY" : ""}`)
 
     const firstLetter = title.substring(0, 1).toUpperCase()
     return (<Response title={title} className="PostCard" subTitle={`${name} - ${formatedDate} - Comments: ${comments}`} icon={firstLetter} {...props}/>);

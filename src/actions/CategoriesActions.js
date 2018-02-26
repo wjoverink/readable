@@ -1,4 +1,4 @@
-import {getCategories} from '../api';
+import {getCategories} from '../api/api';
 import {FETCH_CATEGORIES} from './types';
 import {showLoading, hideLoading} from 'react-redux-loading-bar'
 

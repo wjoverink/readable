@@ -1,4 +1,4 @@
-import {getPostComments, voteComment, addComment, editComment, deleteComment} from '../api';
+import {getPostComments, voteComment, addComment, editComment, deleteComment} from '../api/api';
 import { FETCH_COMMENTS, UPDATE_COMMENT, ADD_COMMENT, DELETE_COMMENT } from './types';
 import {showLoading, hideLoading} from 'react-redux-loading-bar'
 

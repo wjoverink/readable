@@ -1,4 +1,4 @@
-import * as Api from '../api';
+import * as Api from '../api/api';
 import {FETCH_POSTS, GET_POST, UPDATE_POST, ADD_POST, DELETE_POST} from './types';
 import {showLoading, hideLoading} from 'react-redux-loading-bar'
 

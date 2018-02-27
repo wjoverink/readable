@@ -9,7 +9,7 @@ For this project besides building the front-end in react i also did the UX-desig
 * Design
 * Usability
 * Responsive design
-* Accessibility).
+* Accessibility
 
 ## Pre-requisite
 - [Git](https://git-scm.com)

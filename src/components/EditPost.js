@@ -64,6 +64,10 @@ class EditPost extends Component {
     const { postId } = this.props.match.params;
     if (postId){
       this.props.getPost(postId)
+    } else if (this.props.match.params.category){
+      this.setState({
+        category: this.props.match.params.category,
+      });
     }
   }
 
@@ -106,9 +110,7 @@ class EditPost extends Component {
     const {categories} = this.props
 
     let category= !this.state.category ? categories.length>0 ? categories[0].path : "" : this.state.category
-    if (!this.props.match.params.postId && this.props.match.params.category){
-      category = this.props.match.params.category
-    }
+
     return (
       <main className="article-edit main-content main-content--defWidth">
         <header>

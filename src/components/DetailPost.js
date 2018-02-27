@@ -157,6 +157,7 @@ class Posts extends Component {
             <VoteActions onVoteChange={this.handleVoteChangeClick}
               onDeleteClick={this.handleDeleteClick}
               onEditClick={this.handleEditClick}
+              discardText="Discard article?"
               className="article__voteActions"
               votes={post.voteScore} />
 

@@ -35,6 +35,7 @@ class Response extends Component {
     hasEditMode:PropTypes.bool,
     isSimpleEditControl:PropTypes.bool,
     avatarColor: PropTypes.string,
+    discardText: PropTypes.string,
   }
 
   state = {
@@ -125,6 +126,7 @@ class Response extends Component {
       onHeaderClick,
       avatarColor = '#bdbdbd',
       onChange,
+      discardText,
       ...props
     } = this.props
     const firstLetter = icon || title.substring(0, 1).toUpperCase()
@@ -172,7 +174,7 @@ class Response extends Component {
           )}
 
           {!this.state.editMode && !isSimpleEditControl && (
-            <VoteActions onVoteChange={this.onVoteChange} onEditClick={this.onEditClick} onDeleteClick={this.onDeleteClick} className="card__actions" votes={votes}/>
+            <VoteActions discardText={discardText} onVoteChange={this.onVoteChange} onEditClick={this.onEditClick} onDeleteClick={this.onDeleteClick} className="card__actions" votes={votes}/>
           )}
 
           {this.state.editMode && (
@@ -219,7 +221,7 @@ class ResponseCard extends Response {
     const firstLetter = author.substring(0, 1).toUpperCase()
     const mDate = moment(date);
     const formatedDate = mDate.format(`MMM D ${moment().year !== mDate.year ? "YYYY" : ""}, h:mm:ss`)
-    return (<Response title={author} className="ResponseCard" subTitle={`${formatedDate}`} icon={firstLetter} {...props}/>);
+    return (<Response discardText="Discard comment?" title={author} className="ResponseCard" subTitle={`${formatedDate}`} icon={firstLetter} {...props}/>);
   }
 }
 
@@ -253,7 +255,7 @@ class PostCard extends Response {
     const formatedDate = mDate.format(`MMM D ${moment().year() !== mDate.year() ? "YYYY" : ""}`)
 
     const firstLetter = title.substring(0, 1).toUpperCase()
-    return (<Response title={title} className="postCard" subTitle={`${name} - ${formatedDate} - Comments: ${comments}`} icon={firstLetter} {...props}/>);
+    return (<Response discardText="Discard article?" title={title} className="postCard" subTitle={`${name} - ${formatedDate} - Comments: ${comments}`} icon={firstLetter} {...props}/>);
   }
 }
 

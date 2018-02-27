@@ -17,18 +17,12 @@ For this project besides building the front-end in react i also did the UX-desig
 
 ## Setting up environment
 ### Set up backend server
-1. Git clone [Readable API Server](https://github.com/udacity/reactnd-project-readable-starter): `git clone https://github.com/udacity/reactnd-project-readable-starter.git`
+1. Git clone [Readable API Server](https://github.com/udacity/reactnd-project-readable-starter): `git clone` https://github.com/udacity/reactnd-project-readable-starter.git`
 1. Install dependencies: `npm install`
 1. Start backend server: `npm start`
 
 ### Set up frontend server
-<<<<<<< HEAD
-1. Git clone this repo: `git clone https://github.com/wjoverink/readable.git`
-||||||| merged common ancestors
 1. Git clone this repo: `git clone https://github.com/dhtlee/reactnd-project-readable.git`
-=======
-1. Git clone this repo: `git clone 
->>>>>>> fde7fde11ccdfe1adce41faa7583faa22238c486
 1. Install dependencies: `npm install`
 1. Start frontend server: `npm start`
 

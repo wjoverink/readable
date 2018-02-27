@@ -103,3 +103,11 @@ button:not(.button--showShadow) {
 div[role=dialog]>div:first-child {
   background-color: #eceaeabf;
 }
+
+/*message-bar*/
+.message-bar>div{
+  background-color: white!important;
+}
+.message-bar__text{
+  color:black!important;
+}

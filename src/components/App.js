@@ -12,7 +12,10 @@ import EditPost from './EditPost.js';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types'
 import {fetchCategories} from '../actions/CategoriesActions';
+import {removeNotificationAction} from '../actions/NotificationActions'
 import { withRouter } from 'react-router-dom';
+import MessageBar from './controls/MessageBar'
+
 
 /**
 * @description Represents a the main readable page
@@ -22,7 +25,13 @@ class App extends Component {
   static propTypes = {
     fetchCategories: PropTypes.func.isRequired,
     categories: PropTypes.array,
+    removeNotificationAction: PropTypes.func,
+    notifications: PropTypes.array
   }
+
+  handleNotificationClose = () => {
+    this.props.removeNotificationAction(this.props.notifications[0])
+  };
 
   /**
   * @description react lifecycle
@@ -33,10 +42,11 @@ class App extends Component {
   }
 
   render() {
-    const {categories} = this.props
+    const {categories, notifications} = this.props
 
     return (
       <div className="app">
+        <MessageBar onClose={this.handleNotificationClose} messages={notifications}/>
         <div className="loading-area">
           <LoadingBar showFastActions  style={{ top:"0px", left:"0px", backgroundColor: '#ff5722' }} />
         </div>
@@ -90,12 +100,14 @@ class App extends Component {
   }
 }
 
-function mapStateToProps({ categories}) {
+function mapStateToProps({ categories, notifications}) {
   return {
     categories,
+    notifications
   };
 }
 
 export default withRouter(connect(mapStateToProps, {
   fetchCategories,
+  removeNotificationAction
 })(App));

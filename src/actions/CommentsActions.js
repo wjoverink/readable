@@ -1,6 +1,7 @@
 import {getPostComments, voteComment, addComment, editComment, deleteComment} from '../api/api';
-import { FETCH_COMMENTS, UPDATE_COMMENT, ADD_COMMENT, DELETE_COMMENT } from './types';
+import { FETCH_COMMENTS, UPDATE_COMMENT, ADD_COMMENT, DELETE_COMMENT, SHOW_NOTIFICATION} from './types';
 import {showLoading, hideLoading} from 'react-redux-loading-bar'
+import {reduceStringLength} from '../utils/helper'
 
 export const fetchComments = postId => dispatch => {
   dispatch(showLoading())
@@ -22,6 +23,7 @@ export const removeComment = comment => dispatch => {
   dispatch(showLoading())
   deleteComment(comment.id).then(payload => {
     dispatch({type: DELETE_COMMENT, value: comment})
+    dispatch({type: SHOW_NOTIFICATION, value: `Comment "${reduceStringLength(comment.body, 7)}" deleted`});
     dispatch(hideLoading())
   })
 }

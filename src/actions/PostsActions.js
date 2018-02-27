@@ -1,6 +1,7 @@
 import * as Api from '../api/api';
-import {FETCH_POSTS, GET_POST, UPDATE_POST, ADD_POST, DELETE_POST} from './types';
+import {FETCH_POSTS, GET_POST, UPDATE_POST, ADD_POST, DELETE_POST, SHOW_NOTIFICATION} from './types';
 import {showLoading, hideLoading} from 'react-redux-loading-bar'
+import {reduceStringLength} from '../utils/helper'
 
 export const fetchPosts = () => dispatch => {
   dispatch(showLoading())
@@ -47,6 +48,7 @@ export const deletePost = post => dispatch => {
   Api.deletePost(post.id).then(res => {
       if (res.status === 200) {
         dispatch({type: DELETE_POST, value: post})
+        dispatch({type: SHOW_NOTIFICATION, value: `Article "${reduceStringLength(post.title, 7)}" deleted`});
     }
     dispatch(hideLoading())
   })

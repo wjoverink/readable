@@ -31,7 +31,8 @@ class EditPost extends Component {
     body: "",
     category: "",
     title: "",
-    hasChanges:false
+    hasChanges:false,
+    notfound:false
   }
 
   /**
@@ -47,6 +48,10 @@ class EditPost extends Component {
         category: props.post.category,
         title: props.post.title,
         hasChanges:false
+      })
+    } else{
+      this.setState({
+        notfound: true,
       })
     }
   }
@@ -97,7 +102,7 @@ class EditPost extends Component {
   };
 
   render() {
-    const {title, body, author, hasChanges} = this.state
+    const {title, body, author, hasChanges, notfound} = this.state
     const {categories} = this.props
 
     let category= !this.state.category ? categories.length>0 ? categories[0].path : "" : this.state.category
@@ -111,7 +116,7 @@ class EditPost extends Component {
             <Typography className="category__label" align="left">
               Category:
             </Typography>
-            <Select onChange={this.handleChange('category')} className="category__select select"
+            <Select disabled={notfound} onChange={this.handleChange('category')} className="category__select select"
               value={category}
             >
               {categories.map(cat => (
@@ -127,13 +132,14 @@ class EditPost extends Component {
               className="card__headerField"
               value={author}
               autoFocus={true}
+              disabled={notfound}
               onChange={this.handleChange('author')}
               required
               label="Name"
                    />}
             avatar={<Avatar aria-label="Author" ><FaceIcon/></Avatar>}>
           </CardHeader>
-          <TextField className="card__headerField" fullWidth value={title}  onChange={this.handleChange('title')} required label="Title"/>
+          <TextField disabled={notfound} className="card__headerField" fullWidth value={title}  onChange={this.handleChange('title')} required label="Title"/>
         </header>
 
         <article>
@@ -145,12 +151,13 @@ class EditPost extends Component {
             rows={3}
             label="Tell you story"
             margin="normal"
+            disabled={notfound}
             onChange={this.handleChange('body')}
             value={body}
           />
         </article>
         <section className='article-edit__footer article-edit__footer--alignRight'>
-          <Button disabled={!hasChanges} onClick={this.handleSave} color="primary" className="footer__button button--showShadow" variant="fab" aria-label="Save post">
+          <Button disabled={!hasChanges || notfound} onClick={this.handleSave} color="primary" className="footer__button button--showShadow" variant="fab" aria-label="Save post">
             <AddIcon/>
           </Button>
         </section>

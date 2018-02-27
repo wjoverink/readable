@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Typography, Divider} from 'material-ui'
 import GridList, {GridListTile} from 'material-ui/GridList'
-import { PostCard } from './controls/ResponseControl'
+import { PostCard } from './controls/ReadableCardControl'
 import './Posts.css';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';

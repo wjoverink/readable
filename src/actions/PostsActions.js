@@ -16,6 +16,8 @@ export const getPost = id => dispatch => {
   Api.getPost(id).then(payload => {
     dispatch({type: GET_POST, value: payload})
     dispatch(hideLoading())
+  }).catch(a => {
+    dispatch(hideLoading())
   })
 }
 

@@ -14,8 +14,13 @@ export const getCategoryPosts = category =>
 export const getPosts = () =>
   fetch(`${url}/posts`, { headers }).then(res => res.json());
 
-export const getPost = id =>
-  fetch(`${url}/posts/${id}`, { headers }).then(res => res.json());
+export const getPost = id => fetch(`${url}/posts/${id}`, {headers}).then(res => {
+  if (res.status === 500) {
+    throw res;
+  } else {
+    return res.json()
+  }
+})
 
 export const getComment = id =>
   fetch(`${url}/comments/${id}`, { headers }).then(res => res.json());

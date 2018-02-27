@@ -30,7 +30,7 @@ class App extends Component {
   }
 
   handleNotificationClose = () => {
-    this.props.removeNotificationAction(this.props.notifications[0])
+    this.props.removeNotificationAction(0)
   };
 
   /**

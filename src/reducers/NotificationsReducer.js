@@ -5,7 +5,7 @@ export default function(state = [], action) {
     case SHOW_NOTIFICATION:
       return state.concat([action.value]);
     case REMOVE_NOTIFICATION:
-      return state.filter((message) => message !== action.value);
+      return state.filter((message, i) => i !== action.value);
     default:
       return state;
   }

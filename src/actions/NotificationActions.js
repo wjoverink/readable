@@ -1,7 +1,7 @@
 import { REMOVE_NOTIFICATION } from './types';
 
-export const removeNotificationAction = (message) => dispatch =>
+export const removeNotificationAction = (index) => dispatch =>
     dispatch({
         type:REMOVE_NOTIFICATION,
-        value:message
+        value:index
       });

@@ -33,7 +33,8 @@ For this project besides building the front-end in react i also did the UX-desig
 
 ## Future improvements
 * Search for articles
-* Error handling
+* Advanced Error handling
+* More small animations
 * Test Accessibility
 * Move more styles from css to material-ui setting
 

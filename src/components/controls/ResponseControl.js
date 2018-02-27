@@ -8,7 +8,6 @@ import FaceIcon from 'material-ui-icons/Face';
 import Typography from 'material-ui/Typography';
 import VoteActions from './VoteActionsControl'
 import './ResponseControl.css';
-import moment from 'moment'
 
 /**
 * @description Represents a content card

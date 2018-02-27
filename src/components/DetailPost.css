@@ -2,6 +2,14 @@
   padding:16px 16px 32px 0px!important;
 }
 
+.article__header--hidden{
+  visibility: hidden;
+}
+
+.article__write-response-section--hidden, .article__responses-section--hidden{
+  display: none!important;
+}
+
 .article__responses-section>h3, .article__write-response-section{
   margin:3em 0 1em!important;
 }

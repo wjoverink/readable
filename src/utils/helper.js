@@ -78,8 +78,8 @@ const possibleColorHue = [200,300,400, 500];
 * @param {string} name - name
 */
 export const getColorForName = (name) => {
-    if (!readableColorMap.has(name)){
+  if (!readableColorMap.has(name)) {
       readableColorMap.set(name, possibleColors[Math.floor(Math.random() * 8)][possibleColorHue[Math.floor(Math.random() * 4)]]);
-    }
-    return readableColorMap.get(name);
+  }
+  return readableColorMap.get(name);
 }

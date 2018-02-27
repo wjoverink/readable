@@ -31,15 +31,16 @@ class Response extends Component {
     onDeleteClick: PropTypes.func,
     onHeaderClick: PropTypes.func,
     onChange: PropTypes.func,
-    editMode:PropTypes.bool,
-    hasEditMode:PropTypes.bool,
-    isSimpleEditControl:PropTypes.bool,
+    editMode: PropTypes.bool,
+    hasEditMode: PropTypes.bool,
+    isSimpleEditControl: PropTypes.bool,
     avatarColor: PropTypes.string,
     discardText: PropTypes.string,
+    disabled: PropTypes.bool
   }
 
   state = {
-    editMode: this.props.editMode && this.props.hasEditMode,
+    editMode: this.props.editMode && this.props.hasEditMode
   }
 
   /**
@@ -59,8 +60,8 @@ class Response extends Component {
   * @param {object} e - control
   */
   onEditClick = (e) => {
-    if (this.props.hasEditMode){
-      this.setState({editMode:true})
+    if (this.props.hasEditMode) {
+      this.setState({editMode: true})
     }
     if (this.props.onEditClick) {
       this.props.onEditClick(e)
@@ -73,11 +74,13 @@ class Response extends Component {
   * @param {object} e - control
   */
   onSimpleEditClick = (e) => {
-    if (this.props.isSimpleEditControl){
-      this.onEditClick(e);
-    }
-    if (this.props.onHeaderClick) {
-      this.props.onHeaderClick(e)
+    if (!this.props.disabled) {
+      if (this.props.isSimpleEditControl) {
+        this.onEditClick(e);
+      }
+      if (this.props.onHeaderClick) {
+        this.props.onHeaderClick(e)
+      }
     }
   }
 
@@ -85,7 +88,7 @@ class Response extends Component {
     * @description Updates the editMode state so it stops the edit mode
     */
   stopEditMode = () => {
-      this.setState({editMode:false})
+    this.setState({editMode: false})
   }
 
   /**
@@ -103,11 +106,13 @@ class Response extends Component {
   * @param {object} e - control
   */
   handleSubmit = (e) => {
-      e.preventDefault();
+    e.preventDefault();
+    if (!this.props.disabled) {
       this.stopEditMode();
       if (this.props.onChange) {
         this.props.onChange(this.headerTextField.value, this.bodyTextField.value)
       }
+    }
   }
 
   render() {
@@ -127,71 +132,59 @@ class Response extends Component {
       avatarColor = '#bdbdbd',
       onChange,
       discardText,
+      disabled = false,
       ...props
     } = this.props
     const firstLetter = icon || title.substring(0, 1).toUpperCase()
 
-    return (
-      <Card {...props}>
+    return (<Card {...props}>
 
-        <form  onSubmit={this.handleSubmit} className={isSimpleEditControl ? "card__form--simple" : "card__form" } autoComplete="off">
-          {!this.state.editMode && (
-            <CardHeader onClick={this.onSimpleEditClick} className="card__header" title={title} subheader={subTitle} avatar={
-              <Avatar style={{backgroundColor:avatarColor}} aria-label={isSimpleEditControl? "Face Icon" : "First letter of title"} > {
-                isSimpleEditControl ? <FaceIcon/> : firstLetter
-              }
-              </Avatar>}>
-            </CardHeader>
-          )}
+      <form onSubmit={this.handleSubmit} className={isSimpleEditControl
+        ? "card__form--simple"
+        : "card__form"} autoComplete="off">
+        {
+          !this.state.editMode && (<CardHeader onClick={this.onSimpleEditClick} className="card__header" title={title} subheader={subTitle}
+            avatar={<Avatar style={{backgroundColor:avatarColor}} aria-label={isSimpleEditControl? "Face Icon": "First letter of title"}> {isSimpleEditControl? <FaceIcon/>: firstLetter}</Avatar>}>
+          </CardHeader>)
+        }
 
-          {this.state.editMode && (
-            <CardHeader
-              title={<TextField inputRef={el => this.headerTextField = el}  className="card__headerField" defaultValue={isSimpleEditControl ? "" : title} required label="Name"/>}
-              avatar={<Avatar className="card__headerLabel" role="button" aria-label="Face Icon"><FaceIcon/></Avatar>}></CardHeader>
-          )}
+        {
+          this.state.editMode && (<CardHeader
+            title={<TextField disabled={disabled} inputRef={el => this.headerTextField = el} className="card__headerField" defaultValue={isSimpleEditControl ? "" : title} required label="Name" />}
+            avatar={<Avatar className="card__headerLabel" role="button" aria-label="Face Icon" > <FaceIcon/></Avatar>}>
+          </CardHeader>)
+        }
 
-          {!this.state.editMode &&!isSimpleEditControl && (
-            <CardContent className="card__content">
-              <Typography component="p">
-                {message}
-              </Typography>
-            </CardContent>
-          )}
+        {
+          !this.state.editMode && !isSimpleEditControl && (<CardContent className="card__content">
+            <Typography component="p">
+              {message}
+            </Typography>
+          </CardContent>)
+        }
 
-          {this.state.editMode && (
-            <CardContent>
-              <TextField
-                inputRef={el => this.bodyTextField = el}
-                className="card__ContentField"
-                multiline={true}
-                rowsMax={40}
-                autoFocus={true}
-                rows={3}
-                margin="normal"
-                defaultValue={message}
-              />
-            </CardContent>
-          )}
+        {
+          this.state.editMode && (<CardContent>
+            <TextField disabled={disabled} inputRef={el => this.bodyTextField = el} className="card__ContentField" multiline={true} rowsMax={40} autoFocus={true} rows={3} margin="normal" defaultValue={message}/>
+          </CardContent>)
+        }
 
-          {!this.state.editMode && !isSimpleEditControl && (
-            <VoteActions discardText={discardText} onVoteChange={this.onVoteChange} onEditClick={this.onEditClick} onDeleteClick={this.onDeleteClick} className="card__actions" votes={votes}/>
-          )}
+        {!this.state.editMode && !isSimpleEditControl && (<VoteActions disabled={disabled} discardText={discardText} onVoteChange={this.onVoteChange} onEditClick={this.onEditClick} onDeleteClick={this.onDeleteClick} className="card__actions" votes={votes}/>)}
 
-          {this.state.editMode && (
-            <CardActions className="cardActions card__saveActions">
-              <Button type="submit" className="cardActions__save" variant="raised" color="primary" >
-                Save
-              </Button>
-              <Button onClick={this.stopEditMode} className="button--cancel cardAction__cancel" color="secondary">
-                Cancel
-              </Button>
-            </CardActions>
-          )}
+        {
+          this.state.editMode && (<CardActions className="cardActions card__saveActions">
+            <Button type="submit" className="cardActions__save" variant="raised" color="primary">
+              Save
+            </Button>
+            <Button onClick={this.stopEditMode} className="button--cancel cardAction__cancel" color="secondary">
+              Cancel
+            </Button>
+          </CardActions>)
+        }
 
-        </form>
+      </form>
 
-      </Card>
-    );
+    </Card>);
   }
 }
 

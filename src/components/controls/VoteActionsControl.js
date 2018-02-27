@@ -23,7 +23,8 @@ class VoteActions extends Component {
     discardText: PropTypes.string,
     onVoteChange: PropTypes.func,
     onEditClick: PropTypes.func,
-    onDeleteClick: PropTypes.func
+    onDeleteClick: PropTypes.func,
+    disabled:PropTypes.bool
   }
 
   state = {
@@ -133,12 +134,13 @@ class VoteActions extends Component {
       onVoteChange,
       onEditClick,
       onDeleteClick,
+      disabled = false,
       ...props
     } = this.props;
     const {anchorEl} = this.state;
 
     return (<CardActions className={`voteActions ${className}`} {...props}>
-      <IconButton onClick={this.onVoteUp} aria-label="Vote positiv">
+      <IconButton disabled={disabled} onClick={this.onVoteUp} aria-label="Vote positiv">
         <ThumbUp/>
       </IconButton>
       <Typography color={this.state.votes >= 0
@@ -146,10 +148,10 @@ class VoteActions extends Component {
         : "secondary"} className="voteActions__votes" component="span">
         {this.state.votes}
       </Typography>
-      <IconButton onClick={this.onVoteDown} aria-label="Vote negativ">
+      <IconButton disabled={disabled} onClick={this.onVoteDown} aria-label="Vote negativ">
         <ThumbDown/>
       </IconButton>
-      <IconButton onClick={this.openMenu} aria-owns={anchorEl
+      <IconButton disabled={disabled} onClick={this.openMenu} aria-owns={anchorEl
         ? 'simple-menu'
         : null} aria-haspopup="true" aria-label="Show Actions">
         <ExpandMoreIcon/>

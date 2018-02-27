@@ -18,6 +18,7 @@ import {prepareVoteForAPI, getColorForName} from '../utils/helper'
 import sortBy from 'sort-by'
 import { v4 } from 'uuid'
 import moment from 'moment'
+import {Link} from 'react-router-dom'
 
 /**
 * @description Represents the detail article page
@@ -118,12 +119,11 @@ class Posts extends Component {
   }
 
   render() {
-    const showNotFound = !this.props.post && !this.props.isLoading
+    const post= this.props.post ||  {...initialPost, title:"Ooops something went wrong", body:"Article can't be found.", timestamp:new Date()};
+    const hasPost = Boolean(this.props.post)
 
-    const post= this.props.post ||
-      (showNotFound ? {...initialPost, title:"Ooooops something went wrong", body:"Article can't be found"} : initialPost)
-
-    const firstLetter = post.author ? post.author.substring(0,1).toUpperCase() : ""
+    const firstLetter = hasPost ? post.author.substring(0,1).toUpperCase() : "?"
+    const avatarColor = hasPost ? getColorForName(post.author) : "#f44336";
 
     const mDate = moment(post.timestamp);
     const dateTime = mDate.format(`MMM D ${moment().year !== mDate.year ? "YYYY" : ""}, h:mm:ss`)
@@ -131,14 +131,12 @@ class Posts extends Component {
     return (
       <main className="article main-content main-content--defWidth">
         <header>
-          {!showNotFound && (
-            <CardHeader
-              className="article__header card__header"
-              title={post.author}
-              subheader={`${dateTime}`}
-              avatar={<Avatar  style={{backgroundColor:getColorForName(post.author)}} aria-label="Author" >{firstLetter}</Avatar>}>
-            </CardHeader>
-          )}
+          <CardHeader
+            className={`article__header card__header}`}
+            title={post.author}
+            subheader={`${dateTime}`}
+            avatar={<Avatar  style={{backgroundColor:avatarColor}} aria-label="Author" >{firstLetter}</Avatar>}>
+          </CardHeader>
 
           <Typography variant="display1" gutterBottom  align="left">
             {post.title}
@@ -149,52 +147,53 @@ class Posts extends Component {
           <Typography>
             {post.body}
           </Typography>
+          {!hasPost && (
+            <div>
+              <br />
+                <Typography>Here are some helpfull links instead:</Typography>
+                <Link className='link page404__link' to="/">Home</Link>
+              </div>
+              )}
         </article>
 
-        {!showNotFound && (
-          <section className="article__actions">
-            <Divider className="article__divider" />
+        <section className="article__actions">
+          <Divider className="article__divider" />
 
-            <VoteActions onVoteChange={this.handleVoteChangeClick}
-              onDeleteClick={this.handleDeleteClick}
-              onEditClick={this.handleEditClick}
-              discardText="Discard article?"
-              className="article__voteActions"
-              votes={post.voteScore} />
+          <VoteActions disabled={!hasPost} onVoteChange={this.handleVoteChangeClick}
+            onDeleteClick={this.handleDeleteClick}
+            onEditClick={this.handleEditClick}
+            discardText="Discard article?"
+            className="article__voteActions"
+            votes={post.voteScore} />
 
-            <Divider className="article__divider"  />
-          </section>
-        )}
+          <Divider className="article__divider"  />
+        </section>
 
-        {!showNotFound && (
-          <section className="article__write-response-section">
-            <Response className="article__write-response" onChange={this.handleNewComment} hasEditMode={true} isSimpleEditControl={true} title={this.props.comments.length>0 ? "Write a response..." : "Be the first to write a response"}></Response>
-          </section>
-        )}
+        <section className={`article__write-response-section ${!hasPost ? "article__write-response-section--hidden" : ""}`}>
+          <Response disabled={!hasPost} className="article__write-response" onChange={this.handleNewComment} hasEditMode={true} isSimpleEditControl={true} title={this.props.comments.length>0 ? "Write a response..." : "Be the first to write a response"}></Response>
+        </section>
 
-        {!showNotFound && (
-          <section className="article__responses-section">
-            <Typography variant="subheading">
-              {this.props.comments.length>0 ? `Conversation about "${post.title}":` : ""}
-            </Typography>
-            <GridList cellHeight='auto'  spacing={16} className="article__responses" cols={1}>
-              {this.props.comments.map(comment => (
-                <GridListTile id={`comment${comment.id}`} key={comment.id}>
-                  <ResponseCard
-                    onChange={(author, body)=>this.handleEditComment(comment,author, body)}
-                    hasEditMode={true}
-                    author={comment.author}
-                    avatarColor={getColorForName(comment.author)}
-                    votes={comment.voteScore}
-                    date={new Date(comment.timestamp)}
-                    onDeleteClick={()=>this.handleDeleteComment(comment)}
-                    onVoteChange={(votes) => this.handleCommentVoteChangeClick(comment.id, votes)}
-                    message={comment.body} />
-                </GridListTile>
-              ))}
-            </GridList>
-          </section>
-        )}
+        <section className={`article__responses-section ${!hasPost ? "article__responses-section--hidden" : ""}`}>
+          <Typography variant="subheading">
+            {this.props.comments.length>0 ? `Conversation about "${post.title}":` : ""}
+          </Typography>
+          <GridList cellHeight='auto'  spacing={16} className="article__responses" cols={1}>
+            {this.props.comments.map(comment => (
+              <GridListTile id={`comment${comment.id}`} key={comment.id}>
+                <ResponseCard
+                  onChange={(author, body)=>this.handleEditComment(comment,author, body)}
+                  hasEditMode={true}
+                  author={comment.author}
+                  avatarColor={getColorForName(comment.author)}
+                  votes={comment.voteScore}
+                  date={new Date(comment.timestamp)}
+                  onDeleteClick={()=>this.handleDeleteComment(comment)}
+                  onVoteChange={(votes) => this.handleCommentVoteChangeClick(comment.id, votes)}
+                  message={comment.body} />
+              </GridListTile>
+            ))}
+          </GridList>
+        </section>
       </main>)
   }
 }

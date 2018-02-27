@@ -28,19 +28,8 @@ class VoteActions extends Component {
   }
 
   state = {
-    votes: 0,
     anchorEl: null,
     open: false
-  }
-
-  /**
-  * @description recat lifecycle
-  * @param {object} props - the props
-  */
-  componentWillReceiveProps(props){
-    this.setState({
-      votes: props.votes
-    })
   }
 
   /**
@@ -49,11 +38,8 @@ class VoteActions extends Component {
   * @param {object} e - event
   */
   onVoteChange = (vote, e) => {
-    this.setState(state => ({
-      votes: state.votes + vote
-    }))
     if (this.props.onVoteChange) {
-      this.props.onVoteChange({votes:this.state.votes, difference:vote}, e.target.value)
+      this.props.onVoteChange({votes:this.props.votes, difference:vote}, e.target.value)
     }
   }
 
@@ -143,10 +129,10 @@ class VoteActions extends Component {
       <IconButton disabled={disabled} onClick={this.onVoteUp} aria-label="Vote positiv">
         <ThumbUp/>
       </IconButton>
-      <Typography color={this.state.votes >= 0
+      <Typography color={this.props.votes >= 0
         ? "default"
         : "secondary"} className="voteActions__votes" component="span">
-        {this.state.votes}
+        {this.props.votes}
       </Typography>
       <IconButton disabled={disabled} onClick={this.onVoteDown} aria-label="Vote negativ">
         <ThumbDown/>

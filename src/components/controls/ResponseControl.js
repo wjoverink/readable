@@ -21,7 +21,7 @@ import './ResponseControl.css';
 class Response extends Component {
   static propTypes = {
     title: PropTypes.string,
-    subTitle: PropTypes.string,
+    subTitle: PropTypes.string, 
     message: PropTypes.string,
     votes: PropTypes.number,
     icon: PropTypes.string,

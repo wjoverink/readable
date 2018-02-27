@@ -119,14 +119,14 @@ class Posts extends Component {
   }
 
   render() {
-    const post= this.props.post ||  {...initialPost, title:"Ooops something went wrong", body:"Article can't be found.", timestamp:new Date()};
+    const post= this.props.post ||  {...initialPost, title:"Ooops this article is not written yet", body:"Here are some helpfull links instead:", timestamp:new Date(2233,2,22), author:"James T. Kirk", voteScore:1337};
     const hasPost = Boolean(this.props.post)
 
-    const firstLetter = hasPost ? post.author.substring(0,1).toUpperCase() : "?"
-    const avatarColor = hasPost ? getColorForName(post.author) : "#f44336";
+    const firstLetter = post.author.substring(0,1).toUpperCase()
+    const avatarColor = hasPost ? getColorForName(post.author) : "#D2CA34";
 
     const mDate = moment(post.timestamp);
-    const dateTime = mDate.format(`MMM D ${moment().year !== mDate.year ? "YYYY" : ""}, h:mm:ss`)
+    const dateTime = mDate.format(`MMM D ${moment().year() !== mDate.year() ? "YYYY" : ""}, h:mm:ss`)
 
     return (
       <main className="article main-content main-content--defWidth">
@@ -148,12 +148,8 @@ class Posts extends Component {
             {post.body}
           </Typography>
           {!hasPost && (
-            <div>
-              <br />
-                <Typography>Here are some helpfull links instead:</Typography>
-                <Link className='link page404__link' to="/">Home</Link>
-              </div>
-              )}
+            <Link className='link page404__link' to="/">Home</Link>
+          )}
         </article>
 
         <section className="article__actions">

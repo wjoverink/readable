@@ -23,7 +23,7 @@ For this project besides building the front-end in react i also did the UX-desig
 
 ### Set up frontend server
 1. Git clone this repo: `git clone`
-1. Install dependencies: `npm install`
+1. Install dependencies: `npm install` 
 1. Start frontend server: `npm start`
 
 ## Techniques

@@ -15,6 +15,9 @@ import typewriter from '../images/typewriter.svg';
 import {Link} from 'react-router-dom'
 import PostButton from './controls/PostButton'
 import Sortmenu from './controls/SortMenu'
+import Fade from 'material-ui/transitions/Fade';
+import Zoom from 'material-ui/transitions/Zoom';
+import Grow from 'material-ui/transitions/Grow';
 
 /**
 * @description Represents the article overview page
@@ -127,21 +130,24 @@ class Posts extends Component {
 
       <section>
         <GridList spacing={14} className="posts__gridlist gridlist" cellHeight='auto' cols={isCategory ? 1 : 2}>
-          { postList.map(post => (
+          { postList.map((post,i) => (
+
             <GridListTile className="gridlist__tile" key={post.id}>
-              <PostCard
-                onHeaderClick={() => this.handleHeaderClick(post.id, post.category)}
-                onEditClick={() => this.handleEditClick(post.id)}
-                onDeleteClick={() => this.handleDeleteClick(post)}
-                onVoteChange={(votes) => this.handleVoteChangeClick(votes,post)}
-                title={post.title}
-                date={new Date(post.timestamp)}
-                comments={post.commentCount}
-                votes={post.voteScore}
-                name={reduceAuthorLength(post.author)}
-                message={reduceBodyLength(post.body)}/>
-            </GridListTile>
-          ))}
+              <Grow timeout={i*200} in={true}>
+                <PostCard
+                  onHeaderClick={() => this.handleHeaderClick(post.id, post.category)}
+                  onEditClick={() => this.handleEditClick(post.id)}
+                  onDeleteClick={() => this.handleDeleteClick(post)}
+                  onVoteChange={(votes) => this.handleVoteChangeClick(votes,post)}
+                  title={post.title}
+                  date={new Date(post.timestamp)}
+                  comments={post.commentCount}
+                  votes={post.voteScore}
+                  name={reduceAuthorLength(post.author)}
+                  message={reduceBodyLength(post.body)}/>
+              </Grow>
+              </GridListTile>
+              ))}
         </GridList>
       </section>
       {!isEmpty &&(

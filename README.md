@@ -22,13 +22,13 @@ For this project besides building the front-end in react i also did the UX-desig
 1. Start backend server: `npm start`
 
 ### Set up frontend server
-1. Git clone this repo: `git clone https://github.com/dhtlee/reactnd-project-readable.git`
+1. Git clone this repo: `git clone [https://github.com/wjoverink/readable](https://github.com/wjoverink/readable)`
 1. Install dependencies: `npm install`
 1. Start frontend server: `npm start`
 
 ## Techniques
 * [React Router v4](https://github.com/ReactTraining/react-router)
-* [Redux] (https://github.com/reactjs/redux)
+* [Redux](https://github.com/reactjs/redux)
 * [Redux Thunk](https://github.com/gaearon/redux-thunk)
 
 ## Future improvements

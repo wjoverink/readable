@@ -21,7 +21,7 @@ import './ResponseControl.css';
 class Response extends Component {
   static propTypes = {
     title: PropTypes.string,
-    subTitle: PropTypes.string, 
+    subTitle: PropTypes.string,
     message: PropTypes.string,
     votes: PropTypes.number,
     icon: PropTypes.string,
@@ -173,7 +173,7 @@ class Response extends Component {
         {
           this.state.editMode && (<CardActions className="cardActions card__saveActions">
             <Button type="submit" className="cardActions__save" variant="raised" color="primary">
-              Save
+              Publish
             </Button>
             <Button onClick={this.stopEditMode} className="button--cancel cardAction__cancel" color="secondary">
               Cancel

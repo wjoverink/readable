@@ -127,7 +127,7 @@ class VoteActions extends Component {
 
     return (<CardActions className={`voteActions ${className}`} {...props}>
       <IconButton disabled={disabled} onClick={this.onVoteUp} aria-label="Vote positiv">
-        <ThumbUp/>
+        <ThumbUp className="button__thumbUp"/>
       </IconButton>
       <Typography color={this.props.votes >= 0
         ? "default"
@@ -135,7 +135,7 @@ class VoteActions extends Component {
         {this.props.votes}
       </Typography>
       <IconButton disabled={disabled} onClick={this.onVoteDown} aria-label="Vote negativ">
-        <ThumbDown/>
+        <ThumbDown className="button__thumbDown"/>
       </IconButton>
       <IconButton disabled={disabled} onClick={this.openMenu} aria-owns={anchorEl
         ? 'simple-menu'

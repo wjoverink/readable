@@ -133,7 +133,7 @@ class Response extends Component {
       discardText,
       disabled = false,
       ...props
-    } = this.props
+    } = this.props 
     const firstLetter = icon || title.substring(0, 1).toUpperCase()
 
     return (<Card {...props}>

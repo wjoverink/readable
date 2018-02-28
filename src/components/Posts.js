@@ -15,8 +15,6 @@ import typewriter from '../images/typewriter.svg';
 import {Link} from 'react-router-dom'
 import PostButton from './controls/PostButton'
 import Sortmenu from './controls/SortMenu'
-import Fade from 'material-ui/transitions/Fade';
-import Zoom from 'material-ui/transitions/Zoom';
 import Grow from 'material-ui/transitions/Grow';
 
 /**
@@ -131,7 +129,6 @@ class Posts extends Component {
       <section>
         <GridList spacing={14} className="posts__gridlist gridlist" cellHeight='auto' cols={isCategory ? 1 : 2}>
           { postList.map((post,i) => (
-
             <GridListTile className="gridlist__tile" key={post.id}>
               <Grow timeout={i*200} in={true}>
                 <PostCard

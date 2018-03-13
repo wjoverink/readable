@@ -2,8 +2,8 @@ import React, {Component} from 'react'
 import Typography from 'material-ui/Typography'
 import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import page404 from '../images/Page404.svg';
-import './Page404.css';
+import page404 from '../images/Page404.svg'
+import './Page404.css'
 
 export const page404Classnames = "main-content main-content--defWidth"
 
